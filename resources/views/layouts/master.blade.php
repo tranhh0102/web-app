@@ -4,19 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Trang Web')</title>
-    
+    <link rel="stylesheet" href="{{asset('style/master.css')}}">
     @vite('resources/css/app.css')
 </head>
 <body>
-
-    @include('components.navbar')
-
-    <main class="container">
+    <div class="main-container">
         @yield('content')
-    </main>
-
-    @include('components.footer')
-
-    @stack('scripts')
+    </div>
 </body>
 </html>

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'pages.home')->name('home');
+Route::view('/schedule', 'pages.schedule')->name('schedule');
 
 
 Route::get('/dashboard', function () {
