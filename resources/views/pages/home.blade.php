@@ -1,50 +1,51 @@
 @extends('layouts.master')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/home.css') }}">
+@endsection
+
 @section('content')
-    <div class="balance-container">
-        <span class="balance">so du dau : 1.000.000</span>
-        <span class="balance">so du cuoi : 300.000</span>
-    </div>
+    {{-- <div class="balance-container ">
+        <div class="balance">
+            <span class="">Số dư đầu</span>
+            <span class="">1.000.000</span>
+        </div>
+        <div class="balance">
+            <span class="">Số dư cuối</span>
+            <span class="">300.000</span>
+        </div>
+    </div> --}}
     <div class="flex-row">
         <div class="active-subs">
-            <span class="active-subs-6">Active subs</span>
-            <span class="active-subs-number">12</span>
+            <span class="active-subs-title">Thu nhập</span>
+            <span class="receive">$19.99</span>
         </div>
-        <div class="highest-subs">
-            <span class="highest-subs-8">Highest subs</span>
-            <span class="dollar">$19.99</span>
+        <div class="active-subs">
+            <span class="active-subs-title">Chi tiêu</span>
+            <span class="cost">$19.99</span>
         </div>
-        <div class="lowest-subs">
-            <span class="lowest-subs-b">Lowest subs</span>
-            <span class="dollar">$5.99</span>
+        <div class="active-subs">
+            <span class="active-subs-title">Tổng tiền</span>
+            <span class="total-money">$5.99</span>
         </div> 
     </div>
-    <p class="spent-f text-center">Danh sách chi tiêu tháng này</p>
+    <p class="title-header text-center">Danh sách chi tiêu tháng này</p>
     <div class="flex-row-b">
         <div class="items">
-            <div class="spent">
-                <span class="dollar">$5.99</span>
-                <span class="spent-f">spent</span>
+            <div class="items-sub">
+                <div class="flex items-center gap-2">
+                    <img src="{{asset('svg/logo.svg')}}" alt="">
+                    <span class="text-white">spent</span>
+                </div>
+                <span class="dollar text-white">$5.99</span>
             </div>
-            <div class="draw">
-                <span class="dollar">$18.99</span>
-                <span class="draw-12">draw</span>
+            <div class="items-sub">
+                <div class="flex items-center gap-2">
+                    <img src="{{asset('svg/logo.svg')}}" alt="">
+                    <span class="text-white">spent</span>
+                </div>
+                <span class="dollar text-white">$5.99</span>
             </div>
-        </div>
-    </div>
-    <div class="navbar">
-        <div class="nav-button">
-            <img src="{{asset('svg/home.svg')}}" alt="">
-        </div>
-        <div class="nav-button">
-            <img src="{{asset('svg/schedule.svg')}}" alt="">
-        </div>
-        <div class="add-button">+</div>
-        <div class="nav-button">
-            <img src="{{asset('svg/report.svg')}}" alt="">
-        </div>
-        <div class="nav-button">
-            <img src="{{asset('svg/account.svg')}}" alt="">
         </div>
     </div>
 @endsection

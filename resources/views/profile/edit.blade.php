@@ -1,25 +1,24 @@
 @extends('layouts.master')
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/profile.css') }}">
+@endsection
 @section('content')
-<header class="bg-white shadow">
-<nav>
-                <ul>
-                    <li><a href="{{ route('profile.edit') }}" class="text-blue-600 hover:underline">{{ __('Profile') }}</a></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="text-red-600 hover:underline">{{ __('Log Out') }}</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-    </header>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                </div>
+    <div class="general">
+        <span class="general-2">General</span>
+        <div class="auto-layout-vertical-1">
+          <div class="security">
+            <span class="security-2">Security</span>
+            <div class="icons-faceid"></div>
+            <div class="auto-layout-horizontal">
+              <span class="face-id">FaceID</span>
+              <div class="icons-arrow-medium"></div>
             </div>
+          </div>
+          <div class="frame">
+            <div class="switch"></div>
+            <span class="icloud-sync">iCloud Sync</span>
+            <div class="icons-icloud"></div>
+          </div>
         </div>
-    </div>
+      </div>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<div class="w-full max-w-md mx-auto mt-10">
+<div class="w-full max-w-md mx-auto mt-10 p-3">
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>

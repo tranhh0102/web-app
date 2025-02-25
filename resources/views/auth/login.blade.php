@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="w-full max-w-md mx-auto mt-10">
+<div class="w-full max-w-md mx-auto mt-10 p-3">
         @if (session('status'))
             <div class="mb-4 text-green-600">
                 {{ session('status') }}
             </div>
         @endif
-        
+            
         <form method="POST" action="{{ route('login') }}">
             @csrf
             
@@ -33,22 +33,25 @@
             
             <!-- Remember Me -->
             <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
-                </label>
+                <a href="{{ route('password.request') }}" class="underline justify-end text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Forgot your password?
+                </a>
             </div>
             
-            <div class="grid items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Forgot your password?
-                    </a>
-                @endif
-                
+            <div class="grid items-center justify-center mt-4">
                 <button type="submit" class="ms-3 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Log in
                 </button>
+                @if (Route::has('password.request'))
+                    <div>
+                        <p>Don’t have an account? 
+                            <a href="{{ route('register') }}" class="underline text-sm text-blue-600 hover:text-blue-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                               Signup
+                            </a>
+                        </p>
+                    </div>
+                   
+                @endif
             </div>
         </form>
     </div>

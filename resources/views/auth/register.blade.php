@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<div class="w-full max-w-md mx-auto mt-10">
+<div class="w-full max-w-md mx-auto mt-10 p-3">
         <form method="POST" action="{{ route('register') }}">
             @csrf
             
@@ -44,14 +44,13 @@
                 @enderror
             </div>
             
-            <div class="flex items-center justify-end mt-4">
-                <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Already registered?
-                </a>
-                
+            <div class="grid items-center justify-center mt-4">    
                 <button type="submit" class="ms-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Register
                 </button>
+                <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Already registered?
+                </a>
             </div>
         </form>
     </div>
