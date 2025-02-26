@@ -16,6 +16,7 @@
     width: 100%;
     padding: 24px;
     margin-top: 20%;
+    padding-bottom: 5px;
   }
   .login-1 {
     align-self: stretch;
@@ -26,13 +27,14 @@
     height: 16px;
     color: #666680;
     font-family: Inter, var(--default-font-family);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 16px;
     text-align: left;
     white-space: nowrap;
     letter-spacing: 0.2px;
     z-index: 6;
+    margin-bottom: 10px;
   }
   .input {
     border-radius: 16px;
@@ -46,6 +48,7 @@
     flex-wrap: nowrap;
     width: 100%;
     padding: 24px;
+    padding-bottom: 5px;
   }
   .password {
     align-self: stretch;
@@ -56,13 +59,14 @@
     height: 16px;
     color: #666680;
     font-family: Inter, var(--default-font-family);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 16px;
     text-align: left;
     white-space: nowrap;
     letter-spacing: 0.2px;
     z-index: 9;
+    margin-bottom: 10px;
   }
   .flex-row-c {
     display: flex;
@@ -81,7 +85,7 @@
     flex-shrink: 0;
     margin-bottom: 16px;
     height: 20px;
-    color: #666680;
+    color: white;
     font-family: Inter, var(--default-font-family);
     font-size: 14px;
     font-weight: 400;
@@ -89,6 +93,8 @@
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0.2px;
+    font-style: italic;
+    text-decoration: underline;
   }
   .button {
     display: flex;
@@ -112,7 +118,7 @@
     height: 20px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 20px;
     text-align: left;
@@ -130,6 +136,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    font-style: italic;
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0.2px;
@@ -150,13 +157,13 @@
     z-index: 14;
     border-radius: 999px;
   }
-  .sign-in {
+  .sign-up {
     flex-shrink: 0;
     flex-basis: auto;
     height: 20px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 20px;
     text-align: left;

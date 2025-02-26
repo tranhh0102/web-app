@@ -45,3 +45,7 @@
     border: none;
     border-radius: 999px;
   }
+
+  .txt-white {
+    color: white !important;
+  }
