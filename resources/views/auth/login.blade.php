@@ -31,9 +31,13 @@
         <div class="flex-row-c">
             <a href="{{ route('password.request') }}" class="forgot-password">Forgot passoword ?</a>
         </div>
-        <button class="button" type="submit"><span class="get-started">Sign In</span></button>
+        <div class="p-3">
+            <button class="button" type="submit"><span class="get-started">Sign In</span></button>
+        </div>
     </form>
   
     <span class="no-account">If you don't have an account yet?</span>
-    <button class="button-4"><a  href="{{ route('register') }}" class="sign-in">Sign Up</a></button>
+    <div class="p-3">
+        <button class="button-4"><a  href="{{ route('register') }}" class="sign-in">Sign Up</a></button>
+    </div>
 @endsection

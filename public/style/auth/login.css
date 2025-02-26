@@ -13,11 +13,9 @@
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: nowrap;
-    gap: 4px;
-    position: relative;
-    width: 327px;
-    margin: 188px 0 0 24px;
-    z-index: 5;
+    width: 100%;
+    padding: 24px;
+    margin-top: 20%;
   }
   .login-1 {
     align-self: stretch;
@@ -46,11 +44,8 @@
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: nowrap;
-    gap: 4px;
-    position: relative;
-    width: 327px;
-    margin: 16px 0 0 24px;
-    z-index: 8;
+    width: 100%;
+    padding: 24px;
   }
   .password {
     align-self: stretch;
@@ -84,8 +79,7 @@
     align-items: flex-start;
     justify-content: center;
     flex-shrink: 0;
-    position: relative;
-    width: 123px;
+    margin-bottom: 16px;
     height: 20px;
     color: #666680;
     font-family: Inter, var(--default-font-family);
@@ -95,7 +89,6 @@
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0.2px;
-    z-index: 1;
   }
   .button {
     display: flex;
@@ -104,14 +97,11 @@
     justify-content: center;
     flex-wrap: nowrap;
     gap: 12px;
-    position: relative;
-    width: 324px;
-    margin: 24px 0 0 26px;
-    padding: 14px 24px 14px 24px;
+    width: 100%;
+    padding: 16px;
     cursor: pointer;
     background: radial-gradient(100% 100% at 50% 100%, rgba(255, 255, 255, 0.00) 43.25%, rgba(255, 127, 55, 0.50) 100%), #FF7966;
     border: none;
-    z-index: 16;
     border-radius: 999px;
     box-shadow: 0px 8px 25px 0px rgba(255, 121, 102, 0.50);
   }
@@ -133,10 +123,8 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    position: relative;
-    width: 225px;
+    width: 100%;
     height: 20px;
-    margin: 152px 0 0 76px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);
     font-size: 14px;
@@ -145,6 +133,7 @@
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0.2px;
+    margin-top: 50%;
   }
   .button-4 {
     display: flex;
@@ -153,9 +142,7 @@
     justify-content: center;
     flex-wrap: nowrap;
     gap: 6px;
-    position: relative;
-    width: 324px;
-    margin: 20px 0 0 26px;
+    width: 100%;
     padding: 14px 12px 14px 12px;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.1);
@@ -166,7 +153,6 @@
   .sign-in {
     flex-shrink: 0;
     flex-basis: auto;
-    position: relative;
     height: 20px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    {{-- <div class="balance-container ">
+    <div class="balance-container ">
         <div class="balance">
             <span class="">Số dư đầu</span>
             <span class="">1.000.000</span>
@@ -14,7 +14,7 @@
             <span class="">Số dư cuối</span>
             <span class="">300.000</span>
         </div>
-    </div> --}}
+    </div>
     <div class="flex-row">
         <div class="active-subs">
             <span class="active-subs-title">Thu nhập</span>
