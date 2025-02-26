@@ -1,7 +1,10 @@
 @extends('auth.app')
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/auth/forgot-password.css') }}">
+@endsection
 @section('content')
 <div class="w-full max-w-md mx-auto mt-10 p-3">
-    <div class="mb-4 text-sm text-gray-600">
+    <div class="mb-4 text-sm text-white italic">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
 
@@ -14,7 +17,7 @@
 
         <!-- Email Address -->
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <label for="email" class="block text-sm txt-white font-bold">Email</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
                 class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
             @error('email')
@@ -23,7 +26,10 @@
         </div>
 
         <div class="flex items-center justify-center mt-4">
-            <button class="button-register" type="submit"><span class="get-started">{{ __('Email Password Reset Link') }}</span></button>
+            <button class="btn-request" type="submit"><span class="get-started">{{ __('Email Password Reset Link') }}</span></button>
+        </div>
+        <div class="flex-row-c">
+            <a href="{{ route('login') }}" class="back-to-login">Didn't want to request a password request? <br> Back to login page</a>
         </div>
     </form>
 </div>
