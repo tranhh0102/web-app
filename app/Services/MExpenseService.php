@@ -11,13 +11,13 @@ class MExpenseService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        $result = MExpense::create($requestData);
+        return MExpense::insert($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {
         $mExpense = MExpense::where($conditions)->firstOrFail();
 
-        return $mExpense->update($requestData);
+        return $mExpense->save($requestData);
     }
     public function delete($conditions = [])
     {

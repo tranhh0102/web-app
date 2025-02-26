@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [MasterIncomeController::class, 'delete'])->name('mincome.delete');
             Route::post('/insert', [MasterIncomeController::class, 'insert'])->name('mincome.insert');
         });
-        Route::prefix('/income')->group(function() {
+        Route::prefix('/expense')->group(function() {
             Route::get('/', [MasterExpenseController::class, 'index'])->name('mexpense.index');
             Route::delete('/{id}', [MasterExpenseController::class, 'delete'])->name('mexpense.delete');
             Route::post('/insert', [MasterExpenseController::class, 'insert'])->name('mexpense.insert');
