@@ -1,57 +1,60 @@
-@extends('layouts.master')
+@extends('auth.app')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/auth/login.css') }}">
+@endsection
+
 @section('content')
-<div class="w-full max-w-md mx-auto mt-10 p-3">
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            
-            <!-- Name -->
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
-                       class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('name')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <!-- Email Address -->
-            <div class="mt-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
-                       class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('email')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <!-- Password -->
-            <div class="mt-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input id="password" type="password" name="password" required autocomplete="new-password"
-                       class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('password')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
-                       class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('password_confirmation')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <div class="grid items-center justify-center mt-4">    
-                <button type="submit" class="ms-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Register
-                </button>
-                <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+        
+        <!-- Name -->
+        <div class="input-login">
+            <span class="login-1">Name</span>
+            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
+            class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
+            @error('name')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <!-- Email Address -->
+        <div class="input-password">
+            <span class="login-1">Email</span>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
+                class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
+            @error('email')
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <!-- Password -->
+        <div class="input-password">
+            <span class="password">Password</span>
+            <input id="password" type="password" name="password" required autocomplete="current-password"
+                class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
+            @error('password')
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <!-- Confirm Password -->
+
+        <div class="input-password">
+            <span class="password">Confirm Password</span>
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
+                    class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
+            @error('password')
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <div class="grid items-center justify-center mt-4">    
+                <button class="button-register" type="submit"><span class="get-started">Register</span></button>
+                <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md">
                     Already registered?
                 </a>
-            </div>
-        </form>
-    </div>
+        </div>
+       
+    </form>
 @endsection

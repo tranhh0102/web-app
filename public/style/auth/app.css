@@ -1,0 +1,47 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+      "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+      "Source Han Sans CN", sans-serif;
+  }
+
+  body{
+    margin: 0;
+  }
+  
+  .main-container {
+    overflow: hidden;
+  }
+  
+  .main-container,
+  .main-container * {
+    box-sizing: border-box;
+  }
+  
+  input,
+  select,
+  textarea,
+  button {
+    outline: 0;
+  }
+  
+  .main-container {
+    width: 100%;
+    height: 100vh;
+    background: var(--Greyscale-Grey-80, #1C1C23);
+    overflow-y: scroll;
+  }
+
+  .main-container::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
+  }
+
+  .button-register {
+    margin: 24px 0 0 0px;
+    padding:12px;
+    cursor: pointer;
+    background: radial-gradient(100% 100% at 50% 100%, rgba(255, 255, 255, 0.00) 43.25%, rgba(255, 127, 55, 0.50) 100%), #FF7966;
+    border: none;
+    border-radius: 999px;
+  }
