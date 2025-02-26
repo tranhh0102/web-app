@@ -41,6 +41,11 @@ Route::middleware('auth')->group(function () {
             Route::post('/insert', [MasterExpenseController::class, 'insert'])->name('mexpense.insert');
         });
     });
+    Route::prefix('/transactions')->group(function() {
+        Route::post('/expense');
+        Route::post('/income');
+        Route::post('/savings');
+    });
 });
 
 require __DIR__ . '/auth.php';
