@@ -3,6 +3,7 @@
 use App\Http\Controllers\MasterExpenseController;
 use App\Http\Controllers\MasterIncomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,9 +43,10 @@ Route::middleware('auth')->group(function () {
         });
     });
     Route::prefix('/transactions')->group(function() {
-        Route::post('/expense');
-        Route::post('/income');
-        Route::post('/savings');
+        Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
+        Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');
+        Route::post('/goals', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');
+        Route::post('/charity', [TransactionController::class, 'charityTransaction'])->name('transaction.charity');
     });
 });
 
