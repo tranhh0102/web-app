@@ -21,7 +21,7 @@
         <h2 class="add-category-header">Danh mục chi tiêu</h2>
         <span></span>
     </div>
-    <div class="container ">
+    <div class="container-add-category">
         <form method="post" action="">
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục chi tiêu : </label>
