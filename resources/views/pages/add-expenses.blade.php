@@ -55,26 +55,26 @@
 
      <!-- Submit Button -->
      <div class="add-expenses-sub text-center mt-4">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Lưu chi tiêu</button>
-        </div>
+        <button type="submit" class="button-add-expenses">Lưu chi tiêu</button>
+    </div>
 </form>
 
-  <!-- Overlay nền mờ -->
-  <div id="modalOverlay" class="modal-overlay hidden"></div>
+    <!-- Overlay nền mờ -->
+    <div id="modalOverlay" class="modal-overlay hidden"></div>
 
-<!-- Bottom Sheet (Hiện từ dưới lên) -->
-<div id="modalSheet" class="modal-sheet">
-    <div class="modal-content">
-        <h3>Chọn loại</h3>
-        <ul class="modal-list">
-            <li class="modal-item" data-value="Ăn uống">Ăn uống</li>
-            <li class="modal-item" data-value="Mua sắm">Mua sắm</li>
-            <li class="modal-item" data-value="Giải trí">Giải trí</li>
-            <li class="modal-item" data-value="Khác">Khác</li>
-        </ul>
-        <button id="closeModal">Đóng</button>
+    <!-- Bottom Sheet (Hiện từ dưới lên) -->
+    <div id="modalSheet" class="modal-sheet">
+        <div class="modal-content">
+            <h3>Chọn loại</h3>
+            <ul class="modal-list">
+                <li class="modal-item" data-value="Ăn uống">Ăn uống</li>
+                <li class="modal-item" data-value="Mua sắm">Mua sắm</li>
+                <li class="modal-item" data-value="Giải trí">Giải trí</li>
+                <li class="modal-item" data-value="Khác">Khác</li>
+            </ul>
+            <button id="closeModal">Đóng</button>
+        </div>
     </div>
-</div>
 
 @endsection
 

@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::view('/add-category-expenses', 'pages.add-category-expenses')->name('add-category-expenses');
     Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
     Route::view('/add-income', 'pages.add-income')->name('add-income');
+    Route::view('/stastic', 'pages.stastic')->name('stastic');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

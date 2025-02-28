@@ -55,6 +55,16 @@
     text-align: right;
     margin-bottom: 12px !important;
   }
+  .button-add-expenses {
+    width: 100%; 
+    padding: 12px;
+    cursor: pointer;
+    background: radial-gradient(100% 100% at 50% 100%, rgba(255, 255, 255, 0.00) 43.25%, rgba(255, 127, 55, 0.50) 100%), #FF7966;
+    border: none;
+    border-radius: 999px;
+    box-shadow: 0px 8px 25px 0px rgba(255, 121, 102, 0.50);
+    color: white;
+  }
   /* Overlay nền mờ */
 .modal-overlay {
     position: fixed;
