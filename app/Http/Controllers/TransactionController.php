@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\CharityTransactionsService;
 use App\Services\ExpenseService;
 use App\Services\GoalService;
