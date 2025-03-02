@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterExpenseController;
 use App\Http\Controllers\MasterIncomeController;
 use App\Http\Controllers\ProfileController;
@@ -24,7 +25,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/', 'pages.home')->name('home');
     Route::view('/add-category-income', 'pages.add-category-income')->name('add-category-income');
     Route::view('/add-category-expenses', 'pages.add-category-expenses')->name('add-category-expenses');
     Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/',[HomeController::class, 'index'])->name('home');
+    Route::get('/search',[HomeController::class, 'listSearch'])->name('home-search');
     Route::prefix('/master-category')->group(function() {
         Route::prefix('/income')->group(function() {
             Route::get('/', [MasterIncomeController::class, 'index'])->name('mincome.index');

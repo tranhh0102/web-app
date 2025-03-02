@@ -3,7 +3,7 @@
         <img src="{{asset('svg/home.svg')}}" alt="">
     </a>
     <a class="nav-button">
-        <img src="{{asset('svg/schedule.svg')}}" alt="">
+        <img src="{{asset('svg/world.svg')}}" alt="">
     </a>
     <a href="{{route('add-expenses')}}" id="floatingButton"  class="add-button">+</a>
     <a href="{{route('stastic')}}" class="nav-button">
