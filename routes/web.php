@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/',[HomeController::class, 'index'])->name('home');
     Route::get('/search',[HomeController::class, 'listSearch'])->name('home-search');
+    Route::get('/transactions', [HomeController::class, 'getTransactions']);
+
     Route::prefix('/master-category')->group(function() {
         Route::prefix('/income')->group(function() {
             Route::get('/', [MasterIncomeController::class, 'index'])->name('mincome.index');

@@ -7,6 +7,7 @@
         width: 100%;
         height: 400px;
         margin: 0 auto;
+        padding: 12px;
         display: none; /* Ẩn tất cả chart ban đầu */
     }
     .chart-container.active {
@@ -33,11 +34,6 @@
 @endsection
 
 @section('content')
-<div class="tabs">
-    <button class="tab-button active" data-chart="pieChart1">Chart 1</button>
-    <button class="tab-button" data-chart="pieChart2">Chart 2</button>
-    <button class="tab-button" data-chart="pieChart3">Chart 3</button>
-</div>
 
 <div class="chart-container active" id="chartContainer1">
     <canvas id="pieChart1"></canvas>
@@ -48,6 +44,13 @@
 <div class="chart-container" id="chartContainer3">
     <canvas id="pieChart3"></canvas>
 </div>
+
+
+<div class="tabs">
+    <button class="tab-button active" data-chart="pieChart1">Chart 1</button>
+    <button class="tab-button" data-chart="pieChart2">Chart 2</button>
+    <button class="tab-button" data-chart="pieChart3">Chart 3</button>
+</div>
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -56,13 +59,21 @@
         function createPieChart(chartId, data) {
             const ctx = document.getElementById(chartId).getContext('2d');
             return new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: ['Red', 'Blue', 'Yellow'],
                     datasets: [{
                         data: data,
-                        backgroundColor: ['#FF5733', '#33A1FF', '#FFEB33'],
-                        borderColor: ['#FF5733', '#33A1FF', '#FFEB33'],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                            ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                            ],
                         borderWidth: 1
                     }]
                 },
