@@ -23,6 +23,7 @@
     </div>
     <div class="container-add-category">
         <form method="post" action="">
+            @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục thu nhập : </label>
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797;" 

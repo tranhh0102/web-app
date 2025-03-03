@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterExpenseController;
 use App\Http\Controllers\MasterIncomeController;
@@ -25,8 +26,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/add-category-income', 'pages.add-category-income')->name('add-category-income');
-    Route::view('/add-category-expenses', 'pages.add-category-expenses')->name('add-category-expenses');
     Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
     Route::view('/add-income', 'pages.add-income')->name('add-income');
     Route::view('/stastic', 'pages.stastic')->name('stastic');
@@ -37,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/',[HomeController::class, 'index'])->name('home');
     Route::get('/search',[HomeController::class, 'listSearch'])->name('home-search');
     Route::get('/transactions', [HomeController::class, 'getTransactions']);
+
+    Route::get('/category-expenses', [CategoryController::class, 'expensesCategory'])->name('category-expenses');
+    Route::post('/add-category-expenses', [CategoryController::class, 'addExpensesCategory'])->name('add-category-expenses');
+    Route::get('/category-income', [CategoryController::class, 'incomeCategory'])->name('category-income');
 
     Route::prefix('/master-category')->group(function() {
         Route::prefix('/income')->group(function() {

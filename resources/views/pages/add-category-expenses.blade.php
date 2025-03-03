@@ -22,11 +22,12 @@
         <span></span>
     </div>
     <div class="container-add-category">
-        <form method="post" action="">
+        <form method="post" action="{{route('add-category-expenses')}}">
+            @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục chi tiêu : </label>
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797;" 
-                type="text" class="form-control w-full text-white" placeholder="Nhập danh mục mới" required>
+                type="text" name="name" class="form-control w-full text-white" placeholder="Nhập danh mục mới" required>
             </div>
             <button class="button-add-category">Thêm</button>
         </form>
