@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/goals', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');
         Route::post('/charity', [TransactionController::class, 'charityTransaction'])->name('transaction.charity');
     });
+    Route::get('/statistic', [MasterExpenseController::class, 'index'])->name('statistic.index');
 });
 
 require __DIR__ . '/auth.php';
