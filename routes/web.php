@@ -26,8 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
-    Route::view('/add-income', 'pages.add-income')->name('add-income');
+    
     Route::view('/stastic', 'pages.stastic')->name('stastic');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -40,7 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/category-expenses', [CategoryController::class, 'expensesCategory'])->name('category-expenses');
     Route::post('/add-category-expenses', [CategoryController::class, 'addExpensesCategory'])->name('add-category-expenses');
     Route::get('/category-income', [CategoryController::class, 'incomeCategory'])->name('category-income');
+    Route::delete('/expenses-category/{id}', [CategoryController::class, 'expensesDestroy'])->name('expenses-category.destroy');
 
+    Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
+    Route::view('/add-income', 'pages.add-income')->name('add-income');
     Route::prefix('/master-category')->group(function() {
         Route::prefix('/income')->group(function() {
             Route::get('/', [MasterIncomeController::class, 'index'])->name('mincome.index');

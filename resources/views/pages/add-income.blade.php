@@ -18,17 +18,17 @@
             </defs>
         </svg>
     </a>
-    <span class="add-expenses-title">Thêm chi tiêu</span>
+    <span class="add-expenses-title">Thêm thu nhap</span>
     <span></span>
 </div>
-<form action="{{route('mexpense.insert')}}" method="post" class="p-3">
+<form action="{{route('mincome.insert')}}" method="post" class="p-3">
     @csrf
     <div class="add-expenses">
 
         <!--Input expenses-->
         <div class="add-expenses-sub" >
-            <label for="charge">Số tiền chi tiêu</label>
-            <input type="number" class="input-expenses" placeholder="Nhập danh chi tiêu" required>
+            <label for="charge">Số tiền thu nhap</label>
+            <input type="number" class="input-expenses" placeholder="Nhập danh thu nhap" required>
         </div>
 
         <!--Type expenses-->
