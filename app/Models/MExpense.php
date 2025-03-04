@@ -10,4 +10,6 @@ class MExpense extends Model
     use HasFactory;
 
     protected $table = 'm_expense';
+
+    protected $fillable = ['name','user_id'];
 }
