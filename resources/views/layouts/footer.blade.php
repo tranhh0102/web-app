@@ -51,11 +51,11 @@
     }
 
 .add-button {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     background-color: #ff6b5e;
     color: white;
-    font-size: 32px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     line-height: 60px;
@@ -67,16 +67,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 10;
 }
 
 .action-buttons {
     position: absolute;
-    bottom: 70px;
-    left: 65%;
+    bottom: 30px;
+    left: 50%;
     transform: translateX(-50%);
     display: none; /* Mặc định ẩn */
     flex-direction: column;
     gap: 10px;
+    display: none;
+    width: 50px;
+    background: #606265;
+    border-radius: 10px;
+    border: 2.5px solid white;
+    padding: 10px;
+    padding-left: 8px;
+    padding-bottom: 0;
 }
 
 .action-button {
