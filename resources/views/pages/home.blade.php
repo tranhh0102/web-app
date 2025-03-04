@@ -16,7 +16,7 @@
         </div>
     </div> -->
 <div class="home-header">
-    <span class="home-title">Thống kê</span>
+    <span class="home-title">Trang chủ</span>
 </div>
 <div class="stastic">
     <div class="grid gap-3 w-full">

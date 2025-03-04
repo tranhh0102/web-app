@@ -21,7 +21,7 @@
     <span class="add-expenses-title">Thêm chi tiêu</span>
     <span></span>
 </div>
-<form action="{{route('mexpense.insert')}}" method="post" class="p-3">
+<form action="{{route('transaction.expense')}}" method="post" class="p-3">
     @csrf
     <div class="add-expenses">
 

@@ -32,6 +32,16 @@ class TransactionController extends Controller
         $this->goalService = $goalService;
     }
 
+    public function addExpenses()
+    {
+        return view('pages.add-expenses');
+    }
+
+    public function addIncome()
+    {
+        return view('pages.add-income');
+    }
+
     public function incomeTransaction(Request $request)
     {
         $data = $request->all();

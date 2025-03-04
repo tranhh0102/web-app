@@ -21,7 +21,7 @@
     <span class="add-expenses-title">Thêm thu nhap</span>
     <span></span>
 </div>
-<form action="{{route('mincome.insert')}}" method="post" class="p-3">
+<form action="{{route('transaction.income')}}" method="post" class="p-3">
     @csrf
     <div class="add-expenses">
 

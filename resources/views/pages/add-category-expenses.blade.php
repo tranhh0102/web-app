@@ -29,12 +29,12 @@
         </form>
     </div>
     <div class="list-spending">
-        @foreach($data as $item)
+        @forelse($list as $item)
             <div class="spending-sub">
                 <span class="name-spending">
-                    {{$item->name}}
+                    {{$item['name']}}
                 </span>
-                <form action="{{ route('expenses-category.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                <form action="{{ route('mincome.delete', $item['id']) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" style="border: none; background: none; cursor: pointer;">
@@ -42,7 +42,9 @@
                     </button>
                 </form>
             </div>
-        @endforeach
+        @empty
+            <p>Không có dữ liệu.</p>
+        @endforelse
     </div>
 @endsection
 

@@ -38,7 +38,7 @@ class MasterExpenseController extends Controller
             }
         }
 
-        return view('pages.add-expenses', [
+        return view('pages.add-category-expenses', [
             'list' => $result
         ]);
     }

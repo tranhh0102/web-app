@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterExpenseController;
 use App\Http\Controllers\MasterIncomeController;
@@ -37,13 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/search',[HomeController::class, 'listSearch'])->name('home-search');
     Route::get('/transactions', [HomeController::class, 'getTransactions']);
 
-    Route::get('/category-expenses', [CategoryController::class, 'expensesCategory'])->name('category-expenses');
-    Route::post('/add-category-expenses', [CategoryController::class, 'addExpensesCategory'])->name('add-category-expenses');
-    Route::get('/category-income', [CategoryController::class, 'incomeCategory'])->name('category-income');
-    Route::delete('/expenses-category/{id}', [CategoryController::class, 'expensesDestroy'])->name('expenses-category.destroy');
 
-    Route::view('/add-expenses', 'pages.add-expenses')->name('add-expenses');
-    Route::view('/add-income', 'pages.add-income')->name('add-income');
     Route::prefix('/master-category')->group(function() {
         Route::prefix('/income')->group(function() {
             Route::get('/', [MasterIncomeController::class, 'index'])->name('mincome.index');
@@ -57,6 +50,8 @@ Route::middleware('auth')->group(function () {
         });
     });
     Route::prefix('/transactions')->group(function() {
+        Route::get('/add-expense', [TransactionController::class, 'addExpenses'])->name('transaction.add-expense');
+        Route::get('/add-income', [TransactionController::class, 'addIncome'])->name('transaction.add-income');
         Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
         Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');
         Route::post('/goals', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');

@@ -2,22 +2,22 @@
     <!--Statistic-->
     <a href="{{route('home')}}" class="nav-button">
         <img src="{{asset('svg/home.svg')}}" alt="">
-        <p class="name-button">Thong ke</p>
+        <p class="name-button">Thống kê</p>
     </a>
 
     <!--Search-->
     <a href="{{route('home-search')}}" class="nav-button">
         <img src="{{asset('svg/search.svg')}}" alt="">
-        <p class="name-button">Tim kiem</p>
+        <p class="name-button">Tìm kiếm</p>
     </a>
 
     <div class="floating-container">
         <a id="floatingButton" class="add-button">+</a>
         <div id="actionButtons" class="action-buttons">
-            <a href="{{route('add-expenses')}}" class="action-button">
+            <a href="{{route('transaction.add-expenses')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
             </a>
-            <a href="{{route('add-income')}}" class="action-button">
+            <a href="{{route('transaction.add-income')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
             </a>
         </div>
@@ -26,19 +26,19 @@
     <!--Goal-->
     <a href="{{route('stastic')}}" class="nav-button">
         <img src="{{asset('svg/goal.svg')}}" alt="">
-        <p class="name-button">Muc tieu</p>
+        <p class="name-button">Mục tiêu</p>
     </a>
 
     <!--Charity-->
     <a href="{{route('stastic')}}" class="nav-button">
         <img src="{{asset('svg/charity.svg')}}" alt="">
-        <p class="name-button">Cong dong</p>
+        <p class="name-button">Cộng đồng</p>
     </a>
     
     <!--Profile-->
     <a href="{{route('profile.edit')}}" class="nav-button">
         <img src="{{asset('svg/profile.svg')}}" alt="">
-        <p class="name-button">Tai Khoan</p>
+        <p class="name-button">Tài khoản</p>
     </a>
 </div>
 
