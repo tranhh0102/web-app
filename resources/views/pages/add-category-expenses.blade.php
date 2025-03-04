@@ -5,44 +5,49 @@
 @endsection
 
 @section('content')
+    @if(session('success'))
+        <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="category-header flex items-center justify-between p-3">
         <a href="{{route('home')}}" class="icons-back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <g clip-path="url(#clip0_32_4598)">
-                <path d="M17.1699 24C17.0383 24.0007 16.9078 23.9755 16.786 23.9257C16.6641 23.876 16.5533 23.8027 16.4599 23.71L8.28986 15.54C7.82423 15.0755 7.4548 14.5238 7.20274 13.9163C6.95067 13.3089 6.82092 12.6577 6.82092 12C6.82092 11.3423 6.95067 10.6911 7.20274 10.0837C7.4548 9.4762 7.82423 8.92445 8.28986 8.45999L16.4599 0.290002C16.5531 0.196764 16.6638 0.122803 16.7856 0.0723425C16.9074 0.0218822 17.038 -0.00408935 17.1699 -0.00408936C17.3017 -0.00408936 17.4323 0.0218822 17.5541 0.0723425C17.6759 0.122803 17.7866 0.196764 17.8799 0.290002C17.9731 0.38324 18.0471 0.49393 18.0975 0.615752C18.148 0.737574 18.174 0.868142 18.174 1C18.174 1.13186 18.148 1.26243 18.0975 1.38425C18.0471 1.50607 17.9731 1.61676 17.8799 1.71L9.70986 9.87999C9.14806 10.4425 8.8325 11.205 8.8325 12C8.8325 12.795 9.14806 13.5575 9.70986 14.12L17.8799 22.29C17.9736 22.3829 18.048 22.4935 18.0988 22.6154C18.1495 22.7373 18.1757 22.868 18.1757 23C18.1757 23.132 18.1495 23.2627 18.0988 23.3846C18.048 23.5064 17.9736 23.617 17.8799 23.71C17.7864 23.8027 17.6756 23.876 17.5538 23.9257C17.4319 23.9755 17.3015 24.0007 17.1699 24Z" fill="#A2A2B5"/>
-                </g>
-                <defs>
-                <clipPath id="clip0_32_4598">
-                <rect width="24" height="24" fill="white"/>
-                </clipPath>
-                </defs>
-            </svg>
+            <img src="{{asset('svg/arrow-back.svg')}}" alt="">
         </a>
         <h2 class="add-category-header">Danh mục chi tiêu</h2>
         <span></span>
     </div>
     <div class="container-add-category">
-        <form method="post" action="">
+        <form method="post" action="{{route('add-category-expenses')}}">
+            @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục chi tiêu : </label>
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797;" 
-                type="text" class="form-control w-full text-white" placeholder="Nhập danh mục mới" required>
+                type="text" name="name" class="form-control w-full text-white" placeholder="Nhập danh mục mới" required>
             </div>
             <button class="button-add-category">Thêm</button>
         </form>
     </div>
     <div class="list-spending">
-        <div class="spending-sub">
-            <span class="name-spending">
-                an uong
-            </span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.9999 6.73001C20.9799 6.73001 20.9499 6.73001 20.9199 6.73001C15.6299 6.20001 10.3499 6.00001 5.11992 6.53001L3.07992 6.73001C2.65992 6.77001 2.28992 6.47001 2.24992 6.05001C2.20992 5.63001 2.50992 5.27001 2.91992 5.23001L4.95992 5.03001C10.2799 4.49001 15.6699 4.70001 21.0699 5.23001C21.4799 5.27001 21.7799 5.64001 21.7399 6.05001C21.7099 6.44001 21.3799 6.73001 20.9999 6.73001Z" fill="#FF4949"/>
-                <path d="M8.50001 5.72C8.46001 5.72 8.42001 5.72 8.37001 5.71C7.97001 5.64 7.69001 5.25 7.76001 4.85L7.98001 3.54C8.14001 2.58 8.36001 1.25 10.69 1.25H13.31C15.65 1.25 15.87 2.63 16.02 3.55L16.24 4.85C16.31 5.26 16.03 5.65 15.63 5.71C15.22 5.78 14.83 5.5 14.77 5.1L14.55 3.8C14.41 2.93 14.38 2.76 13.32 2.76H10.7C9.64001 2.76 9.62001 2.9 9.47001 3.79L9.24001 5.09C9.18001 5.46 8.86001 5.72 8.50001 5.72Z" fill="#FF4949"/>
-                <path d="M15.2099 22.75H8.7899C5.2999 22.75 5.1599 20.82 5.0499 19.26L4.3999 9.19C4.3699 8.78 4.6899 8.42 5.0999 8.39C5.5199 8.37 5.8699 8.68 5.8999 9.09L6.5499 19.16C6.6599 20.68 6.6999 21.25 8.7899 21.25H15.2099C17.3099 21.25 17.3499 20.68 17.4499 19.16L18.0999 9.09C18.1299 8.68 18.4899 8.37 18.8999 8.39C19.3099 8.42 19.6299 8.77 19.5999 9.19L18.9499 19.26C18.8399 20.82 18.6999 22.75 15.2099 22.75Z" fill="#FF4949"/>
-                <path d="M13.6601 17.25H10.3301C9.92008 17.25 9.58008 16.91 9.58008 16.5C9.58008 16.09 9.92008 15.75 10.3301 15.75H13.6601C14.0701 15.75 14.4101 16.09 14.4101 16.5C14.4101 16.91 14.0701 17.25 13.6601 17.25Z" fill="#FF4949"/>
-                <path d="M14.5 13.25H9.5C9.09 13.25 8.75 12.91 8.75 12.5C8.75 12.09 9.09 11.75 9.5 11.75H14.5C14.91 11.75 15.25 12.09 15.25 12.5C15.25 12.91 14.91 13.25 14.5 13.25Z" fill="#FF4949"/>
-            </svg>
-        </div>
+        @foreach($data as $item)
+            <div class="spending-sub">
+                <span class="name-spending">
+                    {{$item->name}}
+                </span>
+                <form action="{{ route('expenses-category.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="border: none; background: none; cursor: pointer;">
+                        <img style="height: 32px; width: 32px;" src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                    </button>
+                </form>
+            </div>
+        @endforeach
     </div>
 @endsection
+
+<script>
+    setTimeout(() => {
+        document.getElementById('toast-message').style.display = 'none';
+    }, 3000);
+</script>
