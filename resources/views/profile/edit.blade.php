@@ -18,7 +18,7 @@
         </defs>
         </svg>
       </a>
-    <span class="edit-title">Settings</span>
+    <span class="edit-title">Cài đặt</span>
     <span></span>
   </div>
 
@@ -35,7 +35,6 @@
   </div>
 
   <div class="general">
-    <span class="general-2">Settings</span>
     <div class="general-setting">
 
         <!--Change password-->
@@ -46,7 +45,7 @@
               <path d="M9.19008 20.5402C9.00008 20.5402 8.81008 20.4702 8.66008 20.3202L6.36008 18.0202C6.07008 17.7302 6.07008 17.2502 6.36008 16.9602C6.65008 16.6702 7.13008 16.6702 7.42008 16.9602L9.72008 19.2602C10.0101 19.5502 10.0101 20.0302 9.72008 20.3202C9.57008 20.4702 9.38008 20.5402 9.19008 20.5402Z" fill="white" fill-opacity="0.87"/>
               <path d="M14.5 11.75C13.26 11.75 12.25 10.74 12.25 9.5C12.25 8.26 13.26 7.25 14.5 7.25C15.74 7.25 16.75 8.26 16.75 9.5C16.75 10.74 15.74 11.75 14.5 11.75ZM14.5 8.75C14.09 8.75 13.75 9.09 13.75 9.5C13.75 9.91 14.09 10.25 14.5 10.25C14.91 10.25 15.25 9.91 15.25 9.5C15.25 9.09 14.91 8.75 14.5 8.75Z" fill="white" fill-opacity="0.87"/>
               </svg>
-              <span class="setting-title">Change password</span>
+              <span class="setting-title">Đổi mật khẩu</span>
           </div>
           <img src="{{asset('svg/arrow.svg')}}" alt="">  
         </div>
@@ -87,7 +86,7 @@
           </div>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="text-logout">{{ __('Log Out') }}</button>
+            <button type="submit" class="text-logout">Đăng xuất</button>
           </form>
         </div>
     </div>
