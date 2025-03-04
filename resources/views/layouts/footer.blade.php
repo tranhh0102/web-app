@@ -1,52 +1,112 @@
 <div class="navbar">
+    <!--Statistic-->
     <a href="{{route('home')}}" class="nav-button">
         <img src="{{asset('svg/home.svg')}}" alt="">
+        <p class="name-button">Thong ke</p>
     </a>
+
+    <!--Search-->
     <a href="{{route('home-search')}}" class="nav-button">
-        <img src="{{asset('svg/world.svg')}}" alt="">
+        <img src="{{asset('svg/search.svg')}}" alt="">
+        <p class="name-button">Tim kiem</p>
     </a>
-    <a href="{{route('add-expenses')}}" id="floatingButton"  class="add-button">+</a>
+
+    <div class="floating-container">
+        <a id="floatingButton" class="add-button">+</a>
+        <div id="actionButtons" class="action-buttons">
+            <a href="{{route('add-expenses')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
+            </a>
+            <a href="{{route('add-income')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
+            </a>
+        </div>
+    </div>
+
+    <!--Goal-->
     <a href="{{route('stastic')}}" class="nav-button">
-        <img src="{{asset('svg/report.svg')}}" alt="">
+        <img src="{{asset('svg/goal.svg')}}" alt="">
+        <p class="name-button">Muc tieu</p>
     </a>
+
+    <!--Charity-->
+    <a href="{{route('stastic')}}" class="nav-button">
+        <img src="{{asset('svg/charity.svg')}}" alt="">
+        <p class="name-button">Cong dong</p>
+    </a>
+    
+    <!--Profile-->
     <a href="{{route('profile.edit')}}" class="nav-button">
         <img src="{{asset('svg/profile.svg')}}" alt="">
+        <p class="name-button">Tai Khoan</p>
     </a>
 </div>
 
 <style>
-    .add-button {
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        background-color: #ff6b5e;
-        color: white;
-        font-size: 32px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 60px;
-        border-radius: 50%;
-        box-shadow: 0 5px 15px rgba(255, 107, 94, 0.5);
-        cursor: grab;
-        text-decoration: none;
-        user-select: none;
-        z-index: 999;
-        transition: all 0.3s ease-in-out;
+   .floating-container {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 999;
     }
 
-    .add-button:active {
-        cursor: grabbing;
-    }
+.add-button {
+    width: 60px;
+    height: 60px;
+    background-color: #ff6b5e;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(255, 107, 94, 0.5);
+    cursor: grab;
+    text-decoration: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-buttons {
+    position: absolute;
+    bottom: 70px;
+    left: 65%;
+    transform: translateX(-50%);
+    display: none; /* Mặc định ẩn */
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
 </style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById("floatingContainer");
     const button = document.getElementById("floatingButton");
+    const actionButtons = document.getElementById("actionButtons");
+
     let offsetX, offsetY, isDragging = false;
 
-    button.style.left = `${window.innerWidth - button.offsetWidth + 20}px`; // Default to the right side with some margin
+    button.addEventListener("click", function (e) {
+        e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
+        actionButtons.style.display = actionButtons.style.display === "flex" ? "none" : "flex";
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!container.contains(e.target)) {
+            actionButtons.style.display = "none";
+        }
+    });
 
     function onMove(e) {
         if (!isDragging) return;
@@ -57,55 +117,37 @@
         let x = clientX - offsetX;
         let y = clientY - offsetY;
 
-        // Giới hạn di chuyển trong màn hình
-        let maxX = window.innerWidth - button.offsetWidth;
-        let maxY = window.innerHeight - button.offsetHeight;
+        let maxX = window.innerWidth - container.offsetWidth;
+        let maxY = window.innerHeight - container.offsetHeight;
 
-        // Ensure that button stays fully inside the viewport
         x = Math.max(0, Math.min(x, maxX));
         y = Math.max(0, Math.min(y, maxY));
 
-        button.style.left = `${x}px`;
-        button.style.top = `${y}px`;
+        container.style.left = `${x}px`;
+        container.style.top = `${y}px`;
     }
 
     function onEnd() {
-        if (!isDragging) return;
         isDragging = false;
-
-        let buttonRect = button.getBoundingClientRect();
-        let centerX = buttonRect.left + buttonRect.width / 2;
-        let screenWidth = window.innerWidth;
-
-        // Dính vào cạnh trái hoặc phải
-        if (centerX < screenWidth / 2) {
-            button.style.left = "35px"; // Dính vào cạnh trái
-        } else {
-            button.style.left = `${screenWidth - button.offsetWidth + 20}px`; // Dính vào cạnh phải
-        }
-
-        button.style.transition = "all 0.3s ease-in-out";
     }
 
     function onStart(e) {
         isDragging = true;
-        button.style.transition = "none";
-
         let clientX = e.clientX || e.touches[0].clientX;
         let clientY = e.clientY || e.touches[0].clientY;
 
-        offsetX = clientX - button.getBoundingClientRect().left;
-        offsetY = clientY - button.getBoundingClientRect().top;
+        offsetX = clientX - container.getBoundingClientRect().left;
+        offsetY = clientY - container.getBoundingClientRect().top;
     }
 
-    // Desktop events
-    button.addEventListener("mousedown", onStart);
+    // Gán sự kiện kéo thả cho thẻ cha (cả nút `+` và nút con sẽ đi cùng)
+    container.addEventListener("mousedown", onStart);
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseup", onEnd);
 
-    // Mobile events
-    button.addEventListener("touchstart", onStart);
+    container.addEventListener("touchstart", onStart);
     document.addEventListener("touchmove", onMove);
     document.addEventListener("touchend", onEnd);
 });
+
 </script>

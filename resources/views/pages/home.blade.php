@@ -53,10 +53,10 @@
         <div class="items">
             <div class="items-sub">
                 <div class="flex items-center gap-2">
-                    <img src="{{asset('svg/logo.svg')}}" alt="">
+                    <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
                     <span class="text-white">income</span>
                 </div>
-                <span class="dollar text-white">$10.00</span>
+                <span class="dollar text-green-400">$10.00</span>
             </div>
         </div>
     </div>
@@ -65,10 +65,10 @@
         <div class="items">
             <div class="items-sub">
                 <div class="flex items-center gap-2">
-                    <img src="{{asset('svg/logo.svg')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
                     <span class="text-white">spent</span>
                 </div>
-                <span class="dollar text-white">$5.99</span>
+                <span class="dollar text-red-400">$5.99</span>
             </div>
         </div>
     </div>

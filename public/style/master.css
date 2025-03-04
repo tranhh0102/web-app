@@ -44,30 +44,19 @@
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    background: rgba(255, 255, 255, 0.1);
+    /* background: rgba(255, 255, 255, 0.1); */
+    background: black;
     padding: 16px;
   }
   .nav-button {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 2;
-  }
-
-  .add-button {
-    position: fixed; /* Cố định theo màn hình */
-    left: 52.5%;
-    bottom: 35px; /* Đặt phía trên navbar */
-    transform: translateX(-50%); /* Căn chính giữa theo chiều ngang */
-    width: 50px;
-    height: 50px;
-    background-color: #ff6b5e;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
+    display: grid;
     align-items: center;
-    color: white;
-    font-size: 24px;
-    box-shadow: 0 5px 15px rgba(255, 107, 94, 0.5);
-    z-index: 1100;
-}
+    justify-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .name-button {
+    font-size: 10px;
+  }

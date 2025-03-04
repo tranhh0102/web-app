@@ -45,7 +45,7 @@
     </form>
 
     </div>
-    <div class="list-search">
+    <div class="list-search mb-20">
     @foreach ($groupedTransactions as $date => $transactions)
         <h2 class="text-white font-bold pl-3">{{ $date }}</h2> <!-- Hiển thị ngày giao dịch -->
         
