@@ -2,22 +2,22 @@
     <!--Statistic-->
     <a href="{{route('home')}}" class="nav-button">
         <img src="{{asset('svg/home.svg')}}" alt="">
-        <p class="name-button">Thong ke</p>
+        <p class="name-button">Thống kê</p>
     </a>
 
     <!--Search-->
     <a href="{{route('home-search')}}" class="nav-button">
         <img src="{{asset('svg/search.svg')}}" alt="">
-        <p class="name-button">Tim kiem</p>
+        <p class="name-button">Tìm kiếm</p>
     </a>
 
     <div class="floating-container">
         <a id="floatingButton" class="add-button">+</a>
         <div id="actionButtons" class="action-buttons">
-            <a href="{{route('add-expenses')}}" class="action-button">
+            <a href="{{route('transaction.add-expense')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
             </a>
-            <a href="{{route('add-income')}}" class="action-button">
+            <a href="{{route('transaction.add-income')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
             </a>
         </div>
@@ -26,19 +26,19 @@
     <!--Goal-->
     <a href="{{route('stastic')}}" class="nav-button">
         <img src="{{asset('svg/goal.svg')}}" alt="">
-        <p class="name-button">Muc tieu</p>
+        <p class="name-button">Mục tiêu</p>
     </a>
 
     <!--Charity-->
     <a href="{{route('stastic')}}" class="nav-button">
         <img src="{{asset('svg/charity.svg')}}" alt="">
-        <p class="name-button">Cong dong</p>
+        <p class="name-button">Cộng đồng</p>
     </a>
     
     <!--Profile-->
     <a href="{{route('profile.edit')}}" class="nav-button">
         <img src="{{asset('svg/profile.svg')}}" alt="">
-        <p class="name-button">Tai Khoan</p>
+        <p class="name-button">Tài khoản</p>
     </a>
 </div>
 
@@ -105,7 +105,6 @@
     const button = document.getElementById("floatingButton");
     const actionButtons = document.getElementById("actionButtons");
 
-    let offsetX, offsetY, isDragging = false;
 
     button.addEventListener("click", function (e) {
         e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
@@ -117,47 +116,6 @@
             actionButtons.style.display = "none";
         }
     });
-
-    function onMove(e) {
-        if (!isDragging) return;
-
-        let clientX = e.clientX || e.touches[0].clientX;
-        let clientY = e.clientY || e.touches[0].clientY;
-
-        let x = clientX - offsetX;
-        let y = clientY - offsetY;
-
-        let maxX = window.innerWidth - container.offsetWidth;
-        let maxY = window.innerHeight - container.offsetHeight;
-
-        x = Math.max(0, Math.min(x, maxX));
-        y = Math.max(0, Math.min(y, maxY));
-
-        container.style.left = `${x}px`;
-        container.style.top = `${y}px`;
-    }
-
-    function onEnd() {
-        isDragging = false;
-    }
-
-    function onStart(e) {
-        isDragging = true;
-        let clientX = e.clientX || e.touches[0].clientX;
-        let clientY = e.clientY || e.touches[0].clientY;
-
-        offsetX = clientX - container.getBoundingClientRect().left;
-        offsetY = clientY - container.getBoundingClientRect().top;
-    }
-
-    // Gán sự kiện kéo thả cho thẻ cha (cả nút `+` và nút con sẽ đi cùng)
-    container.addEventListener("mousedown", onStart);
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onEnd);
-
-    container.addEventListener("touchstart", onStart);
-    document.addEventListener("touchmove", onMove);
-    document.addEventListener("touchend", onEnd);
 });
 
 </script>

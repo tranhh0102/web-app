@@ -38,7 +38,7 @@ class MasterIncomeController extends Controller
             }
         }
 
-        return view('', [
+        return view('pages.add-category-income', [
             'list' => $result
         ]);
     }

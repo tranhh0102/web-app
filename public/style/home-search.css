@@ -3,7 +3,7 @@ input:focus {
 }
 .home-search-header {
     display: flex;
-    padding: 12px;
+    padding: 12px 12px 0 12px;
     align-items: center;
 }
 .input-search{
