@@ -51,25 +51,33 @@
 
     <div id="income" class="tab-content active">
         <div class="items">
+            @forelse($dataIncomes as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
                     <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
-                    <span class="text-white">income</span>
+                    <span class="text-white">{{$item->name}}</span>
                 </div>
-                <span class="dollar text-green-400">$10.00</span>
+                <span class="dollar text-green-400">{{ number_format($item->charge, 2) }}</span>
             </div>
+            @empty
+                <p class="title-header text-center">No data</p>
+            @endforelse
         </div>
     </div>
 
     <div id="expense" class="tab-content">
         <div class="items">
+            @forelse($dataExpenses as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
-                    <span class="text-white">spent</span>
+                    <span class="text-white">{{$item->name}}</span>
                 </div>
-                <span class="dollar text-red-400">$5.99</span>
+                <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
             </div>
+            @empty
+                <p class="title-header text-center">No data</p>
+            @endforelse
         </div>
     </div>
 </div>

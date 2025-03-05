@@ -7,6 +7,8 @@ use App\Services\ExpenseService;
 use App\Services\GoalService;
 use App\Services\GoldTransactionsService;
 use App\Services\IncomeService;
+use App\Services\MExpenseService;
+use App\Services\MIncomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,34 +19,82 @@ class TransactionController extends Controller
     private $charityTransactionsService;
     private $goldTransactionsService;
     private $goalService;
+    private $mExpenseService;
+    private $mIncomeService;
 
     public function __construct(
         ExpenseService $expenseService,
         IncomeService  $incomeService,
         CharityTransactionsService $charityTransactionsService,
         GoldTransactionsService $goldTransactionsService,
-        GoalService $goalService
+        GoalService $goalService,
+        MExpenseService $mExpenseService,
+        MIncomeService $mIncomeService
     ) {
         $this->expenseService = $expenseService;
         $this->incomeService = $incomeService;
         $this->charityTransactionsService = $charityTransactionsService;
         $this->goldTransactionsService = $goldTransactionsService;
         $this->goalService = $goalService;
+        $this->mExpenseService = $mExpenseService;
+        $this->mIncomeService = $mIncomeService;
     }
 
     public function addExpenses()
     {
-        return view('pages.add-expenses');
+        $authUser = Auth::user();
+        $userId = $authUser->id;
+
+        $result = $this->mExpenseService->get([
+            'user_id' => $userId
+        ])->toArray();
+        
+        if (count($result) <= 0) {
+            $listMIncome = config('default_master_data.m_expense');
+            $insertData = [];
+            foreach ($listMIncome as $item) {
+                $insertData[] = [
+                    'name' => $item,
+                    'user_id' => $userId
+                ];
+            }
+            if ($this->mExpenseService->insert($insertData)) {
+                $result = $insertData;
+            }
+        }
+
+        return view('pages.add-expenses',compact('result'));
     }
 
     public function addIncome()
     {
-        return view('pages.add-income');
+        $authUser = Auth::user();
+        $userId = $authUser->id;
+
+        $result = $this->mIncomeService->get([
+            'user_id' => $userId
+        ])->toArray();
+        
+        if (count($result) <= 0) {
+            $listMIncome = config('default_master_data.m_income');
+            $insertData = [];
+            foreach ($listMIncome as $item) {
+                $insertData[] = [
+                    'name' => $item,
+                    'user_id' => $userId
+                ];
+            }
+            if ($this->mIncomeService->insert($insertData)) {
+                $result = $insertData;
+            }
+        }
+
+        return view('pages.add-income',compact('result'));
     }
 
     public function incomeTransaction(Request $request)
     {
-        $data = $request->all();
+        $data = $request->only('charge','name','m_income_id');
         $data['user_id'] = Auth::user()->id;
         if ($this->incomeService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
@@ -55,7 +105,7 @@ class TransactionController extends Controller
 
     public function expenseTransaction(Request $request)
     {
-        $data = $request->all();
+        $data = $request->only('charge','name','m_expense_id');
         $data['user_id'] = Auth::user()->id;
         if ($this->expenseService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
