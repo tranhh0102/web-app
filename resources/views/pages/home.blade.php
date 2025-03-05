@@ -66,14 +66,23 @@
     </div>
 
     <div id="expense" class="tab-content">
-        <div class="items">
+    <div class="items">
             @forelse($dataExpenses as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
-                    <span class="text-white">{{$item->name}}</span>
+                    <div>
+                        <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
+                    </div>
+                    <div class="grid gap-1">
+                        <span class="text-white">{{$item->name}}</span>
+                        <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                    </div>
                 </div>
-                <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                <div>
+                    <a href="{{route('transaction.update-expense', ['id' => $item->id])}}">
+                        <img src="{{asset('svg/arrow.svg')}}" alt="">
+                    </a>
+                </div>
             </div>
             @empty
                 <p class="title-header text-center">No data</p>

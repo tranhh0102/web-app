@@ -50,8 +50,15 @@ Route::middleware('auth')->group(function () {
         });
     });
     Route::prefix('/transactions')->group(function() {
+        //add expense and income
         Route::get('/add-expense', [TransactionController::class, 'addExpenses'])->name('transaction.add-expense');
         Route::get('/add-income', [TransactionController::class, 'addIncome'])->name('transaction.add-income');
+        //update expense and income
+        Route::get('/update-expense/{id}', [TransactionController::class, 'getUpdateExpense'])->name('transaction.update-expense');
+        Route::get('/update-income/{id}', [TransactionController::class, 'getUpdateIncome'])->name('transaction.update-income');
+        Route::post('/update-income/{id}', [TransactionController::class, 'updateIncome'])->name('transaction.update-income');
+        Route::post('/update-expense/{id}', [TransactionController::class, 'updateExpense'])->name('transaction.update-expense');
+
         Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
         Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');
         Route::post('/goals', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');

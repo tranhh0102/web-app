@@ -13,7 +13,7 @@
         <span></span>
     </div>
     <div class="container-add-category">
-        <form method="post" action="">
+        <form method="post" action="{{mincome.insert}}">
             @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục thu nhập : </label>

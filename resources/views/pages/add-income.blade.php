@@ -37,7 +37,7 @@
                     <span class="add-expenses-span" >Loại</span>
                 </div>
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                type="text" id="selectedType" class="text-white mb-3" placeholder="Loai da chon ..." readonly>
+                type="text" id="selectedType" class="text-white mb-3" placeholder="Loại đã chọn" readonly>
                 <input type="hidden" id="m_income_id" name="m_income_id">
             </div>
 

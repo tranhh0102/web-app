@@ -21,51 +21,56 @@
         <span class="add-expenses-title">Thêm chi tiêu</span>
         <span></span>
     </div>
-    <form action="{{route('transaction.expense')}}" method="post" class="p-3">
+    <form action="{{ route('transaction.expense', $expense->id) }}" method="post" class="p-3">
         @csrf
+        @method('PUT')
+
         <div class="add-expenses">
 
-            <!--Input expenses-->
-            <div class="add-expenses-sub" >
+            <!-- Input số tiền chi tiêu -->
+            <div class="add-expenses-sub">
                 <label for="charge">Số tiền chi tiêu</label>
-                <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh chi tiêu" required>
+                <input type="number" name="charge" class="input-expenses" 
+                    placeholder="Nhập số tiền" required 
+                    value="{{ old('charge', $expense->charge) }}">
             </div>
 
-            <!--Type expenses-->
-            <div class="add-expenses-sub flex" id="openModal">
+            <!-- Loại chi tiêu -->
+            <div class="add-expenses-sub flex" id="openModal" style="cursor: pointer;">
                 <div class="flex gap-2">
-                    <span class="add-expenses-span" >Loại</span>
+                    <span class="add-expenses-span">Loại</span>
                 </div>
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                type="text" id="selectedType" class="text-white mb-3" placeholder="Loại đã chọn" readonly>
-                <input type="hidden" id="m_expense_id" name="m_expense_id">
+                    type="text" id="selectedType" class="text-white mb-3" 
+                    placeholder="Loại đã chọn" readonly 
+                    value="{{ old('selectedType', $expense->expenseType->name ?? '') }}">
+                <input type="hidden" id="m_expense_id" name="m_expense_id" value="{{ old('m_expense_id', $expense->m_expense_id) }}">
             </div>
 
-            <!--Time expenses-->
+            <!-- Thời gian -->
             <div class="add-expenses-sub">
-                <label for="charge">Thời gian</label>
-                <input type="datetime-local" class="input-expenses" placeholder="Nhập thời gian" required>
+                <label for="time">Thời gian</label>
+                <input type="datetime-local" class="input-expenses" name="time" required 
+                    value="{{ old('time', $expense->time ? $expense->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
             </div>
 
-            <!--Description expenses-->
+            <!-- Mô tả -->
             <div class="add-expenses-sub">
-                <label for="charge">Mô tả</label>
+                <label for="description">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                class="text-white" name="name" placeholder="Mô tả" required></textarea>
+                        class="text-white" name="description" placeholder="Mô tả" required>{{ old('description', $expense->name) }}</textarea>
             </div>
 
         </div>
 
-        <!-- Submit Button -->
+        <!-- Nút Cập nhật -->
         <div class="add-expenses-sub text-center mt-4">
-            <button type="submit" class="button-add-expenses">Lưu chi tiêu</button>
+            <button type="submit" class="button-add-expenses">Cập nhật</button>
         </div>
     </form>
 
-    <!-- Overlay nền mờ -->
     <div id="modalOverlay" class="modal-overlay hidden"></div>
 
-    <!-- Bottom Sheet (Hiện từ dưới lên) -->
     <div id="modalSheet" class="modal-sheet">
         <div class="modal-content">
             <h3>Chọn loại</h3>
