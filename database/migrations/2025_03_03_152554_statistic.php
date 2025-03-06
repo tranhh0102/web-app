@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('charity')->default(0);
             $table->json('income_info')->nullable();
             $table->json('expense_info')->nullable();
-            $table->json('goal_info')->nullable();
             $table->integer('month');
             $table->integer('year');
             $table->timestamps();
