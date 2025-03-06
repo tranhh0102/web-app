@@ -21,10 +21,8 @@
         <span class="add-expenses-title">Thêm chi tiêu</span>
         <span></span>
     </div>
-    <form action="{{ route('transaction.expense', $expense->id) }}" method="post" class="p-3">
+    <form action="{{ route('transaction.update-expense-action',$expense->id) }}" method="post" class="p-3">
         @csrf
-        @method('PUT')
-
         <div class="add-expenses">
 
             <!-- Input số tiền chi tiêu -->
@@ -58,7 +56,7 @@
             <div class="add-expenses-sub">
                 <label for="description">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                        class="text-white" name="description" placeholder="Mô tả" required>{{ old('description', $expense->name) }}</textarea>
+                        class="text-white" name="name" placeholder="Mô tả" required>{{ old('description', $expense->name) }}</textarea>
             </div>
 
         </div>

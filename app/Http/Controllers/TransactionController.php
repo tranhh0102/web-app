@@ -99,7 +99,6 @@ class TransactionController extends Controller
     public function updateExpenses(Request $request,$id)
     {
         $data = $request->only('charge','name','m_expense_id');
-        dd($data)
         $result = $this->expenseService->update([
             'id' => $id
         ],$data);
@@ -159,6 +158,16 @@ class TransactionController extends Controller
         $income = Income::find($id);
 
         return view('pages.expenses.update-income',compact('result','income'));
+    }
+
+    public function updateIncome(Request $request,$id)
+    {
+        $data = $request->only('charge','name','m_expense_id');
+        $result = $this->incomeService->update([
+            'id' => $id
+        ],$data);
+
+        return redirect()->route('home')->withSuccess('Update successfully');
     }
 
     public function incomeTransaction(Request $request)

@@ -17,7 +17,7 @@ class IncomeService implements BaseServiceInterface {
     {
         $income = Income::where($conditions)->firstOrFail();
 
-        return $income->save($requestData);
+        return $income->update($requestData);
     }
     public function delete($conditions = [])
     {

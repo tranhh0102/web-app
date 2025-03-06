@@ -56,8 +56,8 @@ Route::middleware('auth')->group(function () {
         //update expense and income
         Route::get('/update-expense/{id}', [TransactionController::class, 'getUpdateExpense'])->name('transaction.update-expense');
         Route::get('/update-income/{id}', [TransactionController::class, 'getUpdateIncome'])->name('transaction.update-income');
-        Route::post('/update-income/{id}', [TransactionController::class, 'updateIncome'])->name('transaction.update-income');
-        Route::post('/update-expense/{id}', [TransactionController::class, 'updateExpense'])->name('transaction.update-expense');
+        Route::post('/update-income/{id}', [TransactionController::class, 'updateIncome'])->name('transaction.update-income-action');
+        Route::post('/update-expense/{id}', [TransactionController::class, 'updateExpenses'])->name('transaction.update-expense-action');
 
         Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
         Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');

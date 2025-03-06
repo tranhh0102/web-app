@@ -17,7 +17,7 @@ class ExpenseService implements BaseServiceInterface {
     {
         $expense = Expense::where($conditions)->firstOrFail();
 
-        return $expense->save($requestData);
+        return $expense->update($requestData);
     }
     public function delete($conditions = [])
     {
