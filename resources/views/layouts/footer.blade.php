@@ -18,7 +18,10 @@
                 <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
             </a>
             <a href="{{route('transaction.add-income')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/income.png')}}" alt="">
+            </a>
+            <a href="{{route('transaction.add-charity')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/charity.png')}}" alt="">
             </a>
         </div>
     </div>

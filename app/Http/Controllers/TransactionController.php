@@ -203,6 +203,11 @@ class TransactionController extends Controller
         return redirect()->route('home')->withErrors(['Insert failed']);
     }
 
+    public function addCharity()
+    {
+        return view('pages.charity.add-charity');
+    }
+
     public function charityTransaction(Request $request)
     {
         $data = $request->all();

@@ -18,19 +18,19 @@
                 </defs>
             </svg>
         </a>
-        <span class="add-expenses-title">Thêm chi tiêu</span>
+        <span class="add-expenses-title">Cập nhật thu nhập</span>
         <span></span>
     </div>
     <form action="{{ route('transaction.update-expense-action',$expense->id) }}" method="post" class="p-3">
         @csrf
         <div class="add-expenses">
 
-            <!-- Input số tiền chi tiêu -->
+            <!-- Input số tiền thu nhập  -->
             <div class="add-expenses-sub">
-                <label for="charge">Số tiền chi tiêu</label>
+                <label for="charge">Số tiền thu nhập</label>
                 <input type="number" name="charge" class="input-expenses" 
                     placeholder="Nhập số tiền" required 
-                    value="{{ old('charge', $expense->charge) }}">
+                    value="{{ old('charge', $income->charge) }}">
             </div>
 
             <!-- Loại chi tiêu -->
@@ -41,22 +41,22 @@
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
                     type="text" id="selectedType" class="text-white mb-3" 
                     placeholder="Loại đã chọn" readonly 
-                    value="{{ old('selectedType', $expense->expenseType->name ?? '') }}">
-                <input type="hidden" id="m_expense_id" name="m_expense_id" value="{{ old('m_expense_id', $expense->m_expense_id) }}">
+                    value="{{ old('m_income_id', $income->m_income_id ?? '') }}">
+                <input type="hidden" id="m_income_id" name="m_income_id" value="{{ old('m_income_id', $income->m_income_id) }}">
             </div>
 
             <!-- Thời gian -->
             <div class="add-expenses-sub">
                 <label for="time">Thời gian</label>
                 <input type="datetime-local" class="input-expenses" name="time" required 
-                    value="{{ old('time', $expense->time ? $expense->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
+                    value="{{ old('time', $expense->time ? $income->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
             </div>
 
             <!-- Mô tả -->
             <div class="add-expenses-sub">
                 <label for="description">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                        class="text-white" name="name" placeholder="Mô tả" required>{{ old('description', $expense->name) }}</textarea>
+                        class="text-white" name="name" placeholder="Mô tả" required>{{ old('name', $income->name) }}</textarea>
             </div>
 
         </div>

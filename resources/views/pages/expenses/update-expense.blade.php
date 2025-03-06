@@ -18,7 +18,7 @@
                 </defs>
             </svg>
         </a>
-        <span class="add-expenses-title">Thêm chi tiêu</span>
+        <span class="add-expenses-title">Cập nhật chi tiêu</span>
         <span></span>
     </div>
     <form action="{{ route('transaction.update-expense-action', $expense->id) }}" method="post" class="p-3">
@@ -42,7 +42,7 @@
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
                     type="text" id="selectedType" class="text-white mb-3" 
                     placeholder="Loại đã chọn" readonly 
-                    value="{{ old('selectedType', $expense->expenseType->name ?? '') }}">
+                    value="{{ old('m_expense_id', $expense->m_expense_id ?? '') }}">
                 <input type="hidden" id="m_expense_id" name="m_expense_id" value="{{ old('m_expense_id', $expense->m_expense_id) }}">
             </div>
 
@@ -57,7 +57,7 @@
             <div class="add-expenses-sub">
                 <label for="description">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                        class="text-white" name="name" placeholder="Mô tả" required>{{ old('description', $expense->name) }}</textarea>
+                        class="text-white" name="name" placeholder="Mô tả" required>{{ old('name', $expense->name) }}</textarea>
             </div>
 
         </div>

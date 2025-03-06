@@ -15,6 +15,11 @@
             <span class="">300.000</span>
         </div>
     </div> -->
+@if(session('success'))
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+    {{ session('success') }}
+</div>
+@endif
 <div class="home-header">
     <span class="home-title">Trang chủ</span>
 </div>
@@ -60,13 +65,13 @@
                 <span class="dollar text-green-400">{{ number_format($item->charge, 2) }}</span>
             </div>
             @empty
-                <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">No data</p>
             @endforelse
         </div>
     </div>
 
     <div id="expense" class="tab-content">
-    <div class="items">
+        <div class="items">
             @forelse($dataExpenses as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
@@ -85,7 +90,7 @@
                 </div>
             </div>
             @empty
-                <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">No data</p>
             @endforelse
         </div>
     </div>
@@ -130,4 +135,8 @@
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
+
+    setTimeout(() => {
+        document.getElementById('toast-message').style.display = 'none';
+    }, 3000);
 </script>
