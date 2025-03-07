@@ -34,34 +34,37 @@
             <label class="block mb-2">Lọc theo ngày:</label>
             <input type="date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
 
-            <label class="block mt-3 mb-2">Số tiền tối thiểu:</label>
-            <input type="number" name="min_amount" value="{{ request('min_amount') }}" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Nhập số tiền">
-
-            <label class="block mt-3 mb-2">Số tiền tối đa:</label>
-            <input type="number" name="max_amount" value="{{ request('max_amount') }}" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Nhập số tiền">
-
             <button type="submit" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded">Áp dụng</button>
         </div>
     </form>
-
     </div>
+    @php
+        use Carbon\Carbon;
+        $previousDate = null;
+    @endphp
+
     <div class="list-search mb-20">
-    @foreach ($groupedTransactions as $date => $transactions)
-        <h2 class="text-white font-bold pl-3">{{ $date }}</h2> <!-- Hiển thị ngày giao dịch -->
-        
-        @foreach ($transactions as $transaction)
+        @foreach ($data as $transaction)
+            @php
+                $currentDate = Carbon::parse($transaction->created_at)->format('Y-m-d');
+            @endphp
+
+            @if ($currentDate !== $previousDate)
+                <h2 class="text-white font-bold pl-3">{{ $currentDate }}</h2>
+                @php $previousDate = $currentDate; @endphp
+            @endif
+
             <div class="items">
                 <div class="items-sub">
                     <div class="flex items-center gap-2">
                         <img src="{{ asset('svg/logo.svg') }}" alt="">
-                        <span class="text-white">{{ $transaction['name'] }}</span>
+                        <span class="text-white">{{ $transaction->name }}</span>
                     </div>
-                    <span class="dollar text-white">${{ $transaction['amount'] }}</span>
+                    <span class="dollar text-white">${{ number_format($transaction->charge, 2) }}</span>
                 </div>
             </div>
         @endforeach
-    @endforeach
-</div>
+    </div>
 @endsection
 
 <script>

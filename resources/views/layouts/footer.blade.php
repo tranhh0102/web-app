@@ -33,7 +33,7 @@
     </a>
 
     <!--Charity-->
-    <a href="{{route('stastic')}}" class="nav-button">
+    <a href="{{route('list-charity')}}" class="nav-button">
         <img src="{{asset('svg/charity.svg')}}" alt="">
         <p class="name-button">Cộng đồng</p>
     </a>

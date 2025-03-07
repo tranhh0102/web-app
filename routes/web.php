@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
         });
     });
     Route::prefix('/transactions')->group(function() {
+        //list charity
+        Route::get('/list-charity', [TransactionController::class, 'listCharity'])->name('list-charity');
+
         //get add expense and income
         Route::get('/add-expense', [TransactionController::class, 'addExpenses'])->name('transaction.add-expense');
         Route::get('/add-income', [TransactionController::class, 'addIncome'])->name('transaction.add-income');

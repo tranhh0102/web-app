@@ -22,9 +22,10 @@ class HomeController extends Controller
         $search = $request->input('search');
         $date = $request->input('date'); // Lấy ngày từ request
 
-        $dataExpenses = Expense::where('user_id',$userId)->get();
-        $dataIncomes = Income::where('user_id',$userId)->get();
+        $dataExpenses = Expense::where('user_id', $userId)->get();
+        $dataIncomes = Income::where('user_id', $userId)->get();
 
-        return view('pages.home-search');
+        $data = $dataExpenses->merge($dataIncomes);
+        return view('pages.home-search',compact('data'));
     }
 }

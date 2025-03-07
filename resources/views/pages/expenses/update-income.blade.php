@@ -21,7 +21,7 @@
         <span class="add-expenses-title">Cập nhật thu nhập</span>
         <span></span>
     </div>
-    <form action="{{ route('transaction.update-expense-action',$expense->id) }}" method="post" class="p-3">
+    <form action="{{ route('transaction.update-income-action',$income->id) }}" method="post" class="p-3">
         @csrf
         <div class="add-expenses">
 
@@ -49,7 +49,7 @@
             <div class="add-expenses-sub">
                 <label for="time">Thời gian</label>
                 <input type="datetime-local" class="input-expenses" name="time" required 
-                    value="{{ old('time', $expense->time ? $income->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
+                    value="{{ old('time', $income->time ? $income->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
             </div>
 
             <!-- Mô tả -->

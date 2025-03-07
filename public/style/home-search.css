@@ -16,29 +16,28 @@ input:focus {
 
 .items {
     display: grid;
-    gap: 8px;
-    padding: 16px;
-  }
-  .items-sub {
-    padding: 16px;
-    display: flex;
-    height: 64px;
-    border-radius: 16px;
-    background: #353542;
-    align-items: center;
-    border-radius: 16px;
-    backdrop-filter: blur(5px);
-    border: 1px solid #f3f3f8;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .filter-box {
-    position: absolute;
-    top: 48px;
-    right: 0;
     padding: 12px;
-    border-radius: 12px;
-    width: 50%;
-    z-index: 1;
-    color: white;
-  }
+}
+.items-sub {
+  padding: 16px;
+  display: flex;
+  height: 64px;
+  border-radius: 16px;
+  background: #353542;
+  align-items: center;
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  border: 1px solid #f3f3f8;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter-box {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  padding: 12px;
+  border-radius: 12px;
+  width: 50%;
+  z-index: 1;
+  color: white;
+}

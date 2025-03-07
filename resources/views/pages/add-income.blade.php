@@ -19,7 +19,7 @@
             <!--Input expenses-->
             <div class="add-expenses-sub" >
                 <label for="charge">Số tiền thu nhap</label>
-                <input type="number" class="input-expenses" placeholder="Nhập danh thu nhap" required>
+                <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh thu nhap" required>
             </div>
 
             <!--Type expenses-->
@@ -32,17 +32,11 @@
                 <input type="hidden" id="m_income_id" name="m_income_id">
             </div>
 
-            <!--Time expenses-->
-            <div class="add-expenses-sub">
-                <label for="charge">Thời gian</label>
-                <input type="datetime-local" class="input-expenses" placeholder="Nhập thời gian" required>
-            </div>
-
             <!--Description expenses-->
             <div class="add-expenses-sub">
                 <label for="charge">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                class="text-white" placeholder="Mô tả" required></textarea>
+                class="text-white" name="name" placeholder="Mô tả" required></textarea>
             </div>
 
         </div>
@@ -83,7 +77,7 @@
         const closeModal = document.getElementById("closeModal");
         const selectedTypeInput = document.getElementById("selectedType");
         const modalItems = document.querySelectorAll(".modal-item");
-        const expenseIdInput = document.getElementById("m_income_id");
+        const incomeIdInput = document.getElementById("m_income_id");
 
         openModal.addEventListener("click", function () {
             modalOverlay.style.display = "block";
@@ -95,7 +89,7 @@
                 const selectedId = this.getAttribute("data-value");
                 const selectedName = this.getAttribute("data-name"); 
 
-                expenseIdInput.value = selectedId;
+                incomeIdInput.value = selectedId;
                 selectedTypeInput.value = selectedName; 
                 closeModalFunc();
             });

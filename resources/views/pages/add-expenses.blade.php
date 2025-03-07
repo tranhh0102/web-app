@@ -31,13 +31,7 @@
                 type="text" id="selectedType" class="text-white mb-3" placeholder="Loại đã chọn" readonly>
                 <input type="hidden" id="m_expense_id" name="m_expense_id">
             </div>
-
-            <!--Time expenses-->
-            <div class="add-expenses-sub">
-                <label for="charge">Thời gian</label>
-                <input type="datetime-local" class="input-expenses" placeholder="Nhập thời gian" required>
-            </div>
-
+            
             <!--Description expenses-->
             <div class="add-expenses-sub">
                 <label for="charge">Mô tả</label>

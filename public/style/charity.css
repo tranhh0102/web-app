@@ -1,0 +1,64 @@
+.list-charity-header {
+    color: #a2a2b5;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.banner-container {
+    background: white;
+}
+.banner {
+    object-fit: contain;
+    width: 100%;
+    padding: 12px;
+}
+
+.archive {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 12px 12px 12px 12px;
+    margin: 0 12px 0px 12px;
+    border-radius: 12px;
+}
+
+.archive span {
+    font-size: 18.545px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24.727px;
+}
+
+.title-header{
+    color: var(--Greyscale-Grey-50, #666680);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; 
+    letter-spacing: 0.2px;
+    padding: 12px;
+}
+
+.items {
+    display: grid;
+    padding: 12px;
+}
+.items-sub {
+padding: 12px;
+display: flex;
+height: 64px;
+border-radius: 12px;
+background: #353542;
+align-items: center;
+backdrop-filter: blur(5px);
+border: 1px solid #f3f3f8;
+justify-content: space-between;
+align-items: center;
+}

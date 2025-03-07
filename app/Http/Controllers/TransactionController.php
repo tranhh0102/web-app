@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Income;
 use App\Services\CharityTransactionsService;
@@ -208,9 +209,16 @@ class TransactionController extends Controller
         return view('pages.charity.add-charity');
     }
 
+    public function listCharity()
+    {
+        $data = CharityTransaction::all();
+        $totalCharge = $data->sum('charge');
+        return view('pages.charity.list-charity',compact('data','totalCharge'));
+    }
+
     public function charityTransaction(Request $request)
     {
-        $data = $request->all();
+        $data = $request->only('charge','name');
         $data['user_id'] = Auth::user()->id;
         if ($this->charityTransactionsService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
