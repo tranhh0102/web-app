@@ -9,11 +9,11 @@
         <a href="{{route('home')}}" class="icons-back">
             <img src="{{asset('svg/arrow-back.svg')}}" alt="">
         </a>
-        <h2 class="add-category-header">Danh mục chi tiêu</h2>
+        <h2 class="add-category-header">Danh mục thu nhập</h2>
         <span></span>
     </div>
     <div class="container-add-category">
-        <form method="post" action="">
+        <form method="post" action="{{mincome.insert}}">
             @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục thu nhập : </label>
@@ -42,3 +42,9 @@
         @endforelse
     </div>
 @endsection
+
+<script>
+    setTimeout(() => {
+        document.getElementById('toast-message').style.display = 'none';
+    }, 3000);
+</script>

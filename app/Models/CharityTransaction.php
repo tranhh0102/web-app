@@ -10,4 +10,6 @@ class CharityTransaction extends Model
     use HasFactory;
 
     protected $table = 'charity_transactions';
+
+    protected $fillable = ['charge','name','user_id'];
 }

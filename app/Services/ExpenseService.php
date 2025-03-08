@@ -11,13 +11,13 @@ class ExpenseService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return Expense::insert($requestData);
+        return Expense::create($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {
         $expense = Expense::where($conditions)->firstOrFail();
 
-        return $expense->save($requestData);
+        return $expense->update($requestData);
     }
     public function delete($conditions = [])
     {

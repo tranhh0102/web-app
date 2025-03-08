@@ -11,7 +11,7 @@ class MIncomeService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return MIncome::insert($requestData);
+        return MIncome::create($requestData);
         
     }
     public function update($conditions = [], $requestData = [])

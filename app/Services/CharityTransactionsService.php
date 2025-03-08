@@ -11,7 +11,7 @@ class CharityTransactionsService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return CharityTransaction::insert($requestData);
+        return CharityTransaction::create($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {

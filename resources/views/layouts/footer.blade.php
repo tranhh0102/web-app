@@ -18,7 +18,10 @@
                 <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
             </a>
             <a href="{{route('transaction.add-income')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/income.png')}}" alt="">
+            </a>
+            <a href="{{route('transaction.add-charity')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/charity.png')}}" alt="">
             </a>
         </div>
     </div>
@@ -30,7 +33,7 @@
     </a>
 
     <!--Charity-->
-    <a href="{{route('stastic')}}" class="nav-button">
+    <a href="{{route('list-charity')}}" class="nav-button">
         <img src="{{asset('svg/charity.svg')}}" alt="">
         <p class="name-button">Cộng đồng</p>
     </a>

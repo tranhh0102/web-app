@@ -11,13 +11,13 @@ class IncomeService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return Income::insert($requestData);
+        return Income::create($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {
         $income = Income::where($conditions)->firstOrFail();
 
-        return $income->save($requestData);
+        return $income->update($requestData);
     }
     public function delete($conditions = [])
     {

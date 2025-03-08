@@ -11,7 +11,7 @@ class MExpenseService implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return MExpense::insert($requestData);
+        return MExpense::create($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {

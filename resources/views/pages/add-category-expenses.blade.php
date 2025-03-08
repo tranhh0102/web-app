@@ -18,7 +18,7 @@
         <span></span>
     </div>
     <div class="container-add-category">
-        <form method="post" action="{{route('add-category-expenses')}}">
+        <form method="post" action="{{route('mexpense.insert')}}">
             @csrf
             <div class="input-group mb-3">
                 <label for="name-category" class="label-category">Tên danh mục chi tiêu : </label>

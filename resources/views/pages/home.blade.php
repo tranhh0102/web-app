@@ -15,6 +15,11 @@
             <span class="">300.000</span>
         </div>
     </div> -->
+@if(session('success'))
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+    {{ session('success') }}
+</div>
+@endif
 <div class="home-header">
     <span class="home-title">Trang chủ</span>
 </div>
@@ -54,13 +59,22 @@
             @forelse($dataIncomes as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
-                    <img style="width: 32px; height: 32px;" src="{{asset('png/salary.png')}}" alt="">
-                    <span class="text-white">{{$item->name}}</span>
+                    <div>
+                        <img style="width: 32px; height: 32px;" src="{{asset('png/income.png')}}" alt="">
+                    </div>
+                    <div class="grid gap-1">
+                        <span class="text-white">{{$item->name}}</span>
+                        <span class="dollar text-green-400">{{ number_format($item->charge) }}</span>
+                    </div>
                 </div>
-                <span class="dollar text-green-400">{{ number_format($item->charge, 2) }}</span>
+                <div>
+                    <a href="{{route('transaction.update-income', ['id' => $item->id])}}">
+                        <img src="{{asset('svg/arrow.svg')}}" alt="">
+                    </a>
+                </div>
             </div>
             @empty
-                <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">No data</p>
             @endforelse
         </div>
     </div>
@@ -70,13 +84,22 @@
             @forelse($dataExpenses as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
-                    <span class="text-white">{{$item->name}}</span>
+                    <div>
+                        <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
+                    </div>
+                    <div class="grid gap-1">
+                        <span class="text-white">{{$item->name}}</span>
+                        <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                    </div>
                 </div>
-                <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                <div>
+                    <a href="{{route('transaction.update-expense', ['id' => $item->id])}}">
+                        <img src="{{asset('svg/arrow.svg')}}" alt="">
+                    </a>
+                </div>
             </div>
             @empty
-                <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">No data</p>
             @endforelse
         </div>
     </div>
@@ -121,4 +144,8 @@
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
+
+    setTimeout(() => {
+        document.getElementById('toast-message').style.display = 'none';
+    }, 3000);
 </script>
