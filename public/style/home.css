@@ -66,10 +66,10 @@
     backdrop-filter: blur(5px);
   }
   .active-subs-title {
+    width: fit-content;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    width: 68px;
     height: 16px;
     margin: 15px 0 0 18px;
     color: white;
