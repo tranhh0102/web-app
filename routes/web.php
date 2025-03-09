@@ -49,17 +49,23 @@ Route::middleware('auth')->group(function () {
             Route::post('/insert', [MasterExpenseController::class, 'insert'])->name('mexpense.insert');
         });
     });
+    
     Route::prefix('/transactions')->group(function() {
         //list charity
         Route::get('/list-charity', [TransactionController::class, 'listCharity'])->name('list-charity');
         Route::get('/list-goal', [TransactionController::class, 'listGoal'])->name('list-goal');
+        Route::get('/add-charity', [TransactionController::class, 'addCharity'])->name('transaction.add-charity');
+
+        //get add goal transactions
         Route::get('/add-goal-transaction/{id}', [TransactionController::class, 'addGoalTransaction'])->name('add-goal-transaction');
+        Route::post('/goals/{id}', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');
+        Route::post('/create-goals', [TransactionController::class, 'createGoal'])->name('transaction.create-goal');
+        Route::get('/add-goal', [TransactionController::class, 'addGoal'])->name('transaction.add-goal');
 
         //get add expense and income
         Route::get('/add-expense', [TransactionController::class, 'addExpenses'])->name('transaction.add-expense');
         Route::get('/add-income', [TransactionController::class, 'addIncome'])->name('transaction.add-income');
-        Route::get('/add-charity', [TransactionController::class, 'addCharity'])->name('transaction.add-charity');
-        Route::get('/add-goal', [TransactionController::class, 'addGoal'])->name('transaction.add-goal');
+        
         //update expense and income
         Route::get('/update-expense/{id}', [TransactionController::class, 'getUpdateExpense'])->name('transaction.update-expense');
         Route::get('/update-income/{id}', [TransactionController::class, 'getUpdateIncome'])->name('transaction.update-income');
@@ -69,8 +75,6 @@ Route::middleware('auth')->group(function () {
         //add expense and income
         Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
         Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');
-        Route::post('/goals/{id}', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');
-        Route::post('/create-goals', [TransactionController::class, 'createGoal'])->name('transaction.create-goal');
         Route::post('/charity', [TransactionController::class, 'charityTransaction'])->name('transaction.charity');
     });
     Route::get('/statistic', [MasterExpenseController::class, 'index'])->name('statistic.index');

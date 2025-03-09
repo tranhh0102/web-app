@@ -39,7 +39,7 @@
     </div>
 
     <!--List charity-->
-    <div class="list-search mb-20">
+    <div class="list-search mb-20 grid p-3">
         @foreach ($data as $transactions)
             <div class="items">
                 <div class="items-sub">

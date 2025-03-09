@@ -204,7 +204,7 @@ class TransactionController extends Controller
 
     public function listGoal()
     {
-        $data = Goal::all();
+        $data = Goal::with('goalTransactions')->get();
         return view('pages.goal.list-goal',compact('data'));
     }
 
@@ -216,8 +216,9 @@ class TransactionController extends Controller
 
     public function goalTransaction(Request $request,$id)
     {
-        $data = $request->all();
+        $data = $request->only('charge');
         $data['user_id'] = Auth::user()->id;
+        $data['m_saving_id'] = $id;
         if ($this->goldTransactionsService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
         }
@@ -227,7 +228,6 @@ class TransactionController extends Controller
 
     public function createGoal(Request $request)
     {
-        dd($request->all());
         $data = $request->only('charge','name','due_date');
         $data['user_id'] = Auth::user()->id;
         if ($this->goalService->insert($data)) {
