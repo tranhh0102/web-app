@@ -11,7 +11,7 @@ class GoldTransactionsService  implements BaseServiceInterface {
     }
     public function insert($requestData = [])
     {
-        return GoalTransaction::insert($requestData);
+        return GoalTransaction::create($requestData);
     }
     public function update($conditions = [], $requestData = [])
     {

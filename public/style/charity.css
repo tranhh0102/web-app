@@ -48,12 +48,12 @@
 
 .items {
     display: grid;
-    padding: 12px;
+    gap: 12px;
 }
 .items-sub {
 padding: 12px;
 display: flex;
-height: 64px;
+height: fit-content;
 border-radius: 12px;
 background: #353542;
 align-items: center;

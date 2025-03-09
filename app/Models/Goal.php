@@ -17,4 +17,9 @@ class Goal extends Model
         'name', 
         'due_date'
     ];
+
+    public function goalTransactions()
+    {
+        return $this->hasMany(GoalTransaction::class, 'm_saving_id', 'id');
+    }
 }
