@@ -3,15 +3,34 @@
 namespace App\Services;
 
 use App\Models\Expense;
+use App\Models\Statistic;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ExpenseService implements BaseServiceInterface {
+    protected $statisticService;
+    public function __construct(
+        StatisticService $statisticService
+    ) {
+        $this->statisticService = $statisticService;
+    }
     public function get($conditions = [])
     {
         return Expense::all();
     }
     public function insert($requestData = [])
     {
-        return Expense::create($requestData);
+        try {
+            DB::beginTransaction();
+            Expense::create($requestData);
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_EXPENSE, $requestData);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            dd($e);
+            DB::rollBack();
+            return false;
+        }
     }
     public function update($conditions = [], $requestData = [])
     {

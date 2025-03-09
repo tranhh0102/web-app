@@ -10,4 +10,9 @@ class MIncome extends Model
     use HasFactory;
 
     protected $table = 'm_income';
+
+    protected $fillable = [
+        'name',
+        'user_id'
+    ];
 }

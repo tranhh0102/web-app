@@ -43,7 +43,7 @@
 
         <!-- Submit Button -->
         <div class="add-expenses-sub text-center mt-4">
-            <button type="submit" class="button-add-expenses">Lưu chi tiêu</button>
+            <button type="submit" class="button-add-expenses">Lưu thu nhập</button>
         </div>
     </form>
 
