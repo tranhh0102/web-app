@@ -10,4 +10,11 @@ class Goal extends Model
     use HasFactory;
 
     protected $table = 'goals';
+
+    protected $fillable = [
+        'user_id',
+        'charge',
+        'name', 
+        'due_date'
+    ];
 }

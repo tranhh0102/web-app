@@ -23,8 +23,8 @@
 
             <!--Input-->
             <div class="add-expenses-sub" >
-                <label for="charge">Số tiền ung ho</label>
-                <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh ung ho" required>
+                <label for="charge">Số tiền ủng hộ</label>
+                <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh ủng hộ" required>
             </div>
 
             <!--Description-->

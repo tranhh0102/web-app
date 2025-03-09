@@ -27,21 +27,21 @@
     <div class="grid gap-3 w-full">
         <div class="active-subs">
             <span class="active-subs-title">Thu nhập</span>
-            <span class="receive">$19.99</span>
+            <span class="receive">{{$totalIncomes}}</span>
         </div>
         <div class="active-subs">
             <span class="active-subs-title">Chi tiêu</span>
-            <span class="cost">$19.99</span>
+            <span class="cost">{{$totalExpenses}}</span>
         </div>
     </div>
     <div class="grid gap-3 w-full">
         <div class="active-subs">
-            <span class="active-subs-title">Thu nhập</span>
-            <span class="receive">$19.99</span>
+            <span class="active-subs-title">Những đóng góp của bạn</span>
+            <span class="receive">{{$totalCharity}}</span>
         </div>
         <div class="active-subs">
-            <span class="active-subs-title">Chi tiêu</span>
-            <span class="cost">$19.99</span>
+            <span class="active-subs-title">Những mục tiêu của bạn</span>
+            <span class="cost">{{$totalGoal}}</span>
         </div>
     </div>
 </div>

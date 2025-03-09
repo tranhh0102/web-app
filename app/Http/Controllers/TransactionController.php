@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CharityTransaction;
 use App\Models\Expense;
+use App\Models\Goal;
 use App\Models\Income;
 use App\Services\CharityTransactionsService;
 use App\Services\ExpenseService;
@@ -43,6 +44,7 @@ class TransactionController extends Controller
         $this->mIncomeService = $mIncomeService;
     }
 
+    //expense
     public function addExpenses()
     {
         $authUser = Auth::user();
@@ -107,6 +109,7 @@ class TransactionController extends Controller
         return redirect()->route('home')->withSuccess('Update successfully');
     }
 
+    //income
     public function addIncome()
     {
         $authUser = Auth::user();
@@ -193,7 +196,25 @@ class TransactionController extends Controller
         return redirect()->route('home')->withErrors(['Insert failed']);
     }
 
-    public function goalTransaction(Request $request)
+    //goal
+    public function addGoal()
+    {
+        return view('pages.goal.add-goal');
+    }
+
+    public function listGoal()
+    {
+        $data = Goal::all();
+        return view('pages.goal.list-goal',compact('data'));
+    }
+
+    public function addGoalTransaction($id)
+    {
+        $goal = Goal::find($id);
+        return view('pages.goal.add-goal-transaction',compact('goal'));
+    }
+
+    public function goalTransaction(Request $request,$id)
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
@@ -204,6 +225,19 @@ class TransactionController extends Controller
         return redirect()->route('home')->withErrors(['Insert failed']);
     }
 
+    public function createGoal(Request $request)
+    {
+        dd($request->all());
+        $data = $request->only('charge','name','due_date');
+        $data['user_id'] = Auth::user()->id;
+        if ($this->goalService->insert($data)) {
+            return redirect()->route('home')->withSuccess('Insert successfully');
+        }
+
+        return redirect()->route('home')->withErrors(['Insert failed']);
+    }
+
+    //charity
     public function addCharity()
     {
         return view('pages.charity.add-charity');
@@ -221,18 +255,6 @@ class TransactionController extends Controller
         $data = $request->only('charge','name');
         $data['user_id'] = Auth::user()->id;
         if ($this->charityTransactionsService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
-        }
-
-        return redirect()->route('home')->withErrors(['Insert failed']);
-    }
-    
-    public function createGoal(Request $request)
-    {
-        
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-        if ($this->goalService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
         }
 

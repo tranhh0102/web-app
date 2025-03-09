@@ -23,11 +23,14 @@
             <a href="{{route('transaction.add-charity')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('png/charity.png')}}" alt="">
             </a>
+            <a href="{{route('transaction.add-goal')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('png/goal.png')}}" alt="">
+            </a>
         </div>
     </div>
 
     <!--Goal-->
-    <a href="{{route('stastic')}}" class="nav-button">
+    <a href="{{route('list-goal')}}" class="nav-button">
         <img src="{{asset('svg/goal.svg')}}" alt="">
         <p class="name-button">Mục tiêu</p>
     </a>
