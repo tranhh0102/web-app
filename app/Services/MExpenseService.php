@@ -9,6 +9,12 @@ class MExpenseService implements BaseServiceInterface {
     {
         return MExpense::all();
     }
+
+    public function insertMany($requestData = [])
+    {
+        return MExpense::insert($requestData);
+    }
+
     public function insert($requestData = [])
     {
         return MExpense::create($requestData);

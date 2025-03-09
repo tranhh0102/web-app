@@ -23,7 +23,6 @@ class MasterExpenseController extends Controller
         $result = $this->mExpenseService->get([
             'user_id' => $userId
         ])->toArray();
-        
         if (count($result) <= 0) {
             $listMIncome = config('default_master_data.m_expense');
             $insertData = [];
@@ -33,8 +32,10 @@ class MasterExpenseController extends Controller
                     'user_id' => $userId
                 ];
             }
-            if ($this->mExpenseService->insert($insertData)) {
-                $result = $insertData;
+            if ($this->mExpenseService->insertMany($insertData)) {
+                $result = $this->mExpenseService->get([
+                    'user_id' => $userId
+                ])->toArray();
             }
         }
 
@@ -48,10 +49,10 @@ class MasterExpenseController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         if ($this->mExpenseService->insert($data)) {
-            return redirect()->route('mincome.index')->withSuccess('Insert successfully');
+            return redirect()->route('mexpense.index')->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('mincome.index')->withErrors(['Insert failed']);
+        return redirect()->route('mexpense.index')->withErrors(['Insert failed']);
     }
 
     public function delete($id)
@@ -60,9 +61,9 @@ class MasterExpenseController extends Controller
             'id' => $id
         ];
         if ($this->mExpenseService->delete($conditions)) {
-            return redirect()->route('mincome.index')->withSuccess('Remove successfully');
+            return redirect()->route('mexpense.index')->withSuccess('Remove successfully');
         }
 
-        return redirect()->route('mincome.index')->withErrors(['Remove failed']);
+        return redirect()->route('mexpense.index')->withErrors(['Remove failed']);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\MExpense;
 use App\Models\MIncome;
 use App\Models\Statistic;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class StatisticService {
@@ -24,14 +25,23 @@ class StatisticService {
 
     private function generateStatistic($type, $data)
     {
-        $data = [
+        $conditions = [
             'user_id' => Auth::user()->id,
-            'month' => $data['month'],
-            'year' => $data['year']
+            'month' => $data['month'] ?? Carbon::now()->format('m'),
+            'year' => $data['year'] ?? Carbon::now()->format('Y')
         ];
         
-        $statistic = Statistic::where($data)->first();
+        $statistic = Statistic::where($conditions)->first();
         $currentData = [];
+        $data = [
+            'user_id' => Auth::user()->id,
+            'month' => $data['month'] ?? Carbon::now()->format('m'),
+            'year' => $data['year'] ?? Carbon::now()->format('Y'),
+            'old_income_info' => null,
+            'old_expense_info' => null,
+            'charge' => $data['charge'] ?? 0
+        ];
+        
         if ($statistic) {
             $data['old_income_info'] = $statistic['income_info'];
             $data['old_expense_info'] = $statistic['expense_info'];
@@ -52,6 +62,24 @@ class StatisticService {
             $data['expense'] = ($currentData['expense'] ?? 0) + $data['charge'];
         }
 
+        $fieldList = [
+            'user_id',
+            'income',
+            'goal',
+            'expense',
+            'charity',
+            'income_info',
+            'expense_info',
+            'month',
+            'year'
+        ];
+
+        foreach ($data as $key => $value) {
+            if (!in_array($key, $fieldList)) {
+                unset($data[$key]);
+            }
+        }
+
         return [
             'data' => $data,
             'updated_id' => $statistic ? $statistic->id : null
@@ -60,7 +88,7 @@ class StatisticService {
 
     private function generateExpenseInfo($data)
     {
-        $result = json_decode($data['old_expense_info'], true);
+        $result = $data['old_expense_info'] ? json_decode($data['old_expense_info'], true) : [];
 
         $authUser = Auth::user();
         $userId = $authUser->id;
@@ -70,9 +98,11 @@ class StatisticService {
         ])->get();
         
         foreach ($mExpsenses as $mExpsense) {
-            if ($result['m_expense_id'] == $mExpsense->id) {
+            if (isset($result['m_expense_id']) && $result['m_expense_id'] == $mExpsense->id) {
                 $result[$mExpsense->id] = ($oldExpenseInfo[$mExpsense->id] ?? 0) + $data['charge'];
                 break;
+            } else {
+                $result[$mExpsense->id] = $data['charge'];
             }
         }
 
@@ -81,19 +111,19 @@ class StatisticService {
 
     private function generateIncomeInfo($data)
     {
-        $result = json_decode($data['old_income_info'], true);
-
+        $result = $data['old_income_info'] ? json_decode($data['old_income_info'], true) : [];
         $authUser = Auth::user();
         $userId = $authUser->id;
 
         $mIncomes = MIncome::where([
             'user_id' => $userId
         ])->get();
-        
-        foreach ($mIncomes as $mInome) {
-            if ($result['m_income_id'] == $mInome->id) {
-                $result[$mInome->id] = ($oldExpenseInfo[$mInome->id] ?? 0) + $data['charge'];
+        foreach ($mIncomes as $mIncome) {
+            if (isset($result['m_income_id']) && $result['m_income_id'] == $mIncome->id) {
+                $result[$mIncome->id] = ($oldExpenseInfo[$mIncome->id] ?? 0) + $data['charge'];
                 break;
+            } else {
+                $result[$mIncome->id] = $data['charge'];
             }
         }
 

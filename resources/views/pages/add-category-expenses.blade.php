@@ -34,7 +34,7 @@
                 <span class="name-spending">
                     {{$item['name']}}
                 </span>
-                <form action="{{ route('mincome.delete', $item['id']) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                <form action="{{ route('mexpense.delete', $item['id']) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" style="border: none; background: none; cursor: pointer;">

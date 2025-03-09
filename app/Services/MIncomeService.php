@@ -9,10 +9,15 @@ class MIncomeService implements BaseServiceInterface {
     {
         return MIncome::all();
     }
+
+    public function insertMany($requestData = [])
+    {
+        return MIncome::insert($requestData);
+    }
+
     public function insert($requestData = [])
     {
         return MIncome::create($requestData);
-        
     }
     public function update($conditions = [], $requestData = [])
     {

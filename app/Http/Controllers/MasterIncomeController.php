@@ -33,7 +33,7 @@ class MasterIncomeController extends Controller
                     'user_id' => $userId
                 ];
             }
-            if ($this->mIncomeService->insert($insertData)) {
+            if ($this->mIncomeService->insertMany($insertData)) {
                 $result = $insertData;
             }
         }

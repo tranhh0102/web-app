@@ -6,6 +6,7 @@ use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
 use App\Models\Income;
+use App\Models\Statistic;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

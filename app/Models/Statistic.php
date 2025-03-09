@@ -15,4 +15,16 @@ class Statistic extends Model
     const TYPE_INCOME = 2;
     const TYPE_GOAL = 3;
     const TYPE_CHARITY = 4;
+
+    protected $fillable = [
+        'user_id',
+        'income',
+        'goal',
+        'expense',
+        'charity',
+        'income_info',
+        'expense_info',
+        'month',
+        'year'
+    ];
 }
