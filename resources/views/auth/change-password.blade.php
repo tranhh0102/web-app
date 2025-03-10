@@ -1,7 +1,19 @@
 @extends('auth.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/auth/change-password.css') }}">
+@endsection
+
 @section('content')
-<form method="POST" action="{{ route('password.update') }}" class="p-3">
+
+<div class="add-expenses-header">
+    <a href="{{route('home')}}" class="icons-back">
+            <img src="{{asset('svg/arrow-back.svg')}}" alt="">
+    </a>
+    <span class="add-expenses-title">Đổi mật khẩu</span>
+    <span></span>
+</div>
+<form method="POST" action="{{ route('password.update') }}">
     @csrf
     @method('PUT')
 

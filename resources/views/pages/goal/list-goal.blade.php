@@ -17,19 +17,7 @@
 
 <!--Banner charity-->
 <div class="banner-container">
-    <img class="banner" src="{{asset('png/Banner.png')}}" alt="">
-    <div class="archive">
-        <div class="grid">
-            <span>
-                Congratulations 🎉
-            </span>
-            <span>
-            </span>
-        </div>
-        <div>
-            <img src="{{asset('svg/medal.svg')}}" alt="">
-        </div>
-    </div>
+    <img class="banner" src="{{asset('png/banner-goal.png')}}" alt="">
 </div>
 
 <!--Title charity-->

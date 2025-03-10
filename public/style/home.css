@@ -111,13 +111,12 @@
   }
   .items {
     display: grid;
-    gap: 8px;
-    padding: 16px;
+    gap: 12px;
   }
   .items-sub {
     padding: 16px;
     display: flex;
-    height: 64px;
+    height: 100%;
     border-radius: 16px;
     background: #353542;
     align-items: center;

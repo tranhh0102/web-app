@@ -49,12 +49,12 @@
 </div>
 
 <style>
-   .floating-container {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    z-index: 999;
-    }
+.floating-container {
+position: fixed;
+bottom: 100px;
+right: 20px;
+z-index: 999;
+}
 
 .add-button {
     width: 40px;
@@ -95,6 +95,10 @@
     padding-bottom: 0;
 }
 
+.action-buttons.active {
+    display: flex;
+}
+
 .action-button {
     width: 50px;
     height: 50px;
@@ -114,12 +118,12 @@
 
     button.addEventListener("click", function (e) {
         e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
-        actionButtons.style.display = actionButtons.style.display === "flex" ? "none" : "flex";
+        actionButtons.classList.toggle("active");
     });
 
     document.addEventListener("click", function (e) {
-        if (!container.contains(e.target)) {
-            actionButtons.style.display = "none";
+        if (!e.target.closest("#floatingContainer")) {
+            actionButtons.classList.remove("active"); // Ẩn menu khi bấm ra ngoài
         }
     });
 });

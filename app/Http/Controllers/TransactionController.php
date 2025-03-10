@@ -220,10 +220,10 @@ class TransactionController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['m_saving_id'] = $id;
         if ($this->goldTransactionsService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
+            return redirect()->route('list-goal')->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('home')->withErrors(['Insert failed']);
+        return redirect()->route('list-goal')->withErrors(['Insert failed']);
     }
 
     public function createGoal(Request $request)
@@ -231,10 +231,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','due_date');
         $data['user_id'] = Auth::user()->id;
         if ($this->goalService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
+            return redirect()->route('list-goal')->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('home')->withErrors(['Insert failed']);
+        return redirect()->route('list-goal')->withErrors(['Insert failed']);
     }
 
     //charity
@@ -255,9 +255,9 @@ class TransactionController extends Controller
         $data = $request->only('charge','name');
         $data['user_id'] = Auth::user()->id;
         if ($this->charityTransactionsService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
+            return redirect()->route('list-charity')->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('home')->withErrors(['Insert failed']);
+        return redirect()->route('list-charity')->withErrors(['Insert failed']);
     }
 }

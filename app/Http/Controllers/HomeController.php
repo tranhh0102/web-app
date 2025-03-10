@@ -15,17 +15,10 @@ class HomeController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
+        $data = Statistic::where('user_id',$userId)->first();
         $dataExpenses = Expense::where('user_id',$userId)->get();
-        $totalExpenses = $dataExpenses->sum('charge');
         $dataIncomes = Income::where('user_id',$userId)->get();
-        $totalIncomes = $dataIncomes->sum('charge');
-        $totalCharity = CharityTransaction::where('user_id',$userId)->sum('charge');
-        $totalGoal = Goal::where('user_id',$userId)->sum('charge');
-        $dataCharity = CharityTransaction::where('user_id',$userId)->get();
-        $dataGoal = GoalTransaction::where('user_id',$userId)->get();
-        
-        return view('pages.home',compact('dataExpenses',
-        'dataIncomes','totalExpenses','totalIncomes','totalCharity','totalGoal','dataCharity','dataGoal'));
+        return view('pages.home',compact('dataExpenses','dataIncomes','data'));
     }
 
     public function listSearch(Request $request)
@@ -60,8 +53,8 @@ class HomeController extends Controller
         $dataIncomes = $dataIncomes->get();
     
         // Gộp danh sách chi tiêu và thu nhập
-        $data = $dataExpenses->merge($dataIncomes);
-    
+        $data = $dataExpenses->concat($dataIncomes);
+        
         return view('pages.home-search', compact('data'));
     }
     

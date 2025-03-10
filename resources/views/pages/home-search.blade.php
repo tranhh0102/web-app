@@ -46,7 +46,7 @@
     <div class="list-search mb-20">
         @foreach ($data as $transaction)
             @php
-                $currentDate = Carbon::parse($transaction->created_at)->format('Y-m-d');
+                $currentDate = Carbon::parse($transaction->date)->format('Y-m-d');
             @endphp
 
             @if ($currentDate !== $previousDate)

@@ -60,7 +60,6 @@
     <!-- Bottom Sheet (Hiện từ dưới lên) -->
     <div id="modalSheet" class="modal-sheet">
         <div class="modal-content">
-            <h3>Chọn loại</h3>
             <ul class="modal-list">
                 @foreach ($result as $category)
                     <li class="modal-item" 

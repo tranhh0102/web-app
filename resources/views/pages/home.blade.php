@@ -21,33 +21,24 @@
                 <img src="{{asset('svg/home/income.svg')}}" alt="">
                 <span class="active-subs-title">Total Incomes</span>
             </div>
-            <span class="receive">{{$totalIncomes}}</span>
+            <span class="receive">{{ number_format($data['income']) }} VNĐ</span>
         </div>
         <div class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/expense.svg')}}" alt="">
                 <span class="active-subs-title">Total Expense</span>
             </div>
-            <span class="cost">{{$totalExpenses}}</span>
+            <span class="cost">{{ number_format($data['expense'])}} VNĐ</span>
         </div>
     </div>
     <div class="flex gap-3 w-full">
         <div class="active-subs">
             <span class="active-subs-title">Your contribution</span>
-            <span class="receive">{{$totalCharity}}</span>
+            <span class="receive">{{ number_format($data['charity'])}} VNĐ</span>
         </div>
         <div class="active-subs">
             <span class="active-subs-title">Your goal</span>
-            <span class="cost">{{$totalGoal}}</span>
-        </div>
-    </div>
-    <div class="flex gap-3 w-full">
-        <div class="active-subs">
-            <div class="flex items-center gap-2">
-                <img src="{{asset('svg/home/card.svg')}}" alt="">
-                <span class="active-subs-title">Avaiable Balance</span>
-            </div>
-            <span class="receive">{{$totalIncomes-$totalExpenses}}</span>
+            <span class="cost">{{ number_format($data['goal'])}} VNĐ</span>
         </div>
     </div>
 </div>
@@ -55,103 +46,24 @@
 <div class="flex-row-b p-3">
     <div class="tabs">
         <div>
-            <button class="tab-button active" onclick="openTab(event, 'income')">Incomes</button>
-            <button class="tab-button" onclick="openTab(event, 'expense')">Expenses</button>
-            <button class="tab-button" onclick="openTab(event, 'charity')">Charities</button>
-            <button class="tab-button" onclick="openTab(event, 'goal')">Golas</button>
-        </div>
-    </div>
-
-    <!--Income-->
-    <div id="income" class="tab-content active">
-        <div class="items">
-            @forelse($dataIncomes as $item)
-            <div class="items-sub">
-                <div class="flex items-center gap-2">
-                    <div>
-                        <img style="width: 32px; height: 32px;" src="{{asset('png/income.png')}}" alt="">
-                    </div>
-                    <div class="grid gap-1">
-                        <span class="text-white">{{$item->name}}</span>
-                        <span class="receive">{{ number_format($item->charge) }}</span>
-                    </div>
-                </div>
-                <div>
-                    <a href="{{route('transaction.update-income', ['id' => $item->id])}}">
-                        <img src="{{asset('svg/arrow.svg')}}" alt="">
-                    </a>
-                </div>
-            </div>
-            @empty
-            <p class="title-header text-center">No data</p>
-            @endforelse
+            <button class="tab-button active" onclick="openTab(event, 'expense')">Expenses</button>
+            <button class="tab-button" onclick="openTab(event, 'income')">Incomes</button>
         </div>
     </div>
 
     <!--Expenses-->
-    <div id="expense" class="tab-content">
+    <div id="expense" class="tab-content active">
         <div class="items">
             @forelse($dataExpenses as $item)
             <div class="items-sub">
                 <div class="flex items-center gap-2">
                     <div>
-                        <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
+                         <img src="{{asset('svg/home/expense.svg')}}" alt="">
                     </div>
                     <div class="grid gap-1">
                         <span class="text-white">{{$item->name}}</span>
-                        <span class="cost">{{ number_format($item->charge) }}</span>
-                    </div>
-                </div>
-                <div>
-                    <a href="{{route('transaction.update-expense', ['id' => $item->id])}}">
-                        <img src="{{asset('svg/arrow.svg')}}" alt="">
-                    </a>
-                </div>
-            </div>
-            @empty
-            <p class="title-header text-center">No data</p>
-            @endforelse
-        </div>
-    </div>
-
-    <!--Charity-->
-    <div id="charity" class="tab-content">
-        <div class="items">
-            @forelse($dataCharity as $item)
-            <div class="items-sub">
-                <div class="flex items-center gap-2">
-                    <div>
-                        <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
-                    </div>
-                    <div class="grid gap-1">
-                        <span class="text-white">{{$item->name}}</span>
-                        <span class="cost">{{ number_format($item->charge) }}</span>
-                    </div>
-                </div>
-                <div>
-                    <a href="{{route('transaction.update-expense', ['id' => $item->id])}}">
-                        <img src="{{asset('svg/arrow.svg')}}" alt="">
-                    </a>
-                </div>
-            </div>
-            @empty
-            <p class="title-header text-center">No data</p>
-            @endforelse
-        </div>
-    </div>
-
-    <!--Goal-->
-    <div id="goal" class="tab-content">
-        <div class="items">
-            @forelse($dataGoal as $item)
-            <div class="items-sub">
-                <div class="flex items-center gap-2">
-                    <div>
-                        <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
-                    </div>
-                    <div class="grid gap-1">
-                        <span class="text-white">{{$item->name}}</span>
-                        <span class="cost">{{ number_format($item->charge) }}</span>
+                        <span class="cost">{{ number_format($item->charge) }} VNĐ</span>
+                        <span class="text-white">{{$item->date}}</span>
                     </div>
                 </div>
                 <div>
@@ -166,6 +78,32 @@
         </div>
     </div>
     
+    <!--Income-->
+    <div id="income" class="tab-content ">
+        <div class="items">
+            @forelse($dataIncomes as $item)
+        <div class="items-sub">
+                <div class="flex items-center gap-2">
+                    <div>
+                        <img src="{{asset('svg/home/income.svg')}}" alt="">
+                    </div>
+                    <div class="grid gap-1">
+                        <span class="text-white">{{$item->name}}</span>
+                        <span class="receive">{{ number_format($item->charge) }} VNĐ</span>
+                        <span class="text-white">{{$item->date}}</span>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{route('transaction.update-income', ['id' => $item->id])}}">
+                        <img src="{{asset('svg/arrow.svg')}}" alt="">
+                    </a>
+                </div>
+            </div>
+            @empty
+            <p class="title-header text-center">No data</p>
+            @endforelse
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -196,6 +134,7 @@
     }
 
     .tab-content {
+        margin-top: 12px;
         display: none;
     }
 
