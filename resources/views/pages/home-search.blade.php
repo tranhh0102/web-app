@@ -55,13 +55,23 @@
             @endif
 
             <div class="items">
+                @if ($transaction['m_income_id'])
                 <div class="items-sub">
                     <div class="flex items-center gap-2">
-                        <img src="{{ asset('png/income.png') }}" alt="income">
+                        <img src="{{ asset('svg/home/income.svg') }}" alt="income">
                         <span class="text-white">{{ $transaction->name }}</span>
                     </div>
-                    <span class="dollar text-white">${{ number_format($transaction->charge, 2) }}</span>
+                    <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
                 </div>
+                @else
+                <div class="items-sub">
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('svg/home/expense.svg') }}" alt="income">
+                        <span class="text-white">{{ $transaction->name }}</span>
+                    </div>
+                    <span class="cost">${{ number_format($transaction->charge, 2) }}</span>
+                </div>
+                @endif
             </div>
         @endforeach
     </div>

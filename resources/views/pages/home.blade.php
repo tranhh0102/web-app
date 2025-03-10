@@ -73,7 +73,7 @@
                     </div>
                     <div class="grid gap-1">
                         <span class="text-white">{{$item->name}}</span>
-                        <span class="dollar text-green-400">{{ number_format($item->charge) }}</span>
+                        <span class="receive">{{ number_format($item->charge) }}</span>
                     </div>
                 </div>
                 <div>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="grid gap-1">
                         <span class="text-white">{{$item->name}}</span>
-                        <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                        <span class="cost">{{ number_format($item->charge) }}</span>
                     </div>
                 </div>
                 <div>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="grid gap-1">
                         <span class="text-white">{{$item->name}}</span>
-                        <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                        <span class="cost">{{ number_format($item->charge) }}</span>
                     </div>
                 </div>
                 <div>
@@ -151,7 +151,7 @@
                     </div>
                     <div class="grid gap-1">
                         <span class="text-white">{{$item->name}}</span>
-                        <span class="dollar text-red-400">{{ number_format($item->charge) }}</span>
+                        <span class="cost">{{ number_format($item->charge) }}</span>
                     </div>
                 </div>
                 <div>
@@ -186,6 +186,9 @@
         color: white;
         border-radius: 12px;
         padding: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
     }
 
     .tab-button.active {
