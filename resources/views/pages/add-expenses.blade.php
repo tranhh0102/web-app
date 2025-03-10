@@ -12,6 +12,7 @@
         <span class="add-expenses-title">Thêm chi tiêu</span>
         <span></span>
     </div>
+    
     <form action="{{route('transaction.expense')}}" method="post" class="p-3">
         @csrf
         <div class="add-expenses">
@@ -30,6 +31,12 @@
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
                 type="text" id="selectedType" class="text-white mb-3" placeholder="Loại đã chọn" readonly>
                 <input type="hidden" id="m_expense_id" name="m_expense_id">
+            </div>
+
+            <!--Time expenses-->
+            <div class="add-expenses-sub">
+                <label for="date">Thời gian</label>
+                <input type="date" name="date" class="input-expenses" required>
             </div>
             
             <!--Description expenses-->

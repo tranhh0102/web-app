@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
+use App\Models\GoalTransaction;
 use App\Models\Income;
 use App\Models\Statistic;
 use Illuminate\Http\Request;
@@ -20,7 +21,11 @@ class HomeController extends Controller
         $totalIncomes = $dataIncomes->sum('charge');
         $totalCharity = CharityTransaction::where('user_id',$userId)->sum('charge');
         $totalGoal = Goal::where('user_id',$userId)->sum('charge');
-        return view('pages.home',compact('dataExpenses','dataIncomes','totalExpenses','totalIncomes','totalCharity','totalGoal'));
+        $dataCharity = CharityTransaction::where('user_id',$userId)->get();
+        $dataGoal = GoalTransaction::where('user_id',$userId)->get();
+        
+        return view('pages.home',compact('dataExpenses',
+        'dataIncomes','totalExpenses','totalIncomes','totalCharity','totalGoal','dataCharity','dataGoal'));
     }
 
     public function listSearch(Request $request)

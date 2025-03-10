@@ -27,16 +27,16 @@ class StatisticService {
     {
         $conditions = [
             'user_id' => Auth::user()->id,
-            'month' => $data['month'] ?? Carbon::now()->format('m'),
-            'year' => $data['year'] ?? Carbon::now()->format('Y')
+            'month' => Carbon::parse($data['date'])->format('m') ?? Carbon::now()->format('m'),
+            'year' => Carbon::parse($data['date'])->format('Y') ?? Carbon::now()->format('Y')
         ];
         
         $statistic = Statistic::where($conditions)->first();
         $currentData = [];
         $data = [
             'user_id' => Auth::user()->id,
-            'month' => $data['month'] ?? Carbon::now()->format('m'),
-            'year' => $data['year'] ?? Carbon::now()->format('Y'),
+            'month' => Carbon::parse($data['date'])->format('m') ?? Carbon::now()->format('m'),
+            'year' => Carbon::parse($data['date'])->format('Y') ?? Carbon::now()->format('Y'),
             'old_income_info' => null,
             'old_expense_info' => null,
             'charge' => $data['charge'] ?? 0

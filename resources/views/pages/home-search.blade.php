@@ -57,7 +57,7 @@
             <div class="items">
                 <div class="items-sub">
                     <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/logo.svg') }}" alt="">
+                        <img src="{{ asset('png/income.png') }}" alt="income">
                         <span class="text-white">{{ $transaction->name }}</span>
                     </div>
                     <span class="dollar text-white">${{ number_format($transaction->charge, 2) }}</span>

@@ -16,13 +16,13 @@
         @csrf
         <div class="add-expenses">
 
-            <!--Input expenses-->
+            <!--Input income-->
             <div class="add-expenses-sub" >
                 <label for="charge">Số tiền thu nhap</label>
                 <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh thu nhap" required>
             </div>
 
-            <!--Type expenses-->
+            <!--Type income-->
             <div class="add-expenses-sub flex" id="openModal">
                 <div class="flex gap-2">
                     <span class="add-expenses-span" >Loại</span>
@@ -32,7 +32,13 @@
                 <input type="hidden" id="m_income_id" name="m_income_id">
             </div>
 
-            <!--Description expenses-->
+            <!--Time income-->
+            <div class="add-expenses-sub">
+                <label for="date">Thời gian</label>
+                <input type="date" name="date" class="input-expenses" required>
+            </div>
+
+            <!--Description income-->
             <div class="add-expenses-sub">
                 <label for="charge">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 

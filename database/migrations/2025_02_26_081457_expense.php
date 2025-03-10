@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('charge')->default(0);
             $table->integer('user_id');
             $table->string('name');
+            $table->date('date');
             $table->integer('m_expense_id')->default(0);
             $table->timestamps();
         });

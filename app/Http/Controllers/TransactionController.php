@@ -176,7 +176,7 @@ class TransactionController extends Controller
 
     public function incomeTransaction(Request $request)
     {
-        $data = $request->only('charge','name','m_income_id');
+        $data = $request->only('charge','name','m_income_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->incomeService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
@@ -187,7 +187,7 @@ class TransactionController extends Controller
 
     public function expenseTransaction(Request $request)
     {
-        $data = $request->only('charge','name','m_expense_id');
+        $data = $request->only('charge','name','m_expense_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->expenseService->insert($data)) {
             return redirect()->route('home')->withSuccess('Insert successfully');
