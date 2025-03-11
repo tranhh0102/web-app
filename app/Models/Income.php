@@ -12,4 +12,9 @@ class Income extends Model
     protected $table = 'income';
 
     protected $fillable = ['name','user_id','charge','m_income_id','date'];
+
+    public function micome()
+    {
+        return $this->belongsTo(MIncome::class, 'm_income_id');
+    }
 }

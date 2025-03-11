@@ -9,7 +9,7 @@
     <a href="{{route('home')}}" class="icons-back">
         <img src="{{asset('svg/arrow-back.svg')}}" alt="">
     </a>
-    <span class="add-expenses-title">Thêm chi tiêu</span>
+    <span class="add-expenses-title">Thêm giao dịch mục tiêu</span>
     <span></span>
 </div>
 <form action="{{route('transaction.goal',['id'=>$goal['id']])}}" method="post" class="p-3">
@@ -18,14 +18,14 @@
 
         <div class="add-expenses-sub">
             <label for="charge">Số tiền </label>
-            <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh số tiền" required>
+            <input type="number" name="charge" class="input-expenses" placeholder="Nhập số tiền" required>
         </div>
 
     </div>
 
     <!-- Submit Button -->
     <div class="add-expenses-sub text-center mt-4">
-        <button type="submit" class="button-add-expenses">Lưu chi tiêu</button>
+        <button type="submit" class="button-add-expenses">Thêm</button>
     </div>
 </form>
 @endsection

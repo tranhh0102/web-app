@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="add-expenses-header">
-    <a href="{{route('home')}}" class="icons-back">
+    <a href="{{route('profile.edit')}}" class="icons-back">
             <img src="{{asset('svg/arrow-back.svg')}}" alt="">
     </a>
     <span class="add-expenses-title">Đổi mật khẩu</span>

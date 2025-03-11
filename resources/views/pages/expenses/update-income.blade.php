@@ -41,7 +41,7 @@
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
                     type="text" id="selectedType" class="text-white mb-3" 
                     placeholder="Loại đã chọn" readonly 
-                    value="{{ old('m_income_id', $income->m_income_id ?? '') }}">
+                    value="{{ old('name', $income->micome->name ?? '') }}">
                 <input type="hidden" id="m_income_id" name="m_income_id" value="{{ old('m_income_id', $income->m_income_id) }}">
             </div>
 

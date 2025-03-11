@@ -19,8 +19,9 @@
     <div class="banner-container">
     <div class="archive">
         <div class="grid">
-            <span>Congratulations 🎉</span>
-            <span>{{ number_format($totalCharge) }} Points</span>
+            <span>Chúc mừng bạn 🎉</span>
+            <span>Tiền bạn đã ủng hộ:</span>
+            <span>{{ number_format($totalCharge) }} VNĐ</span>
         </div>
         <div class="grid justify-items-center">
         <div>
@@ -49,7 +50,7 @@
 
         <!-- Hiển thị mốc điểm tiếp theo -->
         @if ($nextMilestone)
-            <p class="next-level">Next level: {{ number_format($nextMilestone) }} Points</p>
+            <p class="next-level">Cấp tiếp theo : {{ number_format($nextMilestone) }} VNĐ</p>
         @else
             <p class="next-level">You've reached the highest rank! 🎉</p>
         @endif
