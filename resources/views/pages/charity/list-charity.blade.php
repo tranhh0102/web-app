@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('style/charity.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/charity/list-charity.css') }}">
 @endsection
 
 @section('content') 
@@ -17,21 +17,46 @@
 
     <!--Banner charity-->
     <div class="banner-container">
-        <img class="banner" src="{{asset('png/Banner.png')}}" alt="">
-        <div class="archive">
-            <div class="grid">
-                <span>
-                    Congratulations 🎉
-                </span>
-                <span>
-                    {{number_format($totalCharge)}}
-                </span>
-            </div>
-            <div>
-                <img src="{{asset('svg/medal.svg')}}" alt="">
-            </div>
+    <div class="archive">
+        <div class="grid">
+            <span>Congratulations 🎉</span>
+            <span>{{ number_format($totalCharge) }} Points</span>
+        </div>
+        <div class="grid justify-items-center">
+        <div>
+            @php
+                // Xác định medal dựa trên điểm
+                if ($totalCharge <= 1000000) {
+                    $medal = 'bronze.png';  
+                    $nextMilestone = 50000000;
+                } elseif ($totalCharge < 50000000) {
+                    $medal = 'silver.png';  
+                    $nextMilestone = 1000000000;
+                } else {
+                    $medal = 'gold.png';  
+                    $nextMilestone = null;
+                }
+
+                $progress = ($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
+            @endphp
+            <img width="60px" src="{{ asset('png/medal/' . $medal) }}" alt="Medal">
+        </div>
+
+        <!-- Thanh tiến trình -->
+        <div class="progress-container">
+            <div class="progress-bar" style="width: {{ $progress }}%;"></div>
+        </div>
+
+        <!-- Hiển thị mốc điểm tiếp theo -->
+        @if ($nextMilestone)
+            <p class="next-level">Next level: {{ number_format($nextMilestone) }} Points</p>
+        @else
+            <p class="next-level">You've reached the highest rank! 🎉</p>
+        @endif
         </div>
     </div>
+</div>
+
 
     <!--Title charity-->
     <div>

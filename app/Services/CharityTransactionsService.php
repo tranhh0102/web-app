@@ -27,6 +27,7 @@ class CharityTransactionsService implements BaseServiceInterface {
             DB::commit();
             return true;
         } catch (Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return false;
         }

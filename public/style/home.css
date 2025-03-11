@@ -114,12 +114,10 @@
     gap: 12px;
   }
   .items-sub {
-    padding: 16px;
+    padding: 12px;
     display: flex;
     height: 100%;
-    border-radius: 16px;
     background: #353542;
-    align-items: center;
     border-radius: 16px;
     backdrop-filter: blur(5px);
     border: 1px solid #f3f3f8;

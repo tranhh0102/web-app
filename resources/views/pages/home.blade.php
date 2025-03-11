@@ -21,24 +21,24 @@
                 <img src="{{asset('svg/home/income.svg')}}" alt="">
                 <span class="active-subs-title">Total Incomes</span>
             </div>
-            <span class="receive">{{ number_format($data['income']) }} VNĐ</span>
+            <span class="receive">{{ number_format($data['income'] ?? 0)}} VNĐ</span>
         </div>
         <div class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/expense.svg')}}" alt="">
                 <span class="active-subs-title">Total Expense</span>
             </div>
-            <span class="cost">{{ number_format($data['expense'])}} VNĐ</span>
+            <span class="cost">{{ number_format($data['expense'] ?? 0)}} VNĐ</span>
         </div>
     </div>
     <div class="flex gap-3 w-full">
         <div class="active-subs">
             <span class="active-subs-title">Your contribution</span>
-            <span class="receive">{{ number_format($data['charity'])}} VNĐ</span>
+            <span class="receive">{{ number_format($data['charity'] ?? 0)}} VNĐ</span>
         </div>
         <div class="active-subs">
             <span class="active-subs-title">Your goal</span>
-            <span class="cost">{{ number_format($data['goal'])}} VNĐ</span>
+            <span class="cost">{{ number_format($data['goal'] ?? 0)}} VNĐ</span>
         </div>
     </div>
 </div>

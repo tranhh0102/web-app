@@ -204,7 +204,7 @@ class TransactionController extends Controller
 
     public function listGoal()
     {
-        $data = Goal::with('goalTransactions')->get();
+        $data = Goal::with('goalTransactions')->where('user_id',auth()->id())->get();
         return view('pages.goal.list-goal',compact('data'));
     }
 
@@ -245,7 +245,7 @@ class TransactionController extends Controller
 
     public function listCharity()
     {
-        $data = CharityTransaction::all();
+        $data = CharityTransaction::where('user_id',auth()->id())->get();
         $totalCharge = $data->sum('charge');
         return view('pages.charity.list-charity',compact('data','totalCharge'));
     }

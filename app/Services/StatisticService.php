@@ -25,6 +25,10 @@ class StatisticService {
 
     private function generateStatistic($type, $data)
     {
+        if (!isset($data['date'])) {
+            $data['date'] = Carbon::now()->toDateString(); // Gán giá trị mặc định
+        }
+        
         $conditions = [
             'user_id' => Auth::user()->id,
             'month' => Carbon::parse($data['date'])->format('m') ?? Carbon::now()->format('m'),

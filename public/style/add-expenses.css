@@ -87,17 +87,20 @@
   max-height: 60vh; /* Không chiếm quá 60% màn hình */
   background: white;
   border-radius: 15px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   padding: 20px;
   overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Khi hiện lên */
 .modal-sheet.show {
   transform: translate(-50%, -50%); /* Hiện lên chính giữa màn hình */
+  opacity: 1;
+  visibility: visible;
 }
-
 
 /* Danh sách loại */
 .modal-list {
