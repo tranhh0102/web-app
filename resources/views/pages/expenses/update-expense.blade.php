@@ -49,8 +49,8 @@
             <!-- Thời gian -->
             <div class="add-expenses-sub">
                 <label for="time">Thời gian</label>
-                <input type="datetime-local" class="input-expenses" name="time" required 
-                    value="{{ old('time', $expense->time ? $expense->time->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}">
+                <input type="date" class="input-expenses" name="date" required 
+                    value="{{ old('date', $expense->date ? $expense->date : now()->format('Y-m-d')) }}">
             </div>
 
             <!-- Mô tả -->

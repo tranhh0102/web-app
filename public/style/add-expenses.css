@@ -75,22 +75,31 @@
     display: none;
 }
 
-/* Bottom Sheet */
+/* Bottom Sheet (Ẩn ban đầu) */
 .modal-sheet {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border-radius: 15px 15px 0 0;
-    transition: bottom 0.3s ease-in-out;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  position: fixed;
+  left: 50%;
+  top: 50%; /* Đưa đến giữa màn hình */
+  transform: translate(-50%, 100%); /* Dịch xuống dưới để ẩn */
+  width: 80%; /* Chiều rộng 80% màn hình */
+  max-width: 400px; /* Giới hạn chiều rộng */
+  height: auto; /* Chiều cao tự động theo nội dung */
+  max-height: 60vh; /* Không chiếm quá 60% màn hình */
+  background: white;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Khi hiện lên */
 .modal-sheet.show {
-    bottom: 20%;
+  transform: translate(-50%, -50%); /* Hiện lên chính giữa màn hình */
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Danh sách loại */

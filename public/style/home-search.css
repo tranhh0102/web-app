@@ -41,3 +41,15 @@ input:focus {
   z-index: 1;
   color: white;
 }
+.receive{
+  color: #43A048;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.cost{
+  color: #D32F2F;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
