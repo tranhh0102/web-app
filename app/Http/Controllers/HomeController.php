@@ -8,6 +8,7 @@ use App\Models\Goal;
 use App\Models\GoalTransaction;
 use App\Models\Income;
 use App\Models\Statistic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,9 +16,11 @@ class HomeController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
-        $data = Statistic::where('user_id',$userId)->first();
-        $dataExpenses = Expense::where('user_id',$userId)->get();
-        $dataIncomes = Income::where('user_id',$userId)->get();
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $data = Statistic::where('user_id',$userId)->where('month', $month)->where('year', $year)->first();
+        $dataExpenses = Expense::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
+        $dataIncomes = Income::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
         return view('pages.home',compact('dataExpenses','dataIncomes','data'));
     }
 
@@ -49,8 +52,8 @@ class HomeController extends Controller
         }
     
         // Lấy dữ liệu
-        $dataExpenses = $dataExpenses->get();
-        $dataIncomes = $dataIncomes->get();
+        $dataExpenses = $dataExpenses->orderBy('date', 'desc')->get();
+        $dataIncomes = $dataIncomes->orderBy('date', 'desc')->get();
     
         // Gộp danh sách chi tiêu và thu nhập
         $data = $dataExpenses->concat($dataIncomes);
