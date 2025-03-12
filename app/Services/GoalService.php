@@ -7,7 +7,7 @@ use App\Models\Goal;
 class GoalService implements BaseServiceInterface {
     public function get($conditions = [])
     {
-        return Goal::all();
+        return Goal::where($conditions)->get();
     }
     public function insert($requestData = [])
     {

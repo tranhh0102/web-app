@@ -25,22 +25,29 @@
         </div>
         <div class="grid justify-items-center">
         <div>
-            @php
-                // Xác định medal dựa trên điểm
-                if ($totalCharge <= 1000000) {
-                    $medal = 'bronze.png';  
-                    $nextMilestone = 50000000;
-                } elseif ($totalCharge < 50000000) {
-                    $medal = 'silver.png';  
-                    $nextMilestone = 1000000000;
-                } else {
-                    $medal = 'gold.png';  
-                    $nextMilestone = null;
-                }
+        @php
+            // Xác định medal & milestone
+            if ($totalCharge <= 500000) {
+                $color = '#CD7F32';
+                $nextMilestone = 2000000;
+            } elseif ($totalCharge < 2000000) {
+                $color = '#C0C0C0'; 
+                $nextMilestone = 5000000;
+            } elseif ($totalCharge < 5000000) {
+                $color = '#FFD700'; 
+                $nextMilestone = 10000000;
+            } elseif ($totalCharge < 10000000) {
+                $color = '#B9F2FF'; 
+                $nextMilestone = 15000000;
+            } else {
+                $color = '#8B0000'; 
+                $nextMilestone = null;
+            }
 
-                $progress = ($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
-            @endphp
-            <img width="60px" src="{{ asset('png/medal/' . $medal) }}" alt="Medal">
+            $progress = ($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
+        @endphp
+
+            <img id="medalImg" width="60px" src="{{ asset('svg/home/medal.svg') }}" alt="Medal">
         </div>
 
         <!-- Thanh tiến trình -->
@@ -70,8 +77,8 @@
             <div class="items">
                 <div class="items-sub">
                     <div class="flex items-center gap-2">
-                        <img style="width: 32px; height: 32px;" src="{{ asset('png/charity.png') }}" alt="">
-                        <div class="grid">
+                    <img style="width: 32px; height: 32px;" src="{{asset('svg/home/charity.svg')}}" alt="">
+                    <div class="grid">
                             <span class="text-white">{{$transactions['name'] }}</span>
                             <span class="dollar text-white">{{number_format($transactions['charge'])}}</span>
                         </div>
@@ -88,4 +95,22 @@
     let filterBox = document.getElementById("filter-options");
     filterBox.classList.toggle("hidden");
 }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("{{ asset('svg/home/medal.svg') }}")
+            .then(response => response.text())
+            .then(svgData => {
+                let container = document.createElement("div");
+                container.innerHTML = svgData;
+                let svg = container.querySelector("svg");
+
+                // Đổi màu fill
+                svg.querySelector("path").setAttribute("fill", "{{ $color }}");
+
+                // Thay thế <img> bằng SVG
+                document.getElementById("medalImg").replaceWith(svg);
+            });
+    });
 </script>

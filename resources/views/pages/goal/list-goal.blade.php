@@ -17,13 +17,22 @@
 
 <!--Banner charity-->
 <div class="banner-container">
-    <img class="banner" src="{{asset('png/banner-goal.png')}}" alt="">
+    <div class="archive">
+        <div class="grid">
+            <span>Những mục tiêu của bạn 🎉</span>
+            <span>So muc tieu da hoan thanh :</span>
+            </div>
+            <div class="grid justify-items-center">
+            <div>
+                <img id="medalImg" width="60px" src="{{ asset('svg/home/target.svg') }}" alt="Medal">
+            </div>
+        </div>
+    </div>
 </div>
-
 <!--Title charity-->
-<div>
+<!-- <div>
     <p class="title-header text-center">Những mục tiêu của bạn</p>
-</div>
+</div> -->
 
 <!--List charity-->
 <div class="list-search mb-20 grid p-3">
@@ -31,7 +40,7 @@
     <div class="items">
         <div class="items-sub">
             <div class="flex items-center gap-2">
-                <img style="width: 32px; height: 32px;" src="{{ asset('png/goal.png') }}" alt="">
+            <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">
                 <div class="grid">
                     <!-- Hiển thị tên mục tiêu -->
                     <span class="text-white">Tên: {{$goal['name'] }}</span>

@@ -15,16 +15,16 @@
         <a id="floatingButton" class="add-button">+</a>
         <div id="actionButtons" class="action-buttons">
             <a href="{{route('transaction.add-expense')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/spending.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/expense.svg')}}" alt="">
             </a>
             <a href="{{route('transaction.add-income')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/income.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/income.svg')}}" alt="">
             </a>
             <a href="{{route('transaction.add-charity')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/charity.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/charity.svg')}}" alt="">
             </a>
             <a href="{{route('transaction.add-goal')}}" class="action-button">
-                <img style="width: 32px; height: 32px;" src="{{asset('png/goal.png')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">
             </a>
         </div>
     </div>

@@ -16,7 +16,7 @@ class IncomeService implements BaseServiceInterface {
     }
     public function get($conditions = [])
     {
-        return Income::all();
+        return Income::where($conditions)->get();
     }
     public function insert($requestData = [])
     {

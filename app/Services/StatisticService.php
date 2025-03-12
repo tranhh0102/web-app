@@ -43,7 +43,9 @@ class StatisticService {
             'year' => Carbon::parse($data['date'])->format('Y') ?? Carbon::now()->format('Y'),
             'old_income_info' => null,
             'old_expense_info' => null,
-            'charge' => $data['charge'] ?? 0
+            'charge' => $data['charge'] ?? 0,
+            'm_expense_id' => $data['m_expense_id'] ?? null,
+            'm_income_id' => $data['m_income_id'] ?? null,
         ];
         
         if ($statistic) {
@@ -93,23 +95,19 @@ class StatisticService {
     private function generateExpenseInfo($data)
     {
         $result = $data['old_expense_info'] ? json_decode($data['old_expense_info'], true) : [];
-
         $authUser = Auth::user();
         $userId = $authUser->id;
-
         $mExpsenses = MExpense::where([
             'user_id' => $userId
         ])->get();
+
         
         foreach ($mExpsenses as $mExpsense) {
-            if (isset($result['m_expense_id']) && $result['m_expense_id'] == $mExpsense->id) {
+            if (isset($data['m_expense_id']) && $data['m_expense_id'] == $mExpsense->id) {
                 $result[$mExpsense->id] = ($oldExpenseInfo[$mExpsense->id] ?? 0) + $data['charge'];
                 break;
-            } else {
-                $result[$mExpsense->id] = $data['charge'];
             }
         }
-
         return $result;
     }
 
@@ -123,11 +121,9 @@ class StatisticService {
             'user_id' => $userId
         ])->get();
         foreach ($mIncomes as $mIncome) {
-            if (isset($result['m_income_id']) && $result['m_income_id'] == $mIncome->id) {
+            if (isset($data['m_income_id']) && $data['m_income_id'] == $mIncome->id) {
                 $result[$mIncome->id] = ($oldExpenseInfo[$mIncome->id] ?? 0) + $data['charge'];
                 break;
-            } else {
-                $result[$mIncome->id] = $data['charge'];
             }
         }
 

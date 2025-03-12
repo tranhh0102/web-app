@@ -16,7 +16,7 @@ class ExpenseService implements BaseServiceInterface {
     }
     public function get($conditions = [])
     {
-        return Expense::all();
+        return Expense::where($conditions)->get();
     }
     public function insert($requestData = [])
     {
