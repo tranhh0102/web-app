@@ -9,7 +9,7 @@
         <a href="{{route('home')}}" class="icons-back">
             <img src="{{asset('svg/arrow-back.svg')}}" alt="">
         </a>
-        <span class="add-expenses-title">Thêm thu nhap</span>
+        <span class="add-expenses-title">Thêm thu nhập</span>
         <span></span>
     </div>
     <form action="{{route('transaction.income')}}" method="post" class="p-3">
@@ -17,9 +17,10 @@
         <div class="add-expenses">
 
             <!--Input income-->
-            <div class="add-expenses-sub" >
-                <label for="charge">Số tiền thu nhap</label>
-                <input type="number" name="charge" class="input-expenses" placeholder="Nhập danh thu nhap" required>
+            <div class="add-expenses-sub">
+                <label for="charge">Số tiền thu nhập</label>
+                <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền" required>
+                <input type="hidden" name="charge" id="charge-hidden">
             </div>
 
             <!--Type income-->
@@ -110,4 +111,18 @@
             }, 300);
         }
     });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chargeInput = document.getElementById('charge');
+    const chargeHidden = document.getElementById('charge-hidden');
+
+    chargeInput.addEventListener('input', function (e) {
+        let rawValue = this.value.replace(/\D/g, ''); // Loại bỏ tất cả ký tự không phải số
+        let formattedValue = new Intl.NumberFormat('en-US').format(rawValue); // Định dạng kiểu 1.000.000
+
+        this.value = formattedValue; // Hiển thị số có dấu chấm
+        chargeHidden.value = rawValue; // Lưu giá trị không có dấu chấm vào input ẩn
+    });
+});
 </script>

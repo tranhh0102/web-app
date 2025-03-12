@@ -11,4 +11,9 @@ class Expense extends Model
     protected $table = 'expense';
 
     protected $fillable = ['name','user_id','charge','m_expense_id','date'];
+
+    public function mexpense()
+    {
+        return $this->belongsTo(MExpense::class, 'm_expense_id');
+    }
 }

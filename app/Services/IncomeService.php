@@ -16,7 +16,7 @@ class IncomeService implements BaseServiceInterface {
     }
     public function get($conditions = [])
     {
-        return Income::all();
+        return Income::where($conditions)->get();
     }
     public function insert($requestData = [])
     {
@@ -34,9 +34,21 @@ class IncomeService implements BaseServiceInterface {
     }
     public function update($conditions = [], $requestData = [])
     {
-        $income = Income::where($conditions)->firstOrFail();
-
-        return $income->update($requestData);
+        try {
+            DB::beginTransaction();
+            
+            $income = Income::where($conditions)->firstOrFail();
+            $income->update($requestData);
+    
+            // Gọi cập nhật thống kê
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_INCOME, $requestData);
+    
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
     public function delete($conditions = [])
     {

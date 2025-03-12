@@ -29,8 +29,10 @@
             <!-- Input số tiền chi tiêu -->
             <div class="add-expenses-sub">
                 <label for="charge">Số tiền chi tiêu</label>
-                <input type="number" name="charge" class="input-expenses" 
+                <input type="text" id="charge" class="input-expenses" 
                     placeholder="Nhập số tiền" required 
+                    value="{{ old('charge', $expense->charge) }}">
+                <input type="hidden" name="charge" id="charge-hidden" 
                     value="{{ old('charge', $expense->charge) }}">
             </div>
 
@@ -42,7 +44,7 @@
                 <input style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
                     type="text" id="selectedType" class="text-white mb-3" 
                     placeholder="Loại đã chọn" readonly 
-                    value="{{ old('m_expense_id', $expense->m_expense_id ?? '') }}">
+                    value="{{ old('name', $expense->mexpense->name ?? '') }}">
                 <input type="hidden" id="m_expense_id" name="m_expense_id" value="{{ old('m_expense_id', $expense->m_expense_id) }}">
             </div>
 
@@ -124,4 +126,19 @@
             }, 300);
         }
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chargeInput = document.getElementById('charge');
+    const chargeHidden = document.getElementById('charge-hidden');
+
+    chargeInput.addEventListener('input', function () {
+        let rawValue = this.value.replace(/\D/g, ''); // Xóa tất cả ký tự không phải số
+        let formattedValue = new Intl.NumberFormat('en-US').format(rawValue); // Format thành 1,000,000
+
+        this.value = formattedValue; // Hiển thị số đã format
+        chargeHidden.value = rawValue; // Lưu giá trị gốc không có dấu phân tách
+    });
+});
 </script>

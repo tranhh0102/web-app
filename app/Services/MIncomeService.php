@@ -7,7 +7,7 @@ use App\Models\MIncome;
 class MIncomeService implements BaseServiceInterface {
     public function get($conditions = [])
     {
-        return MIncome::all();
+        return MIncome::where($conditions)->get();
     }
 
     public function insertMany($requestData = [])

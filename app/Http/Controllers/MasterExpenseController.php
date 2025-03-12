@@ -32,7 +32,7 @@ class MasterExpenseController extends Controller
                     'user_id' => $userId
                 ];
             }
-            if ($this->mExpenseService->insertMany($insertData)) {
+                if ($this->mExpenseService->insertMany($insertData)) {
                 $result = $this->mExpenseService->get([
                     'user_id' => $userId
                 ])->toArray();

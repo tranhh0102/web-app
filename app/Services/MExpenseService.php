@@ -7,7 +7,7 @@ use App\Models\MExpense;
 class MExpenseService implements BaseServiceInterface {
     public function get($conditions = [])
     {
-        return MExpense::all();
+        return MExpense::where($conditions)->get();
     }
 
     public function insertMany($requestData = [])

@@ -6,9 +6,15 @@
 
 @section('content')
     @if (session('status'))
-    <div class="mb-4 text-green-600">
-        {{ session('status') }}
-    </div>
+        <div id="toast" class="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-lg">
+            {{ session('status') }}
+        </div>
+
+        <script>
+            setTimeout(function() {
+                document.getElementById('toast').style.display = 'none';
+            }, 2000); 
+        </script>
     @endif
     <form method="POST" action="{{ route('login') }}">
     @csrf

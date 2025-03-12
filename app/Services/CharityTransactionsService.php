@@ -16,7 +16,7 @@ class CharityTransactionsService implements BaseServiceInterface {
     }
     public function get($conditions = [])
     {
-        return CharityTransaction::all();
+        return CharityTransaction::where($conditions)->get();
     }
     public function insert($requestData = [])
     {

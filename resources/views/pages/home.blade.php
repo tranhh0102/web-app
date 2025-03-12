@@ -19,35 +19,41 @@
         <div class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/income.svg')}}" alt="">
-                <span class="active-subs-title">Total Incomes</span>
+                <span class="active-subs-title">Tổng thu nhâp</span>
             </div>
             <span class="receive">{{ number_format($data['income'] ?? 0)}} VNĐ</span>
         </div>
         <div class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/expense.svg')}}" alt="">
-                <span class="active-subs-title">Total Expense</span>
+                <span class="active-subs-title">Tổng chi tiêu</span>
             </div>
             <span class="cost">{{ number_format($data['expense'] ?? 0)}} VNĐ</span>
         </div>
     </div>
     <div class="flex gap-3 w-full">
         <div class="active-subs">
-            <span class="active-subs-title">Your contribution</span>
-            <span class="receive">{{ number_format($data['charity'] ?? 0)}} VNĐ</span>
+            <div class="flex items-center gap-2">
+                <img src="{{asset('svg/home/charity.svg')}}" alt="">
+                <span class="active-subs-title">Đóng góp của bạn</span>
+            </div>
+            <span class="receive text-[#EF5350]">{{ number_format($data['charity'] ?? 0)}} VNĐ</span>
         </div>
         <div class="active-subs">
-            <span class="active-subs-title">Your goal</span>
-            <span class="cost">{{ number_format($data['goal'] ?? 0)}} VNĐ</span>
+            <div class="flex items-center gap-2">
+                <img src="{{asset('svg/home/goal.svg')}}" alt="">
+                <span class="active-subs-title">Mục tiêu của bạn</span>
+            </div>
+            <span class="cost text-[#FB8A00]">{{ number_format($data['goal'] ?? 0)}} VNĐ</span>
         </div>
     </div>
 </div>
-<p class="title-header text-center">Danh sách thu chi tháng này</p>
+<!-- <p class="title-header text-center">Danh sách thu chi tháng này</p> -->
 <div class="flex-row-b p-3">
     <div class="tabs">
         <div>
-            <button class="tab-button active" onclick="openTab(event, 'expense')">Expenses</button>
-            <button class="tab-button" onclick="openTab(event, 'income')">Incomes</button>
+            <button class="tab-button active" onclick="openTab(event, 'expense')">Chi tiêu</button>
+            <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
         </div>
     </div>
 
@@ -73,7 +79,7 @@
                 </div>
             </div>
             @empty
-            <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">Không có dữ liệu</p>
             @endforelse
         </div>
     </div>
@@ -100,7 +106,7 @@
                 </div>
             </div>
             @empty
-            <p class="title-header text-center">No data</p>
+            <p class="title-header text-center">Không có dữ liệu</p>
             @endforelse
         </div>
     </div>
