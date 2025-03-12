@@ -32,7 +32,6 @@ class GoldTransactionsService  implements BaseServiceInterface {
             DB::commit();
             return true;
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
             return false;
         }

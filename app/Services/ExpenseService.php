@@ -27,7 +27,6 @@ class ExpenseService implements BaseServiceInterface {
             DB::commit();
             return true;
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
             return false;
         }
@@ -35,13 +34,37 @@ class ExpenseService implements BaseServiceInterface {
     public function update($conditions = [], $requestData = [])
     {
         $expense = Expense::where($conditions)->firstOrFail();
-
-        return $expense->update($requestData);
+        
+        try {
+            DB::beginTransaction();
+            $oldCharge = $expense->charge;
+            $expense->update($requestData);
+            $newCharge = $expense->charge;
+            $chargeStatistic = $newCharge - $oldCharge;
+            $requestData['charge'] = $chargeStatistic;
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_EXPENSE, $requestData);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
     public function delete($conditions = [])
     {
-        $expense = Expense::where($conditions)->firstOrFail();
-
-        return $expense->delete();
+        try {
+            DB::beginTransaction();
+            $expense = Expense::where($conditions)->firstOrFail();
+            $oldCharge = $expense->charge;
+            $newCharge = 0;
+            $expense['charge'] = $newCharge - $oldCharge;
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_INCOME, $expense);
+            $expense->delete();
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }

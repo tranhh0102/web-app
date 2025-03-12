@@ -38,8 +38,10 @@ class IncomeService implements BaseServiceInterface {
             DB::beginTransaction();
             
             $income = Income::where($conditions)->firstOrFail();
+            $oldCharge = $income->charge;
             $income->update($requestData);
-    
+            $newCharge = $income->charge;
+            $requestData['charge'] = $newCharge - $oldCharge;
             // Gọi cập nhật thống kê
             $this->statisticService->calculateStatisticData(Statistic::TYPE_INCOME, $requestData);
     
@@ -52,8 +54,19 @@ class IncomeService implements BaseServiceInterface {
     }
     public function delete($conditions = [])
     {
-        $income = Income::where($conditions)->firstOrFail();
-
-        return $income->delete();
+        try {
+            DB::beginTransaction();
+            $income = Income::where($conditions)->firstOrFail();
+            $oldCharge = $income->charge;
+            $newCharge = 0;
+            $income['charge'] = $newCharge - $oldCharge;
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_INCOME, $income);
+            $income->delete();
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }
