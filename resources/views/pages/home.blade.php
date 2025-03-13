@@ -16,36 +16,36 @@
 </div>
 <div class="stastic">
     <div class="flex gap-3 w-full">
-        <div class="active-subs">
+        <a class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/income.svg')}}" alt="">
                 <span class="active-subs-title">Tổng thu nhâp</span>
             </div>
             <span class="receive">{{ number_format($data['income'] ?? 0)}} VNĐ</span>
-        </div>
-        <div class="active-subs">
+        </a>
+        <a class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/expense.svg')}}" alt="">
                 <span class="active-subs-title">Tổng chi tiêu</span>
             </div>
             <span class="cost">{{ number_format($data['expense'] ?? 0)}} VNĐ</span>
-        </div>
+        </a>
     </div>
     <div class="flex gap-3 w-full">
-        <div class="active-subs">
+        <a href="{{ route('list-charity')}}" class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/charity.svg')}}" alt="">
                 <span class="active-subs-title">Đóng góp của bạn</span>
             </div>
             <span class="receive text-[#EF5350]">{{ number_format($data['charity'] ?? 0)}} VNĐ</span>
-        </div>
-        <div class="active-subs">
+        </a>
+        <a href="{{route('list-goal')}}" class="active-subs">
             <div class="flex items-center gap-2">
                 <img src="{{asset('svg/home/goal.svg')}}" alt="">
                 <span class="active-subs-title">Mục tiêu của bạn</span>
             </div>
             <span class="cost text-[#FB8A00]">{{ number_format($data['goal'] ?? 0)}} VNĐ</span>
-        </div>
+        </a>
     </div>
 </div>
 <!-- <p class="title-header text-center">Danh sách thu chi tháng này</p> -->
@@ -61,6 +61,7 @@
     <div id="expense" class="tab-content active">
         <div class="items">
             @forelse($dataExpenses as $item)
+
             <div class="items-sub">
                 <div class="flex items-center gap-2">
                     <div>
@@ -146,6 +147,7 @@
 
     .tab-content.active {
         display: block;
+        overflow: scroll;
     }
 </style>
 

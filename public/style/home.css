@@ -107,11 +107,22 @@
 
   .flex-row-b {
     width: 100%;
-    height: 280px;
+    height: 100%;
+  }
+
+  .tab-content.active::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
   }
   .items {
     display: grid;
     gap: 12px;
+    overflow: scroll;
+  }
+
+  .items::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
   }
   .items-sub {
     padding: 12px;

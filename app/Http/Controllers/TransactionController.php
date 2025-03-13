@@ -205,7 +205,9 @@ class TransactionController extends Controller
     public function listGoal()
     {
         $data = Goal::with('goalTransactions')->where('user_id',auth()->id())->get();
-        return view('pages.goal.list-goal',compact('data'));
+        $total = $data->where('status',1)->count();
+        
+        return view('pages.goal.list-goal',compact('data','total'));
     }
 
     public function addGoalTransaction($id)

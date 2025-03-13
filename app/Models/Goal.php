@@ -15,7 +15,8 @@ class Goal extends Model
         'user_id',
         'charge',
         'name', 
-        'due_date'
+        'due_date',
+        'status'
     ];
 
     public function goalTransactions()

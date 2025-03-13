@@ -58,7 +58,7 @@ class ExpenseService implements BaseServiceInterface {
             $oldCharge = $expense->charge;
             $newCharge = 0;
             $expense['charge'] = $newCharge - $oldCharge;
-            $this->statisticService->calculateStatisticData(Statistic::TYPE_INCOME, $expense);
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_EXPENSE, $expense);
             $expense->delete();
             DB::commit();
             return true;
