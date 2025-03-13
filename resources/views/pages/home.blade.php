@@ -112,6 +112,31 @@
         </div>
     </div>
 </div>
+
+@if (!$hasExpenseForToday)
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('expenseReminderModal').classList.remove('hidden');
+        });
+
+        function closeModal() {
+        document.getElementById('expenseReminderModal').classList.add('hidden');
+        }
+    </script>
+@endif
+
+<!-- Modal -->
+<div id="expenseReminderModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-lg font-bold text-gray-800">Nhắc nhở nhập chi tiêu</h2>
+        <p class="mt-2 text-gray-600">Bạn chưa nhập chi tiêu cho ngày hôm nay. Hãy nhập ngay để quản lý tài chính tốt hơn!</p>
+        
+        <div class="mt-4 flex justify-end space-x-2">
+            <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">OK</button>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 <style>

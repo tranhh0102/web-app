@@ -6,6 +6,7 @@ use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
 use App\Models\Income;
+use App\Models\Statistic;
 use App\Services\CharityTransactionsService;
 use App\Services\ExpenseService;
 use App\Services\GoalService;
@@ -67,7 +68,7 @@ class TransactionController extends Controller
                 $result = $insertData;
             }
         }
-
+        Statistic::where('user_id', $userId)->get();
         return view('pages.add-expenses',compact('result'));
     }
 

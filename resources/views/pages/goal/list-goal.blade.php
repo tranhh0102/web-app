@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            @if ($goal['stauts'] == 1)
+            @if ($goal['status'] == 0)
             <div>
                 <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
                     <img src="{{ asset('svg/arrow.svg') }}" alt="">

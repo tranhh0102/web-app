@@ -10,6 +10,7 @@ use App\Models\Income;
 use App\Models\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,18 @@ class HomeController extends Controller
         $data = Statistic::where('user_id',$userId)->where('month', $month)->where('year', $year)->first();
         $dataExpenses = Expense::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
         $dataIncomes = Income::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
-        return view('pages.home',compact('dataExpenses','dataIncomes','data'));
+        $now = Carbon::now(); // Lấy thời gian hiện tại
+        $today = Carbon::today();
+        $user = Auth::user();
+        
+        $hasExpenseForToday = false;
+        
+        // Chỉ kiểm tra sau 8 giờ tối
+        if ($now->hour >= 20) {
+            $hasExpenseForToday = $user->expenses()->whereDate('created_at', $today)->exists();
+        }
+
+        return view('pages.home',compact('dataExpenses','dataIncomes','data','hasExpenseForToday'));
     }
 
     public function listSearch(Request $request)
