@@ -6,6 +6,7 @@ use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
 use App\Models\Income;
+use App\Models\Statistic;
 use App\Services\CharityTransactionsService;
 use App\Services\ExpenseService;
 use App\Services\GoalService;
@@ -67,7 +68,7 @@ class TransactionController extends Controller
                 $result = $insertData;
             }
         }
-
+        Statistic::where('user_id', $userId)->get();
         return view('pages.add-expenses',compact('result'));
     }
 
@@ -205,7 +206,9 @@ class TransactionController extends Controller
     public function listGoal()
     {
         $data = Goal::with('goalTransactions')->where('user_id',auth()->id())->get();
-        return view('pages.goal.list-goal',compact('data'));
+        $total = $data->where('status',1)->count();
+        
+        return view('pages.goal.list-goal',compact('data','total'));
     }
 
     public function addGoalTransaction($id)

@@ -27,9 +27,11 @@
 
             <!-- Input số tiền thu nhập  -->
             <div class="add-expenses-sub">
-                <label for="charge">Số tiền thu nhập</label>
-                <input type="number" name="charge" class="input-expenses" 
+                <label for="charge">Số tiền chi tiêu</label>
+                <input type="text" id="charge" class="input-expenses" 
                     placeholder="Nhập số tiền" required 
+                    value="{{ old('charge', $income->charge) }}">
+                <input type="hidden" name="charge" id="charge-hidden" 
                     value="{{ old('charge', $income->charge) }}">
             </div>
 
@@ -123,4 +125,19 @@
             }, 300);
         }
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chargeInput = document.getElementById('charge');
+    const chargeHidden = document.getElementById('charge-hidden');
+
+    chargeInput.addEventListener('input', function () {
+        let rawValue = this.value.replace(/\D/g, ''); // Xóa tất cả ký tự không phải số
+        let formattedValue = new Intl.NumberFormat('en-US').format(rawValue); // Format thành 1,000,000
+
+        this.value = formattedValue; // Hiển thị số đã format
+        chargeHidden.value = rawValue; // Lưu giá trị gốc không có dấu phân tách
+    });
+});
 </script>

@@ -33,14 +33,37 @@ class CharityTransactionsService implements BaseServiceInterface {
     }
     public function update($conditions = [], $requestData = [])
     {
-        $charityTransaction = CharityTransaction::where($conditions)->firstOrFail();
-
-        return $charityTransaction->save($requestData);
+        try {
+            DB::beginTransaction();
+            $charityTransaction = CharityTransaction::where($conditions)->firstOrFail();
+            $oldCharge = $charityTransaction->charge;
+            $charityTransaction->update($requestData);
+            $newCharge = $charityTransaction->charge;
+            $requestData['charge'] = $newCharge - $oldCharge;
+            // Gọi cập nhật thống kê
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_CHARITY, $requestData);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
     public function delete($conditions = [])
     {
-        $charityTransaction = CharityTransaction::where($conditions)->firstOrFail();
-
-        return $charityTransaction->delete();
+        try {
+            DB::beginTransaction();
+            $charityTransaction = CharityTransaction::where($conditions)->firstOrFail();
+            $oldCharge = $charityTransaction->charge;
+            $newCharge = 0;
+            $charityTransactionpense['charge'] = $newCharge - $oldCharge;
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_EXPENSE, $charityTransaction);
+            $charityTransaction->delete();
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }
