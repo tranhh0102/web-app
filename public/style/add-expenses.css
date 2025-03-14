@@ -28,7 +28,6 @@
     display: grid;
     justify-content: space-between;
     align-items: center;
-    height: 12%;
     width: 100% ;
     display: flex;
     flex-direction: column; 

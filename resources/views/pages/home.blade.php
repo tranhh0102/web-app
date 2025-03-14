@@ -54,6 +54,7 @@
         <div>
             <button class="tab-button active" onclick="openTab(event, 'expense')">Chi tiêu</button>
             <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
+            <button class="tab-button" onclick="openTab(event, 'statistic')">Thống kê</button>
         </div>
     </div>
 
@@ -111,22 +112,22 @@
             @endforelse
         </div>
     </div>
+
+    <div id="statistic" class="tab-content ">
+        <p style="color: white;text-align: center;"><img style="width: 40px;height: 40px;display: inline;" src="{{asset('svg/wallet.svg')}}" alt="">Số dư: {{ number_format(($data['income'] - $data['expense']) ?? 0)}} VNĐ</p>
+    </div>
 </div>
 
 @if (!$hasExpenseForToday)
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('expenseReminderModal').classList.remove('hidden');
-        });
-
         function closeModal() {
-        document.getElementById('expenseReminderModal').classList.add('hidden');
+            document.getElementById('expenseReminderModal').classList.add('hidden');
         }
     </script>
 @endif
 
 <!-- Modal -->
-<div id="expenseReminderModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+<div id="expenseReminderModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 @if($hasExpenseForToday) hidden @endif">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-lg font-bold text-gray-800">Nhắc nhở nhập chi tiêu</h2>
         <p class="mt-2 text-gray-600">Bạn chưa nhập chi tiêu cho ngày hôm nay. Hãy nhập ngay để quản lý tài chính tốt hơn!</p>
@@ -145,8 +146,6 @@
         justify-content: center;
         gap: 12px;
         align-items: center;
-        padding: 12px;
-        background: #333;
         border-radius:12px;
     }
 
@@ -155,7 +154,7 @@
         border: none;
         color: white;
         border-radius: 12px;
-        padding: 12px;
+        padding: 8px;
         font-size: 14px;
         font-weight: 600;
         line-height: 20px;

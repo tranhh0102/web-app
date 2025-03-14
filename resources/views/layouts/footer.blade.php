@@ -2,7 +2,7 @@
     <!--Statistic-->
     <a href="{{route('home')}}" class="nav-button">
         <img src="{{asset('svg/home.svg')}}" alt="">
-        <p class="name-button">Thống kê</p>
+        <p class="name-button">Trang chủ</p>
     </a>
 
     <!--Search-->
