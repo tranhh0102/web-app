@@ -65,7 +65,7 @@
             @if ($nextMilestone)
             <p class="next-level">Cấp bậc tiếp theo : {{ number_format($nextMilestone) }} VNĐ</p>
             @else
-            <p class="next-level">Bạn đã đạt hạng cao nhất! 🎉</p>
+            <p class="next-level">Bạn đã đạt hạng cao nhất!</p>
             @endif
         </div>
     </div>

@@ -26,9 +26,8 @@
 
 .archive {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: white;
-    margin: 0 12px;
     border-radius: 12px;
     align-items: center;
 }
