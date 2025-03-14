@@ -26,6 +26,9 @@
             <a href="{{route('transaction.add-goal')}}" class="action-button">
                 <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">
             </a>
+            <a href="{{route('idea')}}" class="action-button">
+                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/idea.svg')}}" alt="">
+            </a>
         </div>
     </div>
 
