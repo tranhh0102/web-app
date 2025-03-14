@@ -14,6 +14,7 @@ use App\Services\GoldTransactionsService;
 use App\Services\IncomeService;
 use App\Services\MExpenseService;
 use App\Services\MIncomeService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -207,8 +208,13 @@ class TransactionController extends Controller
     {
         $data = Goal::with('goalTransactions')->where('user_id',auth()->id())->get();
         $total = $data->where('status',1)->count();
+        $totalNotDone = $data->where('status', 0)
+        ->filter(function ($item) {
+            return Carbon::parse($item['due_date'])->lt(Carbon::today());
+        })
+        ->count();
         
-        return view('pages.goal.list-goal',compact('data','total'));
+        return view('pages.goal.list-goal',compact('data','total','totalNotDone'));
     }
 
     public function addGoalTransaction($id)

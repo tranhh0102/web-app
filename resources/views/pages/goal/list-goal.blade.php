@@ -21,6 +21,7 @@
         <div class="grid">
             <span>Những mục tiêu của bạn 🎉</span>
             <span>Bạn đã hoàn thành : {{$total}}</span>
+            <span>Mục tiêu không hoàn thành: {{$totalNotDone}}</span>
         </div>
         <div class="grid justify-items-center">
             <div>
@@ -55,19 +56,21 @@
                     @endphp
 
                     <!-- Thanh tiến trình -->
-                    <div style="width: 100%; background: #444; height: 10px; border-radius: 5px; margin-top: 8px; overflow: hidden;">
+                    <div style="width: 30vh; background: #444; height: 10px; border-radius: 5px; margin-top: 8px; overflow: hidden;">
                         <div style="width: {{ $percentage }}%; background: #00c853; height: 100%; border-radius: 5px; transition: width 0.5s ease-in-out;"></div>
                     </div>
 
                     <span class="text-white">{{ round($percentage, 2) }}%</span>
 
-                    @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
+                    @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']) && $goal['status'] != 1 )
                         <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
+                    @elseif ($goal['status'] == 1)
+                        <span class="text-green-500 font-bold">✅ Đã hoàn thành!</span>
                     @endif
                 </div>
             </div>
 
-            @if ($goal['status'] == 0)
+            @if ($goal['status'] == 0 && \Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
             <div>
                 <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
                     <img src="{{ asset('svg/arrow.svg') }}" alt="">
