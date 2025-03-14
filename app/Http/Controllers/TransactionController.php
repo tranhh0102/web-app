@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GoalRequest;
+use App\Http\Requests\MoneyRequest;
 use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
@@ -181,7 +183,7 @@ class TransactionController extends Controller
         return redirect()->route('home')->withSuccess('Update successfully');
     }
 
-    public function incomeTransaction(Request $request)
+    public function incomeTransaction(MoneyRequest $request)
     {
         $data = $request->only('charge','name','m_income_id','date');
         $data['user_id'] = Auth::user()->id;
@@ -192,7 +194,7 @@ class TransactionController extends Controller
         return redirect()->route('home')->withErrors(['Insert failed']);
     }
 
-    public function expenseTransaction(Request $request)
+    public function expenseTransaction(MoneyRequest $request)
     {
         $data = $request->only('charge','name','m_expense_id','date');
         $data['user_id'] = Auth::user()->id;
@@ -235,7 +237,7 @@ class TransactionController extends Controller
         return redirect()->route('list-goal')->withErrors(['Insert failed']);
     }
 
-    public function createGoal(Request $request)
+    public function createGoal(GoalRequest $request)
     {
         $data = $request->only('charge','name','due_date');
         $data['user_id'] = Auth::user()->id;

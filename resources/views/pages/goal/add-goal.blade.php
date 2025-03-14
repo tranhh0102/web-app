@@ -19,12 +19,20 @@
 </div>
 <form action="{{route('transaction.create-goal')}}" method="post" class="p-3">
     @csrf
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li style="color: red;font-weight: bold;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="step step-1">
         <!-- Bước 1: Nhập số tiền -->
         <div class="add-expenses-sub">
-            <label for="charge">Số tiền chi tiêu</label>
-            <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền" required>
+            <label for="charge">Số tiền mục tiêu</label>
+            <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền">
             <input type="hidden" name="charge" id="charge-hidden">
         </div>
     </div>
@@ -33,14 +41,14 @@
         <div class="add-expenses-sub">
             <label for="name">Mô tả</label>
             <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;"
-                class="text-white mb-3" name="name" placeholder="Mô tả" required></textarea>
+                class="text-white mb-3" name="name" placeholder="Mô tả"></textarea>
         </div>
     </div>
 
     <div class="step step-3">
         <div class="add-expenses-sub">
             <label for="due_date">Ngày hết hạn</label>
-            <input type="date" name="due_date" class="input-expenses" required>
+            <input type="date" name="due_date" class="input-expenses">
         </div>
     </div>
 

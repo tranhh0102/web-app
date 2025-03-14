@@ -14,11 +14,20 @@
     </div>
     <form action="{{route('transaction.expense')}}" method="post" class="p-3" id="transaction-expense">
         @csrf
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li style="color: red;font-weight: bold;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="add-expenses">
             <!--Input expenses-->
             <div class="add-expenses-sub">
                 <label for="charge">Số tiền chi tiêu</label>
-                <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền" required>
+                <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền">
                 <input type="hidden" name="charge" id="charge-hidden">
             </div>
 
@@ -35,14 +44,14 @@
             <!--Time expenses-->
             <div class="add-expenses-sub">
                 <label for="date">Thời gian</label>
-                <input type="date" name="date" class="input-expenses" required>
+                <input type="date" name="date" class="input-expenses">
             </div>
             
             <!--Description expenses-->
             <div class="add-expenses-sub">
                 <label for="charge">Mô tả</label>
                 <textarea style="background: #1D1D1D; border-radius: 12px; border: 0.8px solid #979797; width: 100%;" 
-                class="text-white" name="name" placeholder="Mô tả" required></textarea>
+                class="text-white" name="name" placeholder="Mô tả"></textarea>
             </div>
 
         </div>
