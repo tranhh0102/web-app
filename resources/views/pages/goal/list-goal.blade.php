@@ -38,43 +38,45 @@
 <div class="list-search mb-20 grid p-3 gap-3">
     @foreach ($data as $goal)
     <div class="items">
-        <div class="items-sub">
-            <div class="flex items-center gap-2">
-                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">
-                <div class="grid">
-                    <span class="text-white">Tên: {{$goal['name'] }}</span>
-                    <span class="text-white">Thời hạn: {{$goal['due_date'] }}</span>
-                    <span class="dollar text-white">
-                        Tiền mục tiêu: {{ number_format($goal->goalTransactions->sum('charge')) }} / {{ number_format($goal['charge']) }}
-                    </span>
+        <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
+            <div class="items-sub">
+                <div class="flex items-center gap-2">
+                    <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">
+                    <div class="grid">
+                        <span class="text-white">Tên: {{$goal['name'] }}</span>
+                        <span class="text-white">Thời hạn: {{$goal['due_date'] }}</span>
+                        <span class="dollar text-white">
+                            Tiền mục tiêu: {{ number_format($goal->goalTransactions->sum('charge')) }} / {{ number_format($goal['charge']) }}
+                        </span>
 
-                    @php
-                    $totalCharge = $goal->goalTransactions->sum('charge');
-                    $targetCharge = $goal['charge'];
-                    $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
-                    @endphp
+                        @php
+                        $totalCharge = $goal->goalTransactions->sum('charge');
+                        $targetCharge = $goal['charge'];
+                        $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
+                        @endphp
 
-                    <!-- Thanh tiến trình -->
-                    <div style="width: 100%; background: #444; height: 10px; border-radius: 5px; margin-top: 8px; overflow: hidden;">
-                        <div style="width: {{ $percentage }}%; background: #00c853; height: 100%; border-radius: 5px; transition: width 0.5s ease-in-out;"></div>
+                        <!-- Thanh tiến trình -->
+                        <div style="width: 100%; background: #444; height: 10px; border-radius: 5px; margin-top: 8px; overflow: hidden;">
+                            <div style="width: {{ $percentage }}%; background: #00c853; height: 100%; border-radius: 5px; transition: width 0.5s ease-in-out;"></div>
+                        </div>
+
+                        <span class="text-white">{{ round($percentage, 2) }}%</span>
+
+                        @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
+                        <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
+                        @endif
                     </div>
-
-                    <span class="text-white">{{ round($percentage, 2) }}%</span>
-
-                    @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
-                    <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
-                    @endif
                 </div>
-            </div>
 
-            @if ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date']))
-            <div>
-                <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
-                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
-                </a>
+                @if ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date']))
+                <div>
+                    <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
+                        <img src="{{ asset('svg/arrow.svg') }}" alt="">
+                    </a>
+                </div>
+                @endif
             </div>
-            @endif
-        </div>
+        </a>
     </div>
 
     @if ($goal['stauts'] == 1)

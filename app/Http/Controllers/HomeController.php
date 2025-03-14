@@ -33,7 +33,9 @@ class HomeController extends Controller
             $hasExpenseForToday = $user->expenses()->whereDate('created_at', $today)->exists();
         }
 
-        return view('pages.home',compact('dataExpenses','dataIncomes','data','hasExpenseForToday'));
+        $titlePage = 'Tháng ' . Carbon::now()->format('m - Y');
+
+        return view('pages.home',compact('dataExpenses','dataIncomes','data','hasExpenseForToday', 'titlePage'));
     }
 
     public function listSearch(Request $request)

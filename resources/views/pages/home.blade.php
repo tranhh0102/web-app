@@ -12,7 +12,7 @@
 </div>
 @endif
 <div class="home-header">
-    <span class="home-title">Trang chủ</span>
+    <span class="home-title">{{ $titlePage }}</span>
 </div>
 <div class="stastic">
     <div class="flex gap-3 w-full">
