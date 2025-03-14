@@ -11,7 +11,7 @@
         </div>
     @endif
     <div class="add-expenses-header">
-        <a href="{{route('home')}}" class="icons-back">
+        <a href="{{route('list-charity')}}" class="icons-back">
              <img src="{{asset('svg/arrow-back.svg')}}" alt="">
         </a>
         <span class="add-expenses-title">Ủng hộ quỹ cộng đồng</span>
@@ -24,7 +24,7 @@
             <!--Input-->
             <div class="add-expenses-sub">
                 <label for="charge">Số tiền chi tiêu</label>
-                <input type="text" id="charge" class="input-expenses" placeholder="Nhập danh ủng hộ" required>
+                <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền ủng hộ" required>
                 <input type="hidden" name="charge" id="charge-hidden">
             </div>
 

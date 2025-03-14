@@ -62,12 +62,12 @@
                     <span class="text-white">{{ round($percentage, 2) }}%</span>
 
                     @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
-                        <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
+                    <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
                     @endif
                 </div>
             </div>
 
-            @if ($goal['status'] == 0)
+            @if ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date']))
             <div>
                 <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
                     <img src="{{ asset('svg/arrow.svg') }}" alt="">
