@@ -11,7 +11,7 @@
 </div>
 @endif
 <div class="add-expenses-header">
-    <a href="{{route('home')}}" class="icons-back">
+    <a href="{{route('list-goal')}}" class="icons-back">
         <img src="{{asset('svg/arrow-back.svg')}}" alt="">
     </a>
     <span class="add-expenses-title">Tạo mục tiêu</span>
@@ -29,7 +29,6 @@
         </div>
     @endif
     <div class="step step-1">
-        <!-- Bước 1: Nhập số tiền -->
         <div class="add-expenses-sub">
             <label for="charge">Số tiền mục tiêu</label>
             <input type="text" id="charge" class="input-expenses" placeholder="Nhập số tiền">

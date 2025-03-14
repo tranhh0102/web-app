@@ -63,50 +63,46 @@
         <div class="items">
             @forelse($dataExpenses as $item)
 
-            <div class="items-sub">
+            <a href="{{ route('transaction.update-expense', ['id' => $item->id]) }}" class="items-sub ">
                 <div class="flex items-center gap-2">
                     <div>
-                         <img src="{{asset('svg/home/expense.svg')}}" alt="">
+                        <img src="{{ asset('svg/home/expense.svg') }}" alt="">
                     </div>
                     <div class="grid gap-1">
-                        <span class="text-white">{{$item->name}}</span>
+                        <span class="text-white">{{ $item->name }}</span>
                         <span class="cost">{{ number_format($item->charge) }} VNĐ</span>
-                        <span class="text-white">{{$item->date}}</span>
+                        <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
                 <div>
-                    <a href="{{route('transaction.update-expense', ['id' => $item->id])}}">
-                        <img src="{{asset('svg/arrow.svg')}}" alt="">
-                    </a>
+                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
                 </div>
-            </div>
+            </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
             @endforelse
         </div>
     </div>
-    
+
     <!--Income-->
     <div id="income" class="tab-content ">
         <div class="items">
             @forelse($dataIncomes as $item)
-        <div class="items-sub">
+            <a href="{{ route('transaction.update-income', ['id' => $item->id]) }}" class="items-sub">
                 <div class="flex items-center gap-2">
                     <div>
-                        <img src="{{asset('svg/home/income.svg')}}" alt="">
+                        <img src="{{ asset('svg/home/income.svg') }}" alt="">
                     </div>
                     <div class="grid gap-1">
-                        <span class="text-white">{{$item->name}}</span>
+                        <span class="text-white">{{ $item->name }}</span>
                         <span class="receive">{{ number_format($item->charge) }} VNĐ</span>
-                        <span class="text-white">{{$item->date}}</span>
+                        <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
                 <div>
-                    <a href="{{route('transaction.update-income', ['id' => $item->id])}}">
-                        <img src="{{asset('svg/arrow.svg')}}" alt="">
-                    </a>
+                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
                 </div>
-            </div>
+            </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
             @endforelse
@@ -118,6 +114,9 @@
             <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
             Số dư: {{ number_format(($data['income'] - $data['expense'] - $data['goal'] - $data['charity']) ?? 0)}} VNĐ
         </p>
+        <div>
+        <canvas id="myChart"></canvas>
+    </div>
     </div>
 </div>
 
@@ -145,7 +144,7 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-lg font-bold text-gray-800">Nhắc nhở nhập chi tiêu</h2>
         <p class="mt-2 text-gray-600">Bạn chưa nhập chi tiêu cho ngày hôm nay. Hãy nhập ngay để quản lý tài chính tốt hơn!</p>
-        
+
         <div class="mt-4 flex justify-end space-x-2">
             <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">OK</button>
             <button onclick="noMoreAlert()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Hủy</button>
@@ -161,7 +160,7 @@
         justify-content: center;
         gap: 12px;
         align-items: center;
-        border-radius:12px;
+        border-radius: 12px;
     }
 
     .tab-button {
@@ -189,7 +188,7 @@
         overflow: scroll;
     }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function openTab(event, tabId) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -203,4 +202,43 @@
             document.getElementById('toast-message').style.display = 'none';
         }
     }, 3000);
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy dữ liệu từ Blade
+        const income = {{ $data['income'] ?? 0 }};
+        const expense = {{ $data['expense'] ?? 0 }};
+        const total = income + expense;
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'pie', // Biểu đồ hình tròn
+            data: {
+                labels: ['Thu nhập', 'Chi tiêu'],
+                datasets: [{
+                    data: [income, expense],
+                    backgroundColor: ['#1ED760', '#D32F2F'], // Xanh lá cho thu nhập, đỏ cho chi tiêu
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                let value = tooltipItem.raw;
+                                let percentage = ((value / total) * 100).toFixed(2);
+                                return `${tooltipItem.label}: ${percentage}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
 </script>
