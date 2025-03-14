@@ -125,8 +125,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
-            if (checkIsAlertReminder == 1) {
-                document.getElementById('expenseReminderModal').classList.add('hidden');
+            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
+            if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
+                document.getElementById('expenseReminderModal').classList.remove('hidden');
             }
         });
         function closeModal() {
@@ -140,7 +141,7 @@
 @endif
 
 <!-- Modal -->
-<div id="expenseReminderModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 @if($hasExpenseForToday) hidden @endif">
+<div id="expenseReminderModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-lg font-bold text-gray-800">Nhắc nhở nhập chi tiêu</h2>
         <p class="mt-2 text-gray-600">Bạn chưa nhập chi tiêu cho ngày hôm nay. Hãy nhập ngay để quản lý tài chính tốt hơn!</p>
