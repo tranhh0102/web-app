@@ -14,6 +14,7 @@ use App\Services\GoldTransactionsService;
 use App\Services\IncomeService;
 use App\Services\MExpenseService;
 use App\Services\MIncomeService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,8 +69,13 @@ class TransactionController extends Controller
                 $result = $insertData;
             }
         }
-        Statistic::where('user_id', $userId)->get();
-        return view('pages.add-expenses',compact('result'));
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $statistic = Statistic::where('user_id',$userId)->where('month', $month)->where('year', $year)->first();
+        if ($statistic) {
+            $statistic->remain = ($statistic->income * 0.7 - $statistic->expense) > 0 ? ($statistic->income * 0.7 - $statistic->expense) : 0;
+        }
+        return view('pages.add-expenses',compact('result', 'statistic'));
     }
 
     public function getUpdateExpense($id)

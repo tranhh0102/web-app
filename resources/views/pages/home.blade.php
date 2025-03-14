@@ -52,14 +52,14 @@
 <div class="flex-row-b p-3">
     <div class="tabs">
         <div>
-            <button class="tab-button active" onclick="openTab(event, 'expense')">Chi tiêu</button>
+            <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>
+            <button class="tab-button" onclick="openTab(event, 'expense')">Chi tiêu</button>
             <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
-            <button class="tab-button" onclick="openTab(event, 'statistic')">Thống kê</button>
         </div>
     </div>
 
     <!--Expenses-->
-    <div id="expense" class="tab-content active">
+    <div id="expense" class="tab-content">
         <div class="items">
             @forelse($dataExpenses as $item)
 
@@ -113,14 +113,27 @@
         </div>
     </div>
 
-    <div id="statistic" class="tab-content ">
-        <p style="color: white;text-align: center;"><img style="width: 40px;height: 40px;display: inline;" src="{{asset('svg/wallet.svg')}}" alt="">Số dư: {{ number_format(($data['income'] - $data['expense']) ?? 0)}} VNĐ</p>
+    <div id="statistic" class="tab-content active">
+        <p style="color: white;text-align: center;">
+            <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
+            Số dư: {{ number_format(($data['income'] - $data['expense'] - $data['goal'] - $data['charity']) ?? 0)}} VNĐ
+        </p>
     </div>
 </div>
 
 @if (!$hasExpenseForToday)
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
+            if (checkIsAlertReminder == 1) {
+                document.getElementById('expenseReminderModal').classList.add('hidden');
+            }
+        });
         function closeModal() {
+            document.getElementById('expenseReminderModal').classList.add('hidden');
+        }
+        function noMoreAlert() {
+            localStorage.setItem('checkIsAlertReminder', 1);
             document.getElementById('expenseReminderModal').classList.add('hidden');
         }
     </script>
@@ -134,6 +147,7 @@
         
         <div class="mt-4 flex justify-end space-x-2">
             <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">OK</button>
+            <button onclick="noMoreAlert()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Hủy</button>
         </div>
     </div>
 </div>
@@ -184,6 +198,8 @@
     }
 
     setTimeout(() => {
-        document.getElementById('toast-message').style.display = 'none';
+        if (document.getElementById('toast-message')) {
+            document.getElementById('toast-message').style.display = 'none';
+        }
     }, 3000);
 </script>

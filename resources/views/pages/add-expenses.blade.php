@@ -12,11 +12,9 @@
         <span class="add-expenses-title">Thêm chi tiêu</span>
         <span></span>
     </div>
-    
-    <form action="{{route('transaction.expense')}}" method="post" class="p-3">
+    <form action="{{route('transaction.expense')}}" method="post" class="p-3" id="transaction-expense">
         @csrf
         <div class="add-expenses">
-
             <!--Input expenses-->
             <div class="add-expenses-sub">
                 <label for="charge">Số tiền chi tiêu</label>
@@ -48,7 +46,7 @@
             </div>
 
         </div>
-
+    
         <!-- Submit Button -->
         <div class="add-expenses-sub text-center mt-4">
             <button type="submit" class="button-add-expenses">Lưu chi tiêu</button>
@@ -77,6 +75,7 @@
 @endsection
 
 <script>
+    var charge = 0;
     document.addEventListener("DOMContentLoaded", function () {
         const openModal = document.getElementById("openModal");
         const modalOverlay = document.getElementById("modalOverlay");
@@ -119,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chargeHidden = document.getElementById('charge-hidden');
 
     chargeInput.addEventListener('input', function (e) {
+        charge = this.value;
         let rawValue = this.value.replace(/\D/g, ''); // Loại bỏ tất cả ký tự không phải số
         let formattedValue = new Intl.NumberFormat('en-US').format(rawValue); // Định dạng kiểu 1.000.000
 
