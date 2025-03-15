@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/list-goal', [TransactionController::class, 'listGoal'])->name('list-goal');
         Route::get('/add-charity', [TransactionController::class, 'addCharity'])->name('transaction.add-charity');
 
+        //list goal 
+        Route::get('/list-goal-transaction/{id}', [TransactionController::class, 'detailGoal'])->name('transaction.list-goal');
+
+
         //get add goal transactions
         Route::get('/add-goal-transaction/{id}', [TransactionController::class, 'addGoalTransaction'])->name('add-goal-transaction');
         Route::post('/goals/{id}', [TransactionController::class, 'goalTransaction'])->name('transaction.goal');
@@ -77,6 +81,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/expense', [TransactionController::class, 'expenseTransaction'])->name('transaction.expense');
         Route::post('/income', [TransactionController::class, 'incomeTransaction'])->name('transaction.income');
         Route::post('/charity', [TransactionController::class, 'charityTransaction'])->name('transaction.charity');
+
+        //delete expense and income
+        Route::post('/expense/{id}', [TransactionController::class, 'deleteExpense'])->name('transaction.delete-expense');
+        Route::post('/income/{id}', [TransactionController::class, 'deleteIncome'])->name('transaction.delete-income');
     });
     Route::get('/statistic', [MasterExpenseController::class, 'index'])->name('statistic.index');
 });

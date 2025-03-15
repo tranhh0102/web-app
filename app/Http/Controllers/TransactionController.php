@@ -7,6 +7,7 @@ use App\Http\Requests\MoneyRequest;
 use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
+use App\Models\GoalTransaction;
 use App\Models\Income;
 use App\Models\Statistic;
 use App\Services\CharityTransactionsService;
@@ -118,6 +119,14 @@ class TransactionController extends Controller
         return redirect()->route('home')->withSuccess('Update successfully');
     }
 
+    public function deleteExpense($id)
+    {
+        $result = $this->expenseService->delete([
+            'id' => $id
+        ]);
+
+        return redirect()->route('home')->withSuccess('Delete successfully');
+    }
     //income
     public function addIncome()
     {
@@ -205,6 +214,15 @@ class TransactionController extends Controller
         return redirect()->route('home')->withErrors(['Insert failed']);
     }
 
+    public function deleteIncome($id)
+    {
+        $result = $this->incomeService->delete([
+            'id' => $id
+        ]);
+
+        return redirect()->route('home')->withSuccess('Delete successfully');
+    }
+
     //goal
     public function addGoal()
     {
@@ -235,6 +253,12 @@ class TransactionController extends Controller
         }
 
         return redirect()->route('list-goal')->withErrors(['Insert failed']);
+    }
+    
+    public function detailGoal($id)
+    {
+        $data = GoalTransaction::with('goal')->where('m_saving_id',$id)->get();
+        return view('pages.goal.detail-goal-transaction',compact('data'));
     }
 
     public function createGoal(GoalRequest $request)

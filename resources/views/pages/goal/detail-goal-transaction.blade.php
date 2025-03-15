@@ -1,85 +1,64 @@
 @extends('layouts.master')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('style/home-search.css') }}">
+<link rel="stylesheet" href="{{ asset('style/goal/detail-goal-transaction.css') }}">
 @endsection
 
-@section('content') 
-    <div class="home-search-header">
-    <form method="GET" action="{{ route('home-search') }}" class="home-search-header w-full relative">
-        <input type="text" class="input-search" name="search" placeholder="Tìm kiếm..." value="{{ request('search') }}">
-        
-        <div class="flex">
-            <button type="submit" class="search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
-                    <path d="M19.7 18.3L15.5 14.1C15.3 13.9 15 13.8 14.7 13.8C15.5 12.8 16 11.4 16 10C16 6.7 13.3 4 10 4C6.7 4 4 6.7 4 10C4 13.3 6.7 16 10 16C11.4 16 12.8 15.5 13.8 14.6C13.8 14.9 13.8 15.2 14.1 15.4L18.3 19.6C18.5 19.8 18.8 19.9 19 19.9C19.2 19.9 19.5 19.8 19.7 19.6C20.1 19.3 20.1 18.7 19.7 18.3ZM10 14.5C7.5 14.5 5.5 12.5 5.5 10C5.5 7.5 7.5 5.5 10 5.5C12.5 5.5 14.5 7.5 14.5 10C14.5 12.5 12.5 14.5 10 14.5Z" fill="white" fill-opacity="0.6" />
-                </svg>
-            </button>
-            
-            <!-- Nút Filter -->
-            <button type="button" class="filter" onclick="toggleFilter()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6"/>
-                    <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6"/>
-                    <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6"/>
-                    <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6"/>
-                    <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6"/>
-                    <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6"/>
-                </svg>
-            </button>
-        </div>
+@section('content')
+<div class="add-expenses-header">
+    <a href="{{route('list-goal')}}" class="icons-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_32_4598)">
+                <path d="M17.1699 24C17.0383 24.0007 16.9078 23.9755 16.786 23.9257C16.6641 23.876 16.5533 23.8027 16.4599 23.71L8.28986 15.54C7.82423 15.0755 7.4548 14.5238 7.20274 13.9163C6.95067 13.3089 6.82092 12.6577 6.82092 12C6.82092 11.3423 6.95067 10.6911 7.20274 10.0837C7.4548 9.4762 7.82423 8.92445 8.28986 8.45999L16.4599 0.290002C16.5531 0.196764 16.6638 0.122803 16.7856 0.0723425C16.9074 0.0218822 17.038 -0.00408935 17.1699 -0.00408936C17.3017 -0.00408936 17.4323 0.0218822 17.5541 0.0723425C17.6759 0.122803 17.7866 0.196764 17.8799 0.290002C17.9731 0.38324 18.0471 0.49393 18.0975 0.615752C18.148 0.737574 18.174 0.868142 18.174 1C18.174 1.13186 18.148 1.26243 18.0975 1.38425C18.0471 1.50607 17.9731 1.61676 17.8799 1.71L9.70986 9.87999C9.14806 10.4425 8.8325 11.205 8.8325 12C8.8325 12.795 9.14806 13.5575 9.70986 14.12L17.8799 22.29C17.9736 22.3829 18.048 22.4935 18.0988 22.6154C18.1495 22.7373 18.1757 22.868 18.1757 23C18.1757 23.132 18.1495 23.2627 18.0988 23.3846C18.048 23.5064 17.9736 23.617 17.8799 23.71C17.7864 23.8027 17.6756 23.876 17.5538 23.9257C17.4319 23.9755 17.3015 24.0007 17.1699 24Z" fill="#A2A2B5" />
+            </g>
+            <defs>
+                <clipPath id="clip0_32_4598">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    </a>
+    <span class="add-expenses-title">Chi tiết mục tiêu</span>
+    <span></span>
+</div>
+@php
+use Carbon\Carbon;
+$previousDate = null;
+@endphp
 
-        <!-- Khung lọc (ẩn mặc định) -->
-        <div id="filter-options" class="filter-box hidden bg-gray-800">
-            <label class="block mb-2">Lọc theo ngày:</label>
-            <input type="date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
-
-            <button type="submit" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded">Áp dụng</button>
-        </div>
-    </form>
-    </div>
+<div class="list-search mb-20">
+    @forelse ($data as $transaction)
     @php
-        use Carbon\Carbon;
-        $previousDate = null;
+    $currentDate = Carbon::parse($transaction->created_at)->format('Y-m-d');
     @endphp
 
-    <div class="list-search mb-20">
-        @foreach ($data as $transaction)
-            @php
-                $currentDate = Carbon::parse($transaction->date)->format('Y-m-d');
-            @endphp
+    @if ($currentDate !== $previousDate)
+    <h2 class="text-white font-bold pl-3">{{ $currentDate }}</h2>
+    @php $previousDate = $currentDate; @endphp
+    @endif
 
-            @if ($currentDate !== $previousDate)
-                <h2 class="text-white font-bold pl-3">{{ $currentDate }}</h2>
-                @php $previousDate = $currentDate; @endphp
-            @endif
-
-            <div class="items">
-                @if ($transaction['m_income_id'])
-                <div class="items-sub">
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/home/income.svg') }}" alt="income">
-                        <span class="text-white">{{ $transaction->name }}</span>
-                    </div>
-                    <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
-                </div>
-                @else
-                <div class="items-sub">
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/home/expense.svg') }}" alt="income">
-                        <span class="text-white">{{ $transaction->name }}</span>
-                    </div>
-                    <span class="cost">${{ number_format($transaction->charge, 2) }}</span>
-                </div>
-                @endif
+    <div class="items">
+        @if (!empty($transaction))
+        <div class="items-sub">
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('svg/home/goal.svg') }}" alt="income">
+                <span class="text-white">{{ $transaction->goal->name }}</span>
             </div>
-        @endforeach
+            <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
+        </div>
+        @else
+        <p class="title-header text-center">Không có dữ liệu</p>
+        @endif
     </div>
+    @empty
+    <p class="title-header text-center">Không có dữ liệu</p>
+    @endforelse
+</div>
 @endsection
 
 <script>
     function toggleFilter() {
-    let filterBox = document.getElementById("filter-options");
-    filterBox.classList.toggle("hidden");
-}
+        let filterBox = document.getElementById("filter-options");
+        filterBox.classList.toggle("hidden");
+    }
 </script>

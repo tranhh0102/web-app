@@ -38,7 +38,9 @@
 <div class="list-search mb-20 grid p-3 gap-3">
     @foreach ($data as $goal)
     <div class="items">
-        <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
+    <a href="{{ ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date'])) 
+            ? route('add-goal-transaction', ['id' => $goal['id']]) 
+            : route('transaction.list-goal', ['id' => $goal['id']]) }}">
             <div class="items-sub">
                 <div class="flex items-center gap-2">
                     <img style="width: 32px; height: 32px;" src="{{asset('svg/home/goal.svg')}}" alt="">

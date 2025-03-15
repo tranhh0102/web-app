@@ -15,4 +15,9 @@ class MIncome extends Model
         'name',
         'user_id'
     ];
+
+    public function incomes()
+    {
+        return $this->hasMany(Income::class, 'm_income_id');
+    }
 }

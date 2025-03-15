@@ -64,10 +64,23 @@
         </div>
 
         <!-- Nút Cập nhật -->
-        <div class="add-expenses-sub text-center mt-4">
-            <button type="submit" class="button-add-expenses">Cập nhật</button>
+        <div class="add-expenses-sub text-center mt-4 flex gap-4">
+            <!-- Nút Cập nhật -->
+            <button type="submit" class="button-add-expenses ">
+                Cập nhật
+            </button>
         </div>
     </form>
+
+      <!-- Form Xóa -->
+    <div class="add-expenses-sub text-center flex gap-4 p-3">
+        <form action="{{ route('transaction.delete-income', $income->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+            @csrf
+            <button type="submit" class="button-add-expenses">
+                Xóa
+            </button>
+        </form>
+    </div>
 
     <div id="modalOverlay" class="modal-overlay hidden"></div>
 

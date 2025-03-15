@@ -12,4 +12,9 @@ class MExpense extends Model
     protected $table = 'm_expense';
 
     protected $fillable = ['name','user_id'];
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'm_expense_id'); 
+    }
 }

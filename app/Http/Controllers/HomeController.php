@@ -7,6 +7,8 @@ use App\Models\Expense;
 use App\Models\Goal;
 use App\Models\GoalTransaction;
 use App\Models\Income;
+use App\Models\MExpense;
+use App\Models\MIncome;
 use App\Models\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,15 +21,15 @@ class HomeController extends Controller
         $userId = auth()->user()->id;
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
-        $data = Statistic::where('user_id',$userId)->where('month', $month)->where('year', $year)->first();
-        $dataExpenses = Expense::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
-        $dataIncomes = Income::where('user_id',$userId)->whereBetween('date', [Carbon::now()->firstOfMonth(),Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
+        $data = Statistic::where('user_id', $userId)->where('month', $month)->where('year', $year)->first();
+        $dataExpenses = Expense::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
+        $dataIncomes = Income::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
         $now = Carbon::now(); // Lấy thời gian hiện tại
         $today = Carbon::today();
         $user = Auth::user();
-        
+
         $hasExpenseForToday = false;
-        
+
         // Chỉ kiểm tra sau 8 giờ tối
         if ($now->hour >= 20) {
             $hasExpenseForToday = $user->expenses()->whereDate('created_at', $today)->exists();
@@ -35,13 +37,13 @@ class HomeController extends Controller
 
         $titlePage = 'Tháng ' . Carbon::now()->format('m - Y');
 
-        return view('pages.home',compact('dataExpenses','dataIncomes','data','hasExpenseForToday', 'titlePage'));
+        return view('pages.home', compact('dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'titlePage'));
     }
 
     public function idea()
     {
         $titlePage = 'Khuyến nghị chi tiêu';
-        return view('pages.idea',compact('titlePage'));
+        return view('pages.idea', compact('titlePage'));
     }
 
     public function ideaPlan(Request $request)
@@ -110,47 +112,84 @@ class HomeController extends Controller
                         "Cần kỷ luật để không lấn sang khoản chi tiêu khác.",
                     ]
                 ];
-            break;
+                break;
         }
-        $typeName = ((int) $request->get('type') == 1) ? 'Tận hưởng cuộc sống' : (((int) $request->get('type') == 2) ? 'Tối ưu tài chính' : 'Tận hưởng và tối ưu tài chính'); 
-        return view('pages.idea_plan',compact('titlePage', 'planData', 'typeName'));
+        $typeName = ((int) $request->get('type') == 1) ? 'Tận hưởng cuộc sống' : (((int) $request->get('type') == 2) ? 'Tối ưu tài chính' : 'Tận hưởng và tối ưu tài chính');
+        return view('pages.idea_plan', compact('titlePage', 'planData', 'typeName'));
     }
 
     public function listSearch(Request $request)
     {
         $userId = auth()->user()->id;
-        $search = $request->input('search'); // Từ khóa tìm kiếm
-        $date = $request->input('date'); // Lọc theo ngày
+        $search = $request->input('search');
+        $date = $request->input('date');
+        $expenseCategoryFilter = $request->input('expense_category');
+        $incomeCategoryFilter = $request->input('income_category');
     
-        // Lấy danh sách chi tiêu và thu nhập theo user_id
-        $dataExpenses = Expense::where('user_id', $userId);
-        $dataIncomes = Income::where('user_id', $userId);
+        // Lấy danh mục chi tiêu và thu nhập
+        $mExpenses = MExpense::where('user_id', $userId)->get();
+        $mIncomes = MIncome::where('user_id', $userId)->get();
     
-        // Nếu có từ khóa tìm kiếm, lọc theo tên hoặc mô tả
-        if (!empty($search)) {
-            $dataExpenses->where(function($query) use ($search) {
-                $query->where('name', 'like', "%$search%");
-            });
+        // Khởi tạo danh sách rỗng
+        $dataExpenses = collect();
+        $dataIncomes = collect();
     
-            $dataIncomes->where(function($query) use ($search) {
-                $query->where('name', 'like', "%$search%");
+        // Nếu có lọc theo danh mục chi tiêu hoặc không có chọn danh mục nào, lấy dữ liệu chi tiêu
+        if (!empty($expenseCategoryFilter) || (empty($expenseCategoryFilter) && empty($incomeCategoryFilter))) {
+            $queryExpenses = Expense::where('user_id', $userId);
+    
+            // Nếu có từ khóa tìm kiếm, lọc theo tên
+            if (!empty($search)) {
+                $queryExpenses->where('name', 'like', "%$search%");
+            }
+    
+            // Nếu có lọc theo ngày
+            if (!empty($date)) {
+                $queryExpenses->whereDate('created_at', $date);
+            }
+    
+            // Nếu có lọc theo danh mục chi tiêu
+            if (!empty($expenseCategoryFilter)) {
+                $queryExpenses->where('m_expense_id', $expenseCategoryFilter);
+            }
+    
+            // Lấy danh sách chi tiêu
+            $dataExpenses = $queryExpenses->orderBy('date', 'desc')->get()->map(function ($item) {
+                $item->type = 'expense';
+                return $item;
             });
         }
     
-        // Nếu có lọc theo ngày, tìm theo cột created_at hoặc date
-        if (!empty($date)) {
-            $dataExpenses->whereDate('created_at', $date);
-            $dataIncomes->whereDate('created_at', $date);
+        // Nếu có lọc theo danh mục thu nhập hoặc không có chọn danh mục nào, lấy dữ liệu thu nhập
+        if (!empty($incomeCategoryFilter) || (empty($expenseCategoryFilter) && empty($incomeCategoryFilter))) {
+            $queryIncomes = Income::where('user_id', $userId);
+    
+            // Nếu có từ khóa tìm kiếm, lọc theo tên
+            if (!empty($search)) {
+                $queryIncomes->where('name', 'like', "%$search%");
+            }
+    
+            // Nếu có lọc theo ngày
+            if (!empty($date)) {
+                $queryIncomes->whereDate('created_at', $date);
+            }
+    
+            // Nếu có lọc theo danh mục thu nhập
+            if (!empty($incomeCategoryFilter)) {
+                $queryIncomes->where('m_income_id', $incomeCategoryFilter);
+            }
+    
+            // Lấy danh sách thu nhập
+            $dataIncomes = $queryIncomes->orderBy('date', 'desc')->get()->map(function ($item) {
+                $item->type = 'income';
+                return $item;
+            });
         }
     
-        // Lấy dữ liệu
-        $dataExpenses = $dataExpenses->orderBy('date', 'desc')->get();
-        $dataIncomes = $dataIncomes->orderBy('date', 'desc')->get();
-    
-        // Gộp danh sách chi tiêu và thu nhập
+        // Gộp danh sách thu nhập & chi tiêu
         $data = $dataExpenses->concat($dataIncomes);
-        
-        return view('pages.home-search', compact('data'));
+    
+        return view('pages.home-search', compact('data', 'mExpenses', 'mIncomes'));
     }
     
 }

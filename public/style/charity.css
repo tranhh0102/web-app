@@ -50,7 +50,6 @@
 
 .items {
     display: grid;
-    gap: 12px;
 }
 .items-sub {
 padding: 12px;
