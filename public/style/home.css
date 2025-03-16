@@ -41,6 +41,12 @@
     padding: 12px;
   }
 
+  .home-select-month {
+    border: none;
+    font-size: 20px;
+    text-align: center;
+  }
+
   .home-title {
     color: #a2a2b5;
     font-size: 20px;

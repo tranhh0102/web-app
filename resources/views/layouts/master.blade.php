@@ -6,6 +6,7 @@
     <title>@yield('title', 'Trang Web')</title>
     <link rel="stylesheet" href="{{asset('style/master.css')}}">
     @yield('styles')
+    @yield('scriptTops')
     @vite('resources/css/app.css')
 </head>
 <body>

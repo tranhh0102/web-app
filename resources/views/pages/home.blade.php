@@ -1,6 +1,9 @@
 @extends('layouts.master')
-
 @section('styles')
+<!-- Pikaday CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.2/css/pikaday.min.css">
+<!-- Pikaday JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.2/pikaday.min.js"></script>
 <link rel="stylesheet" href="{{ asset('style/home.css') }}">
 @endsection
 
@@ -12,7 +15,10 @@
 </div>
 @endif
 <div class="home-header">
-    <span class="home-title">{{ $titlePage }}</span>
+    <form method="GET" action="{{ route('home') }}" id="filter_date_home_page">
+        <input type="text" id="monthPicker" style="border:none;background: none;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
+        <input type="hidden" name="selected_date" id="selected_date" value="<?= $defaultMonthYear ?>">
+    </form>
 </div>
 <div class="stastic">
     <div class="flex gap-3 w-full">
@@ -112,7 +118,7 @@
     <div id="statistic" class="tab-content active">
         <p style="color: white;text-align: center;">
             <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
-            Số dư: {{ number_format(($data['income'] - $data['expense'] - $data['goal'] - $data['charity']) ?? 0)}} VNĐ
+            Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
         </p>
         <div>
         <canvas id="myChart"></canvas>
@@ -203,8 +209,23 @@
         }
     }, 3000);
 </script>
-
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let picker = new Pikaday({
+            field: document.getElementById('monthPicker'),
+            format: 'dd/MM/YYYY',
+            yearRange: [1900, 2100],
+            onSelect: function (date) {
+                let monthYear = ('0' + (date.getMonth() + 1)).slice(-2) + ' / ' + date.getFullYear();
+                document.getElementById('monthPicker').value = "Tháng " + monthYear;
+                document.getElementById('selected_date').value = monthYear;
+                document.getElementById('filter_date_home_page').submit();
+            }
+        });
+
+        // Set default display format
+        document.getElementById('monthPicker').value = "Tháng " + document.getElementById('selected_date').value;
+    });
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy dữ liệu từ Blade
         const income = {{ $data['income'] ?? 0 }};

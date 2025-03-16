@@ -16,11 +16,19 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->user()->id;
+        $selectedDate = $request->get('selected_date');
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
+        $defaultMonthYear = Carbon::now()->format('m / Y');
+        if (!empty($selectedDate)) {
+            $splitDate = explode('/', $selectedDate);
+            $month = sprintf("%2d", (int) $splitDate[0]);
+            $year = (int) $splitDate[1];
+            $defaultMonthYear = $selectedDate;
+        }
         $data = Statistic::where('user_id', $userId)->where('month', $month)->where('year', $year)->first();
         $dataExpenses = Expense::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
         $dataIncomes = Income::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
@@ -35,9 +43,7 @@ class HomeController extends Controller
             $hasExpenseForToday = $user->expenses()->whereDate('created_at', $today)->exists();
         }
 
-        $titlePage = 'Tháng ' . Carbon::now()->format('m - Y');
-
-        return view('pages.home', compact('dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'titlePage'));
+        return view('pages.home', compact('dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'defaultMonthYear'));
     }
 
     public function idea()
