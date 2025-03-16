@@ -53,12 +53,17 @@ class CharityTransactionsService implements BaseServiceInterface {
     {
         try {
             DB::beginTransaction();
+        
             $charityTransaction = CharityTransaction::where($conditions)->firstOrFail();
+            
             $oldCharge = $charityTransaction->charge;
-            $newCharge = 0;
-            $charityTransactionpense['charge'] = $newCharge - $oldCharge;
-            $this->statisticService->calculateStatisticData(Statistic::TYPE_EXPENSE, $charityTransaction);
+        
+            $charityTransaction->charge = -$oldCharge;  
+        
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_CHARITY, $charityTransaction);
+        
             $charityTransaction->delete();
+        
             DB::commit();
             return true;
         } catch (Exception $e) {

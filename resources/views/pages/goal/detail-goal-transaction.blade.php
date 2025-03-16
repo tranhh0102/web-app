@@ -44,7 +44,7 @@ $previousDate = null;
                 <img src="{{ asset('svg/home/goal.svg') }}" alt="income">
                 <span class="text-white">{{ $transaction->goal->name }}</span>
             </div>
-            <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
+            <span class="receive">{{ number_format($transaction->charge) }} VND</span>
         </div>
         @else
         <p class="title-header text-center">Không có dữ liệu</p>

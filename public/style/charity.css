@@ -80,3 +80,14 @@ align-items: center;
     text-align: center;
     position: relative;
 }
+
+.filter-box {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    padding: 12px;
+    border-radius: 12px;
+    width: 50%;
+    z-index: 1;
+    color: white;
+  }

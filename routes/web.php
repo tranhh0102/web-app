@@ -56,9 +56,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/list-charity', [TransactionController::class, 'listCharity'])->name('list-charity');
         Route::get('/list-goal', [TransactionController::class, 'listGoal'])->name('list-goal');
         Route::get('/add-charity', [TransactionController::class, 'addCharity'])->name('transaction.add-charity');
+        Route::get('/update-charity-transaction/{id}', [TransactionController::class, 'getUpdateCharity'])->name('transaction.get-update-charity');
+        Route::post('/update-charity-transaction/{id}', [TransactionController::class, 'updateCharity'])->name('transaction.update-charity');
+        Route::post('/delete-charity-transaction/{id}', [TransactionController::class, 'deleteCharity'])->name('transaction.delete-charity');
 
         //list goal 
         Route::get('/list-goal-transaction/{id}', [TransactionController::class, 'detailGoal'])->name('transaction.list-goal');
+        Route::post('/delete-goal/{id}', [TransactionController::class, 'deleteGoal'])->name('transaction.delete-goal');
 
 
         //get add goal transactions

@@ -229,10 +229,17 @@ class TransactionController extends Controller
         return view('pages.goal.add-goal');
     }
 
-    public function listGoal()
+    public function listGoal(Request $request)
     {
-        $data = Goal::with('goalTransactions')->where('user_id',auth()->id())->get();
-        $total = $data->where('status',1)->count();
+        $data = Goal::with('goalTransactions')->where('user_id',auth()->id());
+
+        if (request()->has('date')) {
+            $data->whereDate('due_date', request('date')); // Lọc theo field `date`
+        }
+
+        $data = $data->get();
+
+        $total =  Goal::with('goalTransactions')->where('user_id',auth()->id())->where('status',1)->count();
         
         return view('pages.goal.list-goal',compact('data','total'));
     }
@@ -272,16 +279,31 @@ class TransactionController extends Controller
         return redirect()->route('list-goal')->withErrors(['Insert failed']);
     }
 
+    public function deleteGoal($id)
+    {
+        $result = $this->goalService->delete([
+            'id' => $id
+        ]);
+
+        return redirect()->route('list-goal')->withSuccess('Delete successfully');
+    }
+    
     //charity
     public function addCharity()
     {
         return view('pages.charity.add-charity');
     }
 
-    public function listCharity()
+    public function listCharity(Request $request)
     {
-        $data = CharityTransaction::where('user_id',auth()->id())->get();
-        $totalCharge = $data->sum('charge');
+        $data = CharityTransaction::where('user_id', auth()->id());
+
+        if (request()->has('date')) {
+            $data->whereDate('created_at', request('date')); // Lọc theo field `date`
+        }
+        
+        $data = $data->get();
+        $totalCharge =  CharityTransaction::where('user_id', auth()->id())->get()->sum('charge');
         return view('pages.charity.list-charity',compact('data','totalCharge'));
     }
 
@@ -294,5 +316,30 @@ class TransactionController extends Controller
         }
 
         return redirect()->route('list-charity')->withErrors(['Insert failed']);
+    }
+
+    public function getUpdateCharity($id)
+    {
+        $charity = CharityTransaction::find($id);
+        return view('pages.charity.update-charity',compact('charity'));
+    }
+
+    public function updateCharity(Request $request,$id)
+    {
+        $data = $request->only('charge','name');
+        $result = $this->charityTransactionsService->update([
+            'id' => $id
+        ],$data);
+
+        return redirect()->route('list-charity')->withSuccess('Update successfully');
+    }
+
+    public function deleteCharity($id)
+    {
+        $result = $this->charityTransactionsService->delete([
+            'id' => $id
+        ]);
+
+        return redirect()->route('list-charity')->withSuccess('Delete successfully');
     }
 }

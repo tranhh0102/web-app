@@ -8,11 +8,34 @@
 
 <!--Header-->
 <div class="list-charity-header">
-    <a href="{{route('home')}}" class="icons-back">
-        <img src="{{asset('svg/arrow-back.svg')}}" alt="">
-    </a>
-    <h2 class="add-category-header">Cộng đồng</h2>
     <span></span>
+    <h2 class="add-category-header">Cộng đồng</h2>
+    <button type="button" class="filter-charity" onclick="toggleFilter()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
+            <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
+            <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
+        </svg>
+    </button>
+</div>
+
+
+<!-- Khung lọc (ẩn mặc định) -->
+<div id="filter-options" class="filter-box hidden bg-gray-800 p-4 rounded">
+    <label class="block mb-2 text-white">Lọc theo ngày:</label>
+    <input type="date" id="filter-date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
+
+    <button id="apply-filter" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
+        Áp dụng
+    </button>
+
+    <!-- Nút Xóa bộ lọc -->
+    <button id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+        Xóa bộ lọc
+    </button>
 </div>
 
 <!--Banner charity-->
@@ -83,27 +106,38 @@
     <div class="items">
         <div class="items-sub">
             <div class="flex items-center gap-2">
-                <img style="width: 32px; height: 32px;" src="{{asset('svg/home/charity.svg')}}" alt="">
+                <img style="width: 32px; height: 32px;" src="{{ asset('svg/home/charity.svg') }}" alt="">
                 <div class="grid">
-                    <span class="text-white">{{$transactions['name'] }}</span>
-                    <span class="dollar text-white">{{number_format($transactions['charge'])}}</span>
+                    <span class="text-white">{{ $transactions['name'] }}</span>
+                    <span class="dollar text-white">{{ number_format($transactions['charge']) }}</span>
                 </div>
             </div>
-            <span class="dollar text-white">{{ $transactions['created_at'] }}</span>
+            <!-- Form xóa -->
+            <form action="{{ route('transaction.delete-charity', ['id' => $transactions['id']]) }}" method="POST" onsubmit="return confirmDelete(event)">
+                @csrf
+                <button type="submit" class="text-red-500 mt-2">
+                    <img style="height: 32px; width: 32px;" src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                </button>
+            </form>
         </div>
     </div>
     @endforeach
 </div>
-@endsection
 
 <script>
     function toggleFilter() {
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");
     }
-</script>
 
-<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn chặn form gửi ngay lập tức
+
+        if (confirm("Bạn có chắc chắn muốn xóa giao dịch này không?")) {
+            event.target.submit(); // Nếu xác nhận, tiến hành gửi form
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         fetch("{{ asset('svg/home/medal.svg') }}")
             .then(response => response.text())
@@ -119,4 +153,21 @@
                 document.getElementById("medalImg").replaceWith(svg);
             });
     });
+
+    document.getElementById("apply-filter").addEventListener("click", function() {
+        let selectedDate = document.getElementById("filter-date").value;
+
+        if (selectedDate) {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("date", selectedDate);
+            window.location.href = currentUrl.toString();
+        }
+    });
+
+    document.getElementById("clear-filters").addEventListener("click", function() {
+        let currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete("date");
+        window.location.href = currentUrl.toString();
+    });
 </script>
+@endsection

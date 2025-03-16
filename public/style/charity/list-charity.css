@@ -98,3 +98,14 @@
 .next-level {
     font-size: 12px;
 }
+
+.filter-box {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    padding: 12px;
+    border-radius: 12px;
+    width: 50%;
+    z-index: 1;
+    color: white;
+  }

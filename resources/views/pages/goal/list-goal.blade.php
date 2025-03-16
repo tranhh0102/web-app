@@ -8,11 +8,32 @@
 
 <!--Header-->
 <div class="list-charity-header">
-    <a href="{{route('home')}}" class="icons-back">
-        <img src="{{asset('svg/arrow-back.svg')}}" alt="">
-    </a>
-    <h2 class="add-category-header">Mục tiêu</h2>
     <span></span>
+    <h2 class="add-category-header">Mục tiêu</h2>
+    <button type="button" class="filter" onclick="toggleFilter()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
+            <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
+            <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
+        </svg>
+    </button>
+</div>
+
+<div id="filter-options" class="filter-box hidden bg-gray-800 p-4 rounded">
+    <label class="block mb-2 text-white">Lọc theo ngày:</label>
+    <input type="date" id="filter-date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
+
+    <button id="apply-filter" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
+        Áp dụng
+    </button>
+
+    <!-- Nút Xóa bộ lọc -->
+    <button id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+        Xóa bộ lọc
+    </button>
 </div>
 
 <!--Banner charity-->
@@ -38,7 +59,7 @@
 <div class="list-search mb-20 grid p-3 gap-3">
     @foreach ($data as $goal)
     <div class="items">
-    <a href="{{ ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date'])) 
+        <a href="{{ ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date'])) 
             ? route('add-goal-transaction', ['id' => $goal['id']]) 
             : route('transaction.list-goal', ['id' => $goal['id']]) }}">
             <div class="items-sub">
@@ -71,32 +92,48 @@
                 </div>
 
                 @if ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date']))
-                <div>
+                    <div class="flex gap-2">
+                    <!-- Nút xóa -->
+                    <form action="{{route('transaction.delete-goal',['id' => $goal['id'] ])}}" method="POST" onsubmit="return confirmDelete(event)">
+                        @csrf
+                        <button type="submit" class="text-red-500">
+                            <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                        </button>
+                    </form>
+                    <!-- Nút chuyển trang -->
                     <a href="{{ route('add-goal-transaction', ['id' => $goal['id']]) }}">
                         <img src="{{ asset('svg/arrow.svg') }}" alt="">
                     </a>
-                </div>
-                @endif
             </div>
-        </a>
+            @endif
     </div>
+    </a>
+</div>
 
-    @if ($goal['stauts'] == 1)
-    <div id="goal-modal" class="modal">
-        <div class="modal-content">
-            <p>🎉 Chúc mừng! Bạn đã đạt được mục tiêu! 🎯</p>
-            <button onclick="closeGoalModal()">Đóng</button>
-        </div>
+@if ($goal['stauts'] == 1)
+<div id="goal-modal" class="modal">
+    <div class="modal-content">
+        <p>🎉 Chúc mừng! Bạn đã đạt được mục tiêu! 🎯</p>
+        <button onclick="closeGoalModal()">Đóng</button>
     </div>
-    @endif
-    @endforeach
+</div>
+@endif
+@endforeach
 
 </div>
-@endsection
+
 <script>
     function toggleFilter() {
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");
+    }
+
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn chặn form gửi ngay lập tức
+
+        if (confirm("Bạn có chắc chắn muốn xóa giao dịch này không?")) {
+            event.target.submit(); // Nếu xác nhận, tiến hành gửi form
+        }
     }
 </script>
 
@@ -121,4 +158,21 @@
         document.getElementById("goal-modal").style.display = "none";
         localStorage.setItem("goalCompleted", "true"); // Lưu trạng thái vào localStorage
     }
+
+    document.getElementById("apply-filter").addEventListener("click", function() {
+        let selectedDate = document.getElementById("filter-date").value;
+
+        if (selectedDate) {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("date", selectedDate);
+            window.location.href = currentUrl.toString();
+        }
+    });
+
+    document.getElementById("clear-filters").addEventListener("click", function() {
+        let currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete("date");
+        window.location.href = currentUrl.toString();
+    });
 </script>
+@endsection

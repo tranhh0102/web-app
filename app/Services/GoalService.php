@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Goal;
+use App\Models\GoalTransaction;
 
 class GoalService implements BaseServiceInterface {
     public function get($conditions = [])
@@ -22,7 +23,13 @@ class GoalService implements BaseServiceInterface {
     public function delete($conditions = [])
     {
         $goal = Goal::where($conditions)->firstOrFail();
-
+    
+        $hasTransactions = GoalTransaction::where('m_saving_id', $goal->id)->exists();
+    
+        if ($hasTransactions) {
+            return false; 
+        }
+    
         return $goal->delete();
     }
 }
