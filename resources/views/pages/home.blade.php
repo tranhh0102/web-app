@@ -58,14 +58,14 @@
 <div class="flex-row-b p-3">
     <div class="tabs">
         <div>
-            <button class="tab-button {{ $tabActive == 'statistic' ? 'active' : '' }}" onclick="openTab(event, 'statistic')">Thống kê</button>
-            <button class="tab-button {{ $tabActive == 'expense' ? 'active' : '' }}" onclick="openTab(event, 'expense')">Chi tiêu</button>
-            <button class="tab-button {{ $tabActive == 'income' ? 'active' : '' }}" onclick="openTab(event, 'income')">Thu nhập</button>
+            <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>
+            <button class="tab-button" onclick="openTab(event, 'expense')">Chi tiêu</button>
+            <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
         </div>
     </div>
 
     <!--Expenses-->
-    <div id="expense" class="tab-content {{ $tabActive == 'expense' ? 'active' : '' }}">
+    <div id="expense" class="tab-content">
         <div class="items">
             @forelse($dataExpenses as $item)
 
@@ -80,12 +80,15 @@
                         <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
-                <form class="m-0" action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
-                    @csrf
-                    <button type="submit" class="text-red-500">
-                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
-                    </button>
-                </form>
+                <div class="flex items-center gap-2">
+                    <form class="m-0" action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                        @csrf
+                        <button type="submit" class="text-red-500">
+                            <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                        </button>
+                    </form>
+                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
+                </div>
             </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
@@ -94,7 +97,7 @@
     </div>
 
     <!--Income-->
-    <div id="income" class="tab-content {{ $tabActive == 'income' ? 'active' : '' }}">
+    <div id="income" class="tab-content ">
         <div class="items">
             @forelse($dataIncomes as $item)
             <a href="{{ route('transaction.update-income', ['id' => $item->id]) }}" class="items-sub">
@@ -108,12 +111,15 @@
                         <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
-                <form class="m-0" action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
-                    @csrf
-                    <button type="submit" class="text-red-500">
-                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
-                    </button>
-                </form>
+                <div class="flex items-center gap-2">
+                    <form class="m-0" action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                        @csrf
+                        <button type="submit" class="text-red-500">
+                            <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                        </button>
+                    </form>
+                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
+                </div>
             </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
@@ -121,34 +127,36 @@
         </div>
     </div>
 
-    <div id="statistic" class="tab-content {{ $tabActive == 'statistic' ? 'active' : '' }}">
+    <div id="statistic" class="tab-content active">
         <p style="color: white;text-align: center;">
             <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
             Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
         </p>
         <div>
-        <canvas id="myChart"></canvas>
-    </div>
+            <canvas id="myChart"></canvas>
+        </div>
     </div>
 </div>
 
 @if (!$hasExpenseForToday)
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
-            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
-            if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
-                document.getElementById('expenseReminderModal').classList.remove('hidden');
-            }
-        });
-        function closeModal() {
-            document.getElementById('expenseReminderModal').classList.add('hidden');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
+        const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
+        if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
+            document.getElementById('expenseReminderModal').classList.remove('hidden');
         }
-        function noMoreAlert() {
-            localStorage.setItem('checkIsAlertReminder', 1);
-            document.getElementById('expenseReminderModal').classList.add('hidden');
-        }
-    </script>
+    });
+
+    function closeModal() {
+        document.getElementById('expenseReminderModal').classList.add('hidden');
+    }
+
+    function noMoreAlert() {
+        localStorage.setItem('checkIsAlertReminder', 1);
+        document.getElementById('expenseReminderModal').classList.add('hidden');
+    }
+</script>
 @endif
 
 <!-- Modal -->
@@ -216,12 +224,12 @@
     }, 3000);
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         let picker = new Pikaday({
             field: document.getElementById('monthPicker'),
             format: 'dd/MM/YYYY',
             yearRange: [1900, 2100],
-            onSelect: function (date) {
+            onSelect: function(date) {
                 let monthYear = ('0' + (date.getMonth() + 1)).slice(-2) + ' / ' + date.getFullYear();
                 document.getElementById('monthPicker').value = "Tháng " + monthYear;
                 document.getElementById('selected_date').value = monthYear;
@@ -232,10 +240,18 @@
         // Set default display format
         document.getElementById('monthPicker').value = "Tháng " + document.getElementById('selected_date').value;
     });
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         // Lấy dữ liệu từ Blade
-        const income = {{ $data['income'] ?? 0 }};
-        const expense = {{ $data['expense'] ?? 0 }};
+        const income = {
+            {
+                $data['income'] ?? 0
+            }
+        };
+        const expense = {
+            {
+                $data['expense'] ?? 0
+            }
+        };
         const total = income + expense;
 
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -257,7 +273,7 @@
                     },
                     tooltip: {
                         callbacks: {
-                            label: function (tooltipItem) {
+                            label: function(tooltipItem) {
                                 let value = tooltipItem.raw;
                                 let percentage = ((value / total) * 100).toFixed(2);
                                 return `${tooltipItem.label}: ${percentage}%`;
