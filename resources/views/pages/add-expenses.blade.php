@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="add-expenses-header">
-        <a href="{{route('home')}}" class="icons-back">
+        <a href="{{route('home', ['tab_active' => 'expense'])}}" class="icons-back">
              <img src="{{asset('svg/arrow-back.svg')}}" alt="">
         </a>
         <span class="add-expenses-title">Thêm chi tiêu</span>

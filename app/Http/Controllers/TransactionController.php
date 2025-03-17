@@ -116,7 +116,7 @@ class TransactionController extends Controller
             'id' => $id
         ],$data);
 
-        return redirect()->route('home')->withSuccess('Update successfully');
+        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Update successfully');
     }
 
     public function deleteExpense($id)
@@ -125,7 +125,7 @@ class TransactionController extends Controller
             'id' => $id
         ]);
 
-        return redirect()->route('home')->withSuccess('Delete successfully');
+        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Delete successfully');
     }
     //income
     public function addIncome()
@@ -189,7 +189,7 @@ class TransactionController extends Controller
             'id' => $id
         ],$data);
 
-        return redirect()->route('home')->withSuccess('Update successfully');
+        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Update successfully');
     }
 
     public function incomeTransaction(MoneyRequest $request)
@@ -197,10 +197,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','m_income_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->incomeService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
+            return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('home')->withErrors(['Insert failed']);
+        return redirect()->route('home', ['tab_active' => 'income'])->withErrors(['Insert failed']);
     }
 
     public function expenseTransaction(MoneyRequest $request)
@@ -208,10 +208,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','m_expense_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->expenseService->insert($data)) {
-            return redirect()->route('home')->withSuccess('Insert successfully');
+            return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Insert successfully');
         }
 
-        return redirect()->route('home')->withErrors(['Insert failed']);
+        return redirect()->route('home', ['tab_active' => 'expense'])->withErrors(['Insert failed']);
     }
 
     public function deleteIncome($id)
@@ -220,7 +220,7 @@ class TransactionController extends Controller
             'id' => $id
         ]);
 
-        return redirect()->route('home')->withSuccess('Delete successfully');
+        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Delete successfully');
     }
 
     //goal
