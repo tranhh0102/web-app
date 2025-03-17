@@ -39,12 +39,20 @@ $previousDate = null;
 
     <div class="items">
         @if (!empty($transaction))
-        <div class="items-sub">
+        <div class="items-sub items-center">
             <div class="flex items-center gap-2">
                 <img src="{{ asset('svg/home/goal.svg') }}" alt="income">
-                <span class="text-white">{{ $transaction->goal->name }}</span>
+                <div class="grid">
+                    <span class="text-white">{{ $transaction->goal->name }}</span>
+                    <span class="receive">{{ number_format($transaction->charge) }} VND</span>
+                </div>
             </div>
-            <span class="receive">{{ number_format($transaction->charge) }} VND</span>
+            <form class="m-0" action="{{route('transaction.delete-goal-transaction',['id' => $transaction['id'] ])}}" method="POST" onsubmit="return confirmDelete(event)">
+                @csrf
+                <button type="submit" class="text-red-500">
+                    <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                </button>
+            </form>
         </div>
         @else
         <p class="title-header text-center">Không có dữ liệu</p>
@@ -60,5 +68,13 @@ $previousDate = null;
     function toggleFilter() {
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");
+    }
+
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn chặn form gửi ngay lập tức
+
+        if (confirm("Bạn có chắc chắn muốn xóa giao dịch này không?")) {
+            event.target.submit(); // Nếu xác nhận, tiến hành gửi form
+        }
     }
 </script>

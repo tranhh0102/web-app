@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
         //list goal 
         Route::get('/list-goal-transaction/{id}', [TransactionController::class, 'detailGoal'])->name('transaction.list-goal');
         Route::post('/delete-goal/{id}', [TransactionController::class, 'deleteGoal'])->name('transaction.delete-goal');
+        Route::post('/delete-goal-transaction/{id}', [TransactionController::class, 'deleteGoalTransaction'])->name('transaction.delete-goal-transaction');
 
 
         //get add goal transactions

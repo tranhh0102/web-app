@@ -281,9 +281,22 @@ class TransactionController extends Controller
 
     public function deleteGoal($id)
     {
-        $result = $this->goalService->delete([
-            'id' => $id
-        ]);
+        $result = $this->goalService->delete(['id' => $id]);
+
+        if (!$result) {
+            return redirect()->route('list-goal')->withErrors('Failed to delete goal. Please try again.');
+        }
+
+        return redirect()->route('list-goal')->withSuccess('Delete successfully');
+    }
+
+    public function deleteGoalTransaction($id)
+    {
+        $result = $this->goldTransactionsService->delete(['id' => $id]);
+
+        if (!$result) {
+            return redirect()->route('list-goal')->withErrors('Failed to delete goal transaction. Please try again.');
+        }
 
         return redirect()->route('list-goal')->withSuccess('Delete successfully');
     }

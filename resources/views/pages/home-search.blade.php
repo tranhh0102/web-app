@@ -88,7 +88,7 @@ $previousDate = null;
                 <img src="{{ asset('svg/home/income.svg') }}" alt="income">
                 <span class="text-white">{{ $transaction->name }}</span>
             </div>
-            <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
+            <span class="receive">${{ number_format($transaction->charge) }}</span>
         </div>
         @else
         <div class="items-sub">
@@ -96,12 +96,13 @@ $previousDate = null;
                 <img src="{{ asset('svg/home/expense.svg') }}" alt="income">
                 <span class="text-white">{{ $transaction->name }}</span>
             </div>
-            <span class="cost">${{ number_format($transaction->charge, 2) }}</span>
+            <span class="cost">${{ number_format($transaction->charge) }}</span>
         </div>
         @endif
     </div>
     @endforeach
 </div>
+<div id="search-results" class="absolute w-full bg-gray-800 text-white rounded mt-1 hidden"></div>
 <script>
     document.getElementById('clear-filters').addEventListener('click', function () {
         window.location.href = "{{ route('home-search') }}"; // Đổi thành route phù hợp
@@ -110,5 +111,38 @@ $previousDate = null;
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");
     }
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        let searchInput = document.querySelector(".input-search");
+        let resultBox = document.getElementById("search-results");
+
+        searchInput.addEventListener("input", function () {
+            let query = searchInput.value.trim();
+            if (query.length > 1) { // Chỉ tìm kiếm khi nhập từ 2 ký tự trở lên
+                fetch(`{{ route('home-search') }}?search=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            resultBox.innerHTML = data.map(item => 
+                                `<a href="/details/${item.id}" class="block p-2 hover:bg-gray-700">${item.name}</a>`
+                            ).join("");
+                            resultBox.classList.remove("hidden");
+                        } else {
+                            resultBox.innerHTML = `<p class="p-2 text-gray-400">Không tìm thấy kết quả</p>`;
+                        }
+                    })
+                    .catch(error => console.error("Lỗi:", error));
+            } else {
+                resultBox.classList.add("hidden");
+            }
+        });
+
+        // Ẩn danh sách khi click ra ngoài
+        document.addEventListener("click", function (e) {
+            if (!searchInput.contains(e.target) && !resultBox.contains(e.target)) {
+                resultBox.classList.add("hidden");
+            }
+        });
+    });
 </script>
 @endsection

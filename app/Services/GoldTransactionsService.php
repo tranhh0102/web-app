@@ -72,8 +72,25 @@ class GoldTransactionsService  implements BaseServiceInterface
     }
     public function delete($conditions = [])
     {
-        $goalTransaction = GoalTransaction::where($conditions)->firstOrFail();
-
-        return $goalTransaction->delete();
+        try {
+            DB::beginTransaction();
+        
+            $goalTransaction = GoalTransaction::where($conditions)->firstOrFail();
+            $oldCharge = $goalTransaction->charge;
+            $newCharge = 0;
+        
+            $goalTransaction->charge = $newCharge - $oldCharge;
+            $goalTransaction->save(); 
+        
+            $this->statisticService->calculateStatisticData(Statistic::TYPE_GOAL, $goalTransaction);
+            
+            $goalTransaction->delete();
+        
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }

@@ -80,9 +80,12 @@
                         <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
-                <div>
-                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
-                </div>
+                <form class="m-0" action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    @csrf
+                    <button type="submit" class="text-red-500">
+                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                    </button>
+                </form>
             </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
@@ -105,9 +108,12 @@
                         <span class="text-white">{{ $item->date }}</span>
                     </div>
                 </div>
-                <div>
-                    <img src="{{ asset('svg/arrow.svg') }}" alt="">
-                </div>
+                <form class="m-0" action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    @csrf
+                    <button type="submit" class="text-red-500">
+                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                    </button>
+                </form>
             </a>
             @empty
             <p class="title-header text-center">Không có dữ liệu</p>
