@@ -133,30 +133,28 @@
             Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
         </p>
         <div>
-            <canvas id="myChart"></canvas>
-        </div>
+        <canvas id="myChart"></canvas>
+    </div>
     </div>
 </div>
 
 @if (!$hasExpenseForToday)
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
-        const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
-        if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
-            document.getElementById('expenseReminderModal').classList.remove('hidden');
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
+            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
+            if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
+                document.getElementById('expenseReminderModal').classList.remove('hidden');
+            }
+        });
+        function closeModal() {
+            document.getElementById('expenseReminderModal').classList.add('hidden');
         }
-    });
-
-    function closeModal() {
-        document.getElementById('expenseReminderModal').classList.add('hidden');
-    }
-
-    function noMoreAlert() {
-        localStorage.setItem('checkIsAlertReminder', 1);
-        document.getElementById('expenseReminderModal').classList.add('hidden');
-    }
-</script>
+        function noMoreAlert() {
+            localStorage.setItem('checkIsAlertReminder', 1);
+            document.getElementById('expenseReminderModal').classList.add('hidden');
+        }
+    </script>
 @endif
 
 <!-- Modal -->
@@ -224,12 +222,12 @@
     }, 3000);
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         let picker = new Pikaday({
             field: document.getElementById('monthPicker'),
             format: 'dd/MM/YYYY',
             yearRange: [1900, 2100],
-            onSelect: function(date) {
+            onSelect: function (date) {
                 let monthYear = ('0' + (date.getMonth() + 1)).slice(-2) + ' / ' + date.getFullYear();
                 document.getElementById('monthPicker').value = "Tháng " + monthYear;
                 document.getElementById('selected_date').value = monthYear;
@@ -240,18 +238,10 @@
         // Set default display format
         document.getElementById('monthPicker').value = "Tháng " + document.getElementById('selected_date').value;
     });
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy dữ liệu từ Blade
-        const income = {
-            {
-                $data['income'] ?? 0
-            }
-        };
-        const expense = {
-            {
-                $data['expense'] ?? 0
-            }
-        };
+        const income = {{ $data['income'] ?? 0 }};
+        const expense = {{ $data['expense'] ?? 0 }};
         const total = income + expense;
 
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -273,7 +263,7 @@
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(tooltipItem) {
+                            label: function (tooltipItem) {
                                 let value = tooltipItem.raw;
                                 let percentage = ((value / total) * 100).toFixed(2);
                                 return `${tooltipItem.label}: ${percentage}%`;
