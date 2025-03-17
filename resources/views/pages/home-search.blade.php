@@ -88,7 +88,7 @@ $previousDate = null;
                 <img src="{{ asset('svg/home/income.svg') }}" alt="income">
                 <span class="text-white">{{ $transaction->name }}</span>
             </div>
-            <span class="receive">${{ number_format($transaction->charge, 2) }}</span>
+            <span class="receive">${{ number_format($transaction->charge, 0) }}</span>
         </div>
         @else
         <div class="items-sub">
@@ -96,7 +96,7 @@ $previousDate = null;
                 <img src="{{ asset('svg/home/expense.svg') }}" alt="income">
                 <span class="text-white">{{ $transaction->name }}</span>
             </div>
-            <span class="cost">${{ number_format($transaction->charge, 2) }}</span>
+            <span class="cost">${{ number_format($transaction->charge, 0) }}</span>
         </div>
         @endif
     </div>
