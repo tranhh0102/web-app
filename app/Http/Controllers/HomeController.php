@@ -43,7 +43,9 @@ class HomeController extends Controller
             $hasExpenseForToday = $user->expenses()->whereDate('created_at', $today)->exists();
         }
 
-        return view('pages.home', compact('dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'defaultMonthYear'));
+        $tabActive = $request->get('tab_active') ? $request->get('tab_active') : 'statistic';
+
+        return view('pages.home', compact('tabActive','dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'defaultMonthYear'));
     }
 
     public function idea()

@@ -58,14 +58,14 @@
 <div class="flex-row-b p-3">
     <div class="tabs">
         <div>
-            <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>
-            <button class="tab-button" onclick="openTab(event, 'expense')">Chi tiêu</button>
-            <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
+            <button class="tab-button {{ $tabActive == 'statistic' ? 'active' : '' }}" onclick="openTab(event, 'statistic')">Thống kê</button>
+            <button class="tab-button {{ $tabActive == 'expense' ? 'active' : '' }}" onclick="openTab(event, 'expense')">Chi tiêu</button>
+            <button class="tab-button {{ $tabActive == 'income' ? 'active' : '' }}" onclick="openTab(event, 'income')">Thu nhập</button>
         </div>
     </div>
 
     <!--Expenses-->
-    <div id="expense" class="tab-content">
+    <div id="expense" class="tab-content {{ $tabActive == 'expense' ? 'active' : '' }}">
         <div class="items">
             @forelse($dataExpenses as $item)
 
@@ -91,7 +91,7 @@
     </div>
 
     <!--Income-->
-    <div id="income" class="tab-content ">
+    <div id="income" class="tab-content {{ $tabActive == 'income' ? 'active' : '' }}">
         <div class="items">
             @forelse($dataIncomes as $item)
             <a href="{{ route('transaction.update-income', ['id' => $item->id]) }}" class="items-sub">
@@ -115,7 +115,7 @@
         </div>
     </div>
 
-    <div id="statistic" class="tab-content active">
+    <div id="statistic" class="tab-content {{ $tabActive == 'statistic' ? 'active' : '' }}">
         <p style="color: white;text-align: center;">
             <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
             Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
