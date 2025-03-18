@@ -14,6 +14,7 @@
     {{ session('success') }}
 </div>
 @endif
+<div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
 <div class="home-header">
     <form method="GET" action="{{ route('home') }}" id="filter_date_home_page">
         <input type="text" id="monthPicker" style="border:none;background: none;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
@@ -54,8 +55,9 @@
         </a>
     </div>
 </div>
+</div>
 <!-- <p class="title-header text-center">Danh sách thu chi tháng này</p> -->
-<div class="flex-row-b p-3">
+<div class="flex-row-b p-3 pt-[268px] mb-[30vh]">
     <div class="tabs">
         <div>
             <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="home-search-header">
+<div class="home-search-header w-full fixed top-0 z-10 bg-[#1c1c23]">
     <form method="GET" action="{{ route('home-search') }}" class="home-search-header w-full relative">
         <input type="text" class="input-search" name="search" placeholder="Tìm kiếm..." value="{{ request('search') }}">
 
@@ -69,8 +69,8 @@
 use Carbon\Carbon;
 $previousDate = null;
 @endphp
-
-<div class="list-search mb-20">
+    
+<div class="list-search mb-20 pt-[84px]">
     @foreach ($data as $transaction)
     @php
     $currentDate = Carbon::parse($transaction->date)->format('Y-m-d');

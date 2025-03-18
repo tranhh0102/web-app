@@ -6,6 +6,7 @@
 
 @section('content')
 
+<div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
 <!--Header-->
 <div class="list-charity-header">
     <span></span>
@@ -62,13 +63,10 @@
         </div>
     </div>
 </div>
-<!--Title charity-->
-<!-- <div>
-    <p class="title-header text-center">Những mục tiêu của bạn</p>
-</div> -->
+</div>
 
 <!--List charity-->
-<div class="list-search mb-20 grid p-3 gap-3">
+<div class="list-search mb-20 grid p-3 gap-3 mt-[160px]">
     @foreach ($data as $goal)
     <div class="items">
         <a href="{{ ($goal['status'] == 0 && \Carbon\Carbon::today() <= \Carbon\Carbon::parse($goal['due_date'])) 

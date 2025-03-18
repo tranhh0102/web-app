@@ -51,7 +51,7 @@
 .items {
     display: grid;
     gap: 12px;
-    margin-bottom: 5px;
+    margin-bottom: 12px;
 }
 
 .items-sub {
