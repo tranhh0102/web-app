@@ -85,7 +85,7 @@
                 <div class="flex items-center gap-2">
                     <form class="m-0" action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         @csrf
-                        <button type="submit" class="text-red-500">
+                        <button type="submit" class="text-red-500" style="margin-top: 15px;">
                             <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
                         </button>
                     </form>
@@ -116,7 +116,7 @@
                 <div class="flex items-center gap-2">
                     <form class="m-0" action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         @csrf
-                        <button type="submit" class="text-red-500">
+                        <button type="submit" class="text-red-500" style="margin-top: 15px;">
                             <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
                         </button>
                     </form>
