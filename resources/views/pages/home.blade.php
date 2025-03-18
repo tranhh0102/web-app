@@ -141,7 +141,7 @@
             Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
         </p>
         <div>
-        <canvas id="myChart"></canvas>
+        <canvas style="height: 300px; width: 300px ; margin-left: auto; margin-right: auto;" id="myChart"></canvas>
     </div>
     </div>
 </div>
