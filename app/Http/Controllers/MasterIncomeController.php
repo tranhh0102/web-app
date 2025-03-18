@@ -50,10 +50,10 @@ class MasterIncomeController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         if ($this->mIncomeService->insert($data)) {
-            return redirect()->route('mincome.index')->withSuccess('Insert successfully');
+            return redirect()->route('mincome.index')->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('mincome.index')->withErrors(['Insert failed']);
+        return redirect()->route('mincome.index')->withErrors(['Thêm thất bại']);
     }
 
     public function delete($id)
@@ -62,9 +62,9 @@ class MasterIncomeController extends Controller
             'id' => $id
         ];
         if ($this->mIncomeService->delete($conditions)) {
-            return redirect()->route('mincome.index')->withSuccess('Remove successfully');
+            return redirect()->route('mincome.index')->withSuccess('Xóa thành công');
         }
 
-        return redirect()->route('mincome.index')->withErrors(['Remove failed']);
+        return redirect()->route('mincome.index')->withErrors(['Xóa thất bại']);
     }
 }

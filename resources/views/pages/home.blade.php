@@ -10,8 +10,14 @@
 @section('content')
 
 @if(session('success'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
     {{ session('success') }}
+</div>
+@endif
+
+@if(session('errors'))
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
+    {{ session('errors') }}
 </div>
 @endif
 <div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
@@ -57,7 +63,7 @@
 </div>
 </div>
 <!-- <p class="title-header text-center">Danh sách thu chi tháng này</p> -->
-<div class="flex-row-b p-3 pt-[268px] mb-[30vh]">
+<div class="flex-row-b p-3 pt-[262px] mb-[30vh]">
     <div class="tabs">
         <div>
             <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>
@@ -83,7 +89,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <form class="m-0" action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    <form action="{{ route('transaction.delete-expense', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         @csrf
                         <button type="submit" class="text-red-500" style="margin-top: 15px;">
                             <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
@@ -114,7 +120,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <form class="m-0" action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    <form  action="{{ route('transaction.delete-income', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         @csrf
                         <button type="submit" class="text-red-500" style="margin-top: 15px;">
                             <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
@@ -178,9 +184,13 @@
     .tabs {
         display: flex;
         justify-content: center;
-        gap: 12px;
         align-items: center;
-        border-radius: 12px;
+        position: fixed;
+        width: 100%;
+        z-index: 10;
+        background: #1c1c23;
+        /* top: auto; */
+        left: 0;
     }
 
     .tab-button {
@@ -199,7 +209,7 @@
     }
 
     .tab-content {
-        margin-top: 12px;
+        margin-top: 48px;
         display: none;
     }
 

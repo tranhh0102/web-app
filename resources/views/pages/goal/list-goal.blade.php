@@ -38,13 +38,13 @@
 </div>
 
 @if(session('success'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
     {{ session('success') }}
 </div>
 @endif
 
 @if(session('errors'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg">
+<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
     {{ session('errors') }}
 </div>
 @endif

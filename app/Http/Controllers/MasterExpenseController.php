@@ -49,10 +49,10 @@ class MasterExpenseController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         if ($this->mExpenseService->insert($data)) {
-            return redirect()->route('mexpense.index')->withSuccess('Insert successfully');
+            return redirect()->route('mexpense.index')->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('mexpense.index')->withErrors(['Insert failed']);
+        return redirect()->route('mexpense.index')->withErrors(['Thêm thất bại']);
     }
 
     public function delete($id)
@@ -61,9 +61,9 @@ class MasterExpenseController extends Controller
             'id' => $id
         ];
         if ($this->mExpenseService->delete($conditions)) {
-            return redirect()->route('mexpense.index')->withSuccess('Remove successfully');
+            return redirect()->route('mexpense.index')->withSuccess('Xóa thành công');
         }
 
-        return redirect()->route('mexpense.index')->withErrors(['Remove failed']);
+        return redirect()->route('mexpense.index')->withErrors(['Xóa thất bại']);
     }
 }

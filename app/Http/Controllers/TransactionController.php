@@ -116,7 +116,7 @@ class TransactionController extends Controller
             'id' => $id
         ],$data);
 
-        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Update successfully');
+        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Cập nhật thành công');
     }
 
     public function deleteExpense($id)
@@ -125,7 +125,7 @@ class TransactionController extends Controller
             'id' => $id
         ]);
 
-        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Delete successfully');
+        return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Xóa thành công');
     }
     //income
     public function addIncome()
@@ -189,7 +189,7 @@ class TransactionController extends Controller
             'id' => $id
         ],$data);
 
-        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Update successfully');
+        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Cập nhật thành công');
     }
 
     public function incomeTransaction(MoneyRequest $request)
@@ -197,10 +197,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','m_income_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->incomeService->insert($data)) {
-            return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Insert successfully');
+            return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('home', ['tab_active' => 'income'])->withErrors(['Insert failed']);
+        return redirect()->route('home', ['tab_active' => 'income'])->withErrors(['Thêm thất bại !']);
     }
 
     public function expenseTransaction(MoneyRequest $request)
@@ -208,10 +208,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','m_expense_id','date');
         $data['user_id'] = Auth::user()->id;
         if ($this->expenseService->insert($data)) {
-            return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Insert successfully');
+            return redirect()->route('home', ['tab_active' => 'expense'])->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('home', ['tab_active' => 'expense'])->withErrors(['Insert failed']);
+        return redirect()->route('home', ['tab_active' => 'expense'])->withErrors(['Thêm thất bại !']);
     }
 
     public function deleteIncome($id)
@@ -220,7 +220,7 @@ class TransactionController extends Controller
             'id' => $id
         ]);
 
-        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Delete successfully');
+        return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Xóa thành công');
     }
 
     //goal
@@ -256,10 +256,10 @@ class TransactionController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['m_saving_id'] = $id;
         if ($this->goldTransactionsService->insert($data)) {
-            return redirect()->route('list-goal')->withSuccess('Insert successfully');
+            return redirect()->route('list-goal')->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('list-goal')->withErrors(['Insert failed']);
+        return redirect()->route('list-goal')->withErrors(['Thêm thất bại !']);
     }
     
     public function detailGoal($id)
@@ -273,10 +273,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name','due_date');
         $data['user_id'] = Auth::user()->id;
         if ($this->goalService->insert($data)) {
-            return redirect()->route('list-goal')->withSuccess('Insert successfully');
+            return redirect()->route('list-goal')->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('list-goal')->withErrors(['Insert failed']);
+        return redirect()->route('list-goal')->withErrors(['Thêm thất bại !']);
     }
 
     public function deleteGoal($id)
@@ -284,10 +284,10 @@ class TransactionController extends Controller
         $result = $this->goalService->delete(['id' => $id]);
 
         if (!$result) {
-            return redirect()->route('list-goal')->withErrors('Failed to delete goal. Please try again.');
+            return redirect()->route('list-goal')->withErrors('Xóa mục tiêu thất bại !');
         }
 
-        return redirect()->route('list-goal')->withSuccess('Delete successfully');
+        return redirect()->route('list-goal')->withSuccess('Xóa thành công');
     }
 
     public function deleteGoalTransaction($id)
@@ -295,10 +295,10 @@ class TransactionController extends Controller
         $result = $this->goldTransactionsService->delete(['id' => $id]);
 
         if (!$result) {
-            return redirect()->route('list-goal')->withErrors('Failed to delete goal transaction. Please try again.');
+            return redirect()->route('list-goal')->withErrors('Xóa thất bại !');
         }
 
-        return redirect()->route('list-goal')->withSuccess('Delete successfully');
+        return redirect()->route('list-goal')->withSuccess('Xóa thành công');
     }
     
     //charity
@@ -325,10 +325,10 @@ class TransactionController extends Controller
         $data = $request->only('charge','name');
         $data['user_id'] = Auth::user()->id;
         if ($this->charityTransactionsService->insert($data)) {
-            return redirect()->route('list-charity')->withSuccess('Insert successfully');
+            return redirect()->route('list-charity')->withSuccess('Thêm thành công');
         }
 
-        return redirect()->route('list-charity')->withErrors(['Insert failed']);
+        return redirect()->route('list-charity')->withErrors(['Thêm thất bại !']);
     }
 
     public function getUpdateCharity($id)
@@ -344,7 +344,7 @@ class TransactionController extends Controller
             'id' => $id
         ],$data);
 
-        return redirect()->route('list-charity')->withSuccess('Update successfully');
+        return redirect()->route('list-charity')->withSuccess('Cập nhật thành công');
     }
 
     public function deleteCharity($id)
@@ -353,6 +353,6 @@ class TransactionController extends Controller
             'id' => $id
         ]);
 
-        return redirect()->route('list-charity')->withSuccess('Delete successfully');
+        return redirect()->route('list-charity')->withSuccess('Xóa thành công');
     }
 }
