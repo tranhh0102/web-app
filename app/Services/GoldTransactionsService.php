@@ -83,7 +83,19 @@ class GoldTransactionsService  implements BaseServiceInterface
             $goalTransaction->save(); 
         
             $this->statisticService->calculateStatisticData(Statistic::TYPE_GOAL, $goalTransaction);
-            
+            //check goal finish change status
+            $goal = Goal::with('goalTransactions')->where('user_id', $goalTransaction['user_id'])
+                ->where('id', $goalTransaction['m_saving_id'])
+                ->first();
+            if ($goal) {
+                $totalCharge = $goal->goalTransactions->sum('charge');
+
+                if ($totalCharge >= $goal->charge) {
+                    $goal->update(['status' => 1]);
+                } else {
+                    $goal->update(['status' => 0]);
+                }
+            }
             $goalTransaction->delete();
         
             DB::commit();
