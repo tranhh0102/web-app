@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GoalRequest;
+use App\Http\Requests\MoneyExpenseRequest;
 use App\Http\Requests\MoneyRequest;
 use App\Models\CharityTransaction;
 use App\Models\Expense;
@@ -109,9 +110,9 @@ class TransactionController extends Controller
         return view('pages.expenses.update-expense',compact('result','expense'));
     }
 
-    public function updateExpenses(Request $request,$id)
+    public function updateExpenses(MoneyExpenseRequest $request,$id)
     {
-        $data = $request->only('charge','name','m_expense_id');
+        $data = $request->only('charge','name','m_expense_id','date');
         $result = $this->expenseService->update([
             'id' => $id
         ],$data);
@@ -184,7 +185,7 @@ class TransactionController extends Controller
 
     public function updateIncome(Request $request,$id)
     {
-        $data = $request->only('charge','name','m_expense_id');
+        $data = $request->only('charge','name','m_expense_id','date');
         $result = $this->incomeService->update([
             'id' => $id
         ],$data);
@@ -203,7 +204,7 @@ class TransactionController extends Controller
         return redirect()->route('home', ['tab_active' => 'income'])->withErrors(['Thêm thất bại !']);
     }
 
-    public function expenseTransaction(MoneyRequest $request)
+    public function expenseTransaction(MoneyExpenseRequest $request)
     {
         $data = $request->only('charge','name','m_expense_id','date');
         $data['user_id'] = Auth::user()->id;

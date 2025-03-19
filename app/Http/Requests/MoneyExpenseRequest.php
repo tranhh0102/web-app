@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MoneyRequest extends FormRequest
+class MoneyExpenseRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,7 +17,7 @@ class MoneyRequest extends FormRequest
             'charge' => 'required|numeric|min:0.01',
             'name' => 'required',
             'date' => 'required',
-            'm_income_id' => 'required'
+            'm_expense_id' => 'required'
         ];
     }
 
@@ -27,7 +27,7 @@ class MoneyRequest extends FormRequest
             'charge' => 'Số tiền',
             'name' => 'Mô tả',
             'date' => 'Ngày',
-            'm_income_id' => 'Loại'
+            'm_expense_id' => 'Loại'
         ];
     }
 
@@ -39,7 +39,7 @@ class MoneyRequest extends FormRequest
             'charge.min' => 'Số tiền phải lớn hơn 0',
             'name.required' => 'Mô tả là bắt buộc',
             'date.required' => 'Ngày là bắt buộc',
-            'm_income_id.required' => 'Loại là bắt buộc',
+            'm_expense_id.required' => 'Loại là bắt buộc',
         ];
     }
 }

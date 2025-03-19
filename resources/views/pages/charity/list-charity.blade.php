@@ -66,29 +66,29 @@
                         $color='#CD7F32' ; // Đồng
                         $nextMilestone=2000000;
                         $rank='Đồng' ;
-                        } elseif ($totalCharge < 2000000) {
+                    } elseif ($totalCharge < 2000000) {
                         $color='#C0C0C0' ; // Bạc
                         $nextMilestone=5000000;
                         $rank='Bạc' ;
-                        } elseif ($totalCharge < 5000000) {
+                    } elseif ($totalCharge < 5000000) {
                         $color='#FFD700' ; // Vàng
                         $nextMilestone=10000000;
                         $rank='Vàng' ;
-                        } elseif ($totalCharge < 10000000) {
+                    } elseif ($totalCharge < 10000000) {
                         $color='#B9F2FF' ; // Kim Cương
                         $nextMilestone=15000000;
                         $rank='Kim Cương' ;
-                        } else {
+                    } else {
                         $color='#8B0000' ; // Huyền Thoại
                         $nextMilestone=null;
                         $rank='Huyền Thoại' ;
-                        }
+                    }
 
-                        $progress=($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
-                        @endphp
+                    $progress=($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
+                    @endphp
 
-                        <img id="medalImg" width="60px" src="{{ asset('svg/home/medal.svg') }}" alt="Medal">
-                        <span>Cấp bậc: <strong style="color: {{ $color }}">{{ $rank }}</strong></span>
+                    <img id="medalImg" width="60px" src="{{ asset('svg/home/medal.svg') }}" alt="Medal">
+                    <span>Cấp bậc: <strong style="color: {{ $color }}">{{ $rank }}</strong></span>
                 </div>
 
                 <!-- Thanh tiến trình -->
@@ -123,6 +123,7 @@
                 <img style="width: 32px; height: 32px;" src="{{ asset('svg/home/charity.svg') }}" alt="">
                 <div class="grid">
                     <span class="text-white">{{ $transactions['name'] }}</span>
+                    <span class="text-white">Ngày: {{ \Carbon\Carbon::parse($transactions['created_at'])->format('d/m/Y') }}</span>
                     <span class="dollar text-white">{{ number_format($transactions['charge']) }}</span>
                 </div>
             </div>

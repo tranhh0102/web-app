@@ -83,9 +83,9 @@
                         </span>
 
                         @php
-                        $totalCharge = $goal->goalTransactions->sum('charge');
-                        $targetCharge = $goal['charge'];
-                        $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
+                            $totalCharge = $goal->goalTransactions->sum('charge');
+                            $targetCharge = $goal['charge'];
+                            $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
                         @endphp
 
                         <!-- Thanh tiến trình -->
@@ -95,8 +95,10 @@
 
                         <span class="text-white">{{ round($percentage, 2) }}%</span>
 
-                        @if (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
-                        <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
+                        @if ($percentage >= 100)
+                            <span class="text-red-500 font-bold">🔥 Hoàn thành mục tiêu!</span>
+                        @elseif (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
+                            <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
                         @endif
                     </div>
                 </div>

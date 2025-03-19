@@ -9,12 +9,6 @@
 
 @section('content')
 
-@if(session('success'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
-    {{ session('success') }}
-</div>
-@endif
-
 @if(session('errors'))
 <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
     {{ session('errors') }}
@@ -66,14 +60,14 @@
 <div class="flex-row-b p-3 pt-[262px] mb-[30vh]">
     <div class="tabs">
         <div>
-            <button class="tab-button active" onclick="openTab(event, 'statistic')">Thống kê</button>
-            <button class="tab-button" onclick="openTab(event, 'expense')">Chi tiêu</button>
-            <button class="tab-button" onclick="openTab(event, 'income')">Thu nhập</button>
+            <button class="tab-button {{$tabActive == 'statistic' ? 'active' : ''}}" onclick="openTab(event, 'statistic')">Thống kê</button>
+            <button class="tab-button {{$tabActive == 'expense' ? 'active' : ''}}" onclick="openTab(event, 'expense')">Chi tiêu</button>
+            <button class="tab-button {{$tabActive == 'income' ? 'active' : ''}}" onclick="openTab(event, 'income')">Thu nhập</button>
         </div>
     </div>
 
     <!--Expenses-->
-    <div id="expense" class="tab-content">
+    <div id="expense" class="tab-content {{$tabActive == 'expense' ? 'active' : ''}}">
         <div class="items">
             @forelse($dataExpenses as $item)
 
@@ -105,7 +99,7 @@
     </div>
 
     <!--Income-->
-    <div id="income" class="tab-content ">
+    <div id="income" class="tab-content {{$tabActive == 'income' ? 'active' : ''}}">
         <div class="items">
             @forelse($dataIncomes as $item)
             <a href="{{ route('transaction.update-income', ['id' => $item->id]) }}" class="items-sub">
@@ -135,7 +129,7 @@
         </div>
     </div>
 
-    <div id="statistic" class="tab-content active">
+    <div id="statistic" class="tab-content {{$tabActive == 'statistic' ? 'active' : ''}}">
         <p style="color: white;text-align: center;">
             <img style="width: 35px;height: 35px;display: inline;margin-right: 5px;" src="{{asset('svg/wallet.svg')}}" alt="">
             Số dư: {{ number_format((($data['income'] ?? 0) - ($data['expense'] ?? 0) - ($data['goal'] ?? 0) - ($data['charity'] ?? 0)) ?? 0)}} VNĐ
@@ -216,22 +210,14 @@
     .tab-content.active {
         display: block;
         overflow: scroll;
+        height: 85vh;
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function openTab(event, tabId) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        location.href = '/?tab_active=' + tabId;
     }
-
-    setTimeout(() => {
-        if (document.getElementById('toast-message')) {
-            document.getElementById('toast-message').style.display = 'none';
-        }
-    }, 3000);
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
