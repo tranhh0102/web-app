@@ -9,7 +9,7 @@
 <div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
     <div class="list-charity-header">
         <span></span>
-        <h2 class="add-category-header">Cộng đồng</h2>
+        <h2 class="add-category-header">Đóng góp cộng đồng</h2>
         <button type="button" class="filter-charity" onclick="toggleFilter()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
@@ -38,23 +38,11 @@
         </button>
     </div>
 
-    @if(session('success'))
-    <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    @if(session('errors'))
-    <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
-        {{ session('errors') }}
-    </div>
-    @endif
-
     <!--Banner charity-->
     <div class="banner-container">
         <div class="archive">
             <div class="grid">
-                <span>Bạn là công dân gương mẫu 🎉</span>
+                <span>Công dân gương mẫu 🎉</span>
                 <span>Tiền bạn đã ủng hộ:</span>
                 <span>{{ number_format($totalCharge) }} VNĐ</span>
             </div>
@@ -64,24 +52,29 @@
                     // Xác định medal & milestone
                     if ($totalCharge <= 500000) {
                         $color='#CD7F32' ; // Đồng
-                        $nextMilestone=2000000;
+                        $nextMilestone=500000;
                         $rank='Đồng' ;
+                        $nextRank = 'Bạc';
                     } elseif ($totalCharge < 2000000) {
                         $color='#C0C0C0' ; // Bạc
-                        $nextMilestone=5000000;
+                        $nextMilestone=2000000;
                         $rank='Bạc' ;
+                        $nextRank = 'Vàng';
                     } elseif ($totalCharge < 5000000) {
                         $color='#FFD700' ; // Vàng
-                        $nextMilestone=10000000;
+                        $nextMilestone=5000000;
                         $rank='Vàng' ;
+                        $nextRank = 'Kim Cương';
                     } elseif ($totalCharge < 10000000) {
                         $color='#B9F2FF' ; // Kim Cương
-                        $nextMilestone=15000000;
+                        $nextMilestone=10000000;
                         $rank='Kim Cương' ;
+                        $nextRank = 'Huyền Thoại';
                     } else {
                         $color='#8B0000' ; // Huyền Thoại
                         $nextMilestone=null;
                         $rank='Huyền Thoại' ;
+                        $nextRank = 'Huyền thoại';
                     }
 
                     $progress=($nextMilestone) ? min(100, ($totalCharge / $nextMilestone) * 100) : 100;
@@ -98,7 +91,7 @@
 
                 <!-- Hiển thị mốc điểm tiếp theo -->
                 @if ($nextMilestone)
-                <p class="next-level">Cấp bậc tiếp theo : {{ number_format($nextMilestone) }} VNĐ</p>
+                <p class="next-level">{{ $nextRank }} : {{ number_format($nextMilestone) }} VNĐ</p>
                 @else
                 <p class="next-level">Bạn đã đạt hạng cao nhất!</p>
                 @endif

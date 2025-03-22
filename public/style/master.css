@@ -31,6 +31,10 @@
     overflow-y: scroll;
   }
 
+  .main-container.disable-scroll {
+    overflow: hidden !important;
+  }
+
   .main-container::-webkit-scrollbar { 
     width: 0 !important;
     display: none; 

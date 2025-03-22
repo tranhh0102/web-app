@@ -5,7 +5,7 @@
 @section('content')
 <div class="w-full max-w-md mx-auto mt-10 p-3">
     <div class="mb-4 text-sm text-white italic">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        Bạn đã quên mật khẩu? Không vấn đề gì. Hãy cho chúng tôi email của bạn để gửi yêu cầu thay đổi mật khẩu.
     </div>
 
     @if (session('status'))
@@ -26,10 +26,10 @@
         </div>
 
         <div class="flex items-center justify-center mt-4">
-            <button class="btn-request" type="submit"><span class="get-started">{{ __('Email Password Reset Link') }}</span></button>
+            <button class="btn-request" type="submit"><span class="get-started">Gửi yêu cầu quên mật khẩu</span></button>
         </div>
         <div class="flex-row-c">
-            <a href="{{ route('login') }}" class="back-to-login">Didn't want to request a password request? <br> Back to login page</a>
+            <a href="{{ route('login') }}" class="back-to-login">Bạn vẫn còn nhớ mật khẩu? <br> Quay lại trang đăng nhập.</a>
         </div>
     </form>
 </div>

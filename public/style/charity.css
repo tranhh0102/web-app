@@ -23,7 +23,7 @@
 
 .archive {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: white;
     padding: 12px 12px 12px 12px;
     margin: 0 12px 0px 12px;

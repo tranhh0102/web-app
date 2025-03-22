@@ -2,22 +2,24 @@
 
 return [
     'm_expense' => [
-        'Shopping',
-        'Food',
-        'Entertainment',
-        'Education',
-        'Health',
-        'Travel',
-        'Gift',
-        'Loan',
-        'Rental',
-        'Others'
+        'Ăn uống',
+        'Tiền nhà',
+        'Tiền điện',
+        'Tiền nước',
+        'Tiền điện thoại',
+        'Xăng xe',
+        'Thực phẩm',
+        'Quần áo',
+        'Mỹ phẩm',
+        'Sức khỏe',
+        'Khác'
     ],
     'm_income' => [
-        'Salary',
-        'Investment',
-        'Partime Job',
-        'Awards',
-        'Others'
+        'Lương',
+        'Đầu tư',
+        'Công việc bán thời gian',
+        'Thưởng',
+        'Phụ cấp',
+        'Khác'
     ]
 ];

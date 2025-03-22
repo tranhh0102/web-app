@@ -17,7 +17,7 @@
 <div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
 <div class="home-header">
     <form method="GET" action="{{ route('home') }}" id="filter_date_home_page">
-        <input type="text" id="monthPicker" style="border:none;background: none;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
+        <input type="text" id="monthPicker" style="border:none !important;background: none !important;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
         <input type="hidden" name="selected_date" id="selected_date" value="<?= $defaultMonthYear ?>">
     </form>
 </div>
@@ -57,7 +57,7 @@
 </div>
 </div>
 <!-- <p class="title-header text-center">Danh sách thu chi tháng này</p> -->
-<div class="flex-row-b p-3 pt-[262px] mb-[30vh]">
+<div class="flex-row-b p-3 pt-[262px] mb-[30vh] tab-box">
     <div class="tabs">
         <div>
             <button class="tab-button {{$tabActive == 'statistic' ? 'active' : ''}}" onclick="openTab(event, 'statistic')">Thống kê</button>
@@ -93,8 +93,9 @@
                 </div>
             </a>
             @empty
-            <p class="title-header text-center">Không có dữ liệu</p>
+            <p class="title-header text-center">Bạn hãy nhập chi tiêu nhé!</p>
             @endforelse
+            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search')}}">Xem nhiều hơn</a>
         </div>
     </div>
 
@@ -124,8 +125,9 @@
                 </div>
             </a>
             @empty
-            <p class="title-header text-center">Không có dữ liệu</p>
+            <p class="title-header text-center">Bạn hãy nhập thu nhập nhé!</p>
             @endforelse
+            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search')}}">Xem nhiều hơn</a>
         </div>
     </div>
 
@@ -212,6 +214,13 @@
         overflow: scroll;
         height: 85vh;
     }
+    input[type=text]:focus {
+        box-shadow: none;    
+    }
+
+    .tab-box {
+        padding-top: 240px !important;
+    }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -239,7 +248,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy dữ liệu từ Blade
         const income = {{ $data['income'] ?? 0 }};
-        const expense = {{ $data['expense'] ?? 0 }};
+        const expense = parseInt({{ $data['expense'] ?? 0 }}) + parseInt({{ $data['goal'] ?? 0 }}) + parseInt({{ $data['charity'] ?? 0 }});
         const total = income + expense;
 
         const ctx = document.getElementById('myChart').getContext('2d');

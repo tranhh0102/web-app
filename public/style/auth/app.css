@@ -29,7 +29,6 @@
     width: 100%;
     height: 100vh;
     background: var(--Greyscale-Grey-80, #1C1C23);
-    overflow-y: scroll;
   }
 
   .main-container::-webkit-scrollbar { 

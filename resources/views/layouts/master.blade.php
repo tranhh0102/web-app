@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <div class="main-container">
+    <div class="main-container {{$extendClass ?? ''}}">
         @yield('content')
     </div>
     @include('layouts.footer')

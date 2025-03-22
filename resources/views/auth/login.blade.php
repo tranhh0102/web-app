@@ -27,7 +27,7 @@
         @enderror
     </div>
     <div class="input-password relative">
-        <span class="password txt-white">Password</span>
+        <span class="password txt-white">Mật khẩu</span>
 
         <div class="relative w-full">
             <input id="password" type="password" name="password" required autocomplete="current-password"
@@ -49,16 +49,16 @@
         @enderror
     </div>
     <div class="flex-row-c">
-        <a href="{{ route('password.request') }}" class="forgot-password">Forgot password ?</a>
+        <a href="{{ route('password.request') }}" class="forgot-password">Quên mật khẩu ?</a>
     </div>
     <div class="p-3">
-        <button class="button" type="submit"><span class="get-started">Sign In</span></button>
+        <button class="button" type="submit"><span class="get-started">Đăng nhập</span></button>
     </div>
 </form>
 
-<span class="no-account">If you don't have an account yet?</span>
+<span class="no-account">Bạn chưa có tài khoản? Vui lòng tạo tài khoản.</span>
 <div class="p-3">
-    <button class="button-4"><a href="{{ route('register') }}" class="sign-up">Sign Up</a></button>
+    <button class="button-4"><a href="{{ route('register') }}" class="sign-up">Đăng ký</a></button>
 </div>
 <script>
     document.getElementById('togglePassword').addEventListener('click', function() {

@@ -64,7 +64,7 @@ z-index: 999;
     height: 40px;
     background-color: #ff6b5e;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     line-height: 60px;

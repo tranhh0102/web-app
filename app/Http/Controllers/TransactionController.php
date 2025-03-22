@@ -316,7 +316,7 @@ class TransactionController extends Controller
             $data->whereDate('created_at', request('date')); // Lọc theo field `date`
         }
         
-        $data = $data->get();
+        $data = $data->orderBy('created_at', 'desc')->get();
         $totalCharge =  CharityTransaction::where('user_id', auth()->id())->get()->sum('charge');
         return view('pages.charity.list-charity',compact('data','totalCharge'));
     }

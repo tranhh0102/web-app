@@ -30,8 +30,8 @@ class HomeController extends Controller
             $defaultMonthYear = $selectedDate;
         }
         $data = Statistic::where('user_id', $userId)->where('month', $month)->where('year', $year)->first();
-        $dataExpenses = Expense::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
-        $dataIncomes = Income::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('date', 'desc')->get();
+        $dataExpenses = Expense::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('created_at', 'desc')->limit(4)->get();
+        $dataIncomes = Income::where('user_id', $userId)->whereBetween('date', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->orderBy('created_at', 'desc')->limit(4)->get();
         $now = Carbon::now(); // Lấy thời gian hiện tại
         $today = Carbon::today();
         $user = Auth::user();
@@ -44,8 +44,8 @@ class HomeController extends Controller
         }
 
         $tabActive = $request->get('tab_active') ? $request->get('tab_active') : 'statistic';
-
-        return view('pages.home', compact('tabActive','dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'defaultMonthYear'));
+        $extendClass = 'disable-scroll';
+        return view('pages.home', compact('extendClass', 'tabActive','dataExpenses', 'dataIncomes', 'data', 'hasExpenseForToday', 'defaultMonthYear'));
     }
 
     public function idea()
