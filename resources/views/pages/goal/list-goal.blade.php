@@ -7,62 +7,71 @@
 @section('content')
 
 <div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
-<!--Header-->
-<div class="list-charity-header">
-    <span></span>
-    <h2 class="add-category-header">Mục tiêu</h2>
-    <button type="button" class="filter" onclick="toggleFilter()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
-            <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
-            <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
-            <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
-            <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
-            <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
-        </svg>
-    </button>
-</div>
+    <!--Header-->
+    <div class="list-charity-header">
+        <span></span>
+        <h2 class="add-category-header">Mục tiêu</h2>
+        <button type="button" class="filter" onclick="toggleFilter()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
+                <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
+                <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
+                <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
+                <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
+                <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
+            </svg>
+        </button>
+    </div>
 
-<div id="filter-options" class="filter-box hidden bg-gray-800 p-4 rounded">
-    <label class="block mb-2 text-white">Lọc theo ngày:</label>
-    <input type="date" id="filter-date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
+    <form action="{{ route('list-goal') }}" method="GET">
+        <div id="filter-options" class="filter-box bg-gray-800 p-4 rounded">
+            <label class="block mb-2 text-white">Lọc theo ngày:</label>
+            <input type="date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
 
-    <button id="apply-filter" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
-        Áp dụng
-    </button>
+            <label class="block mt-4 mb-2 text-white">Lọc theo trạng thái:</label>
+            <select name="status" class="w-full p-2 rounded bg-gray-700 text-white">
+                <option value="">Tất cả</option>
+                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Hoàn thành</option>
+                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Đang thực hiện</option>
+                <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Hết hạn</option>
+            </select>
 
-    <!-- Nút Xóa bộ lọc -->
-    <button id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-white">
-        Xóa bộ lọc
-    </button>
-</div>
+            <button type="submit" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
+                Áp dụng
+            </button>
 
-@if(session('success'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
-    {{ session('success') }}
-</div>
-@endif
-
-@if(session('errors'))
-<div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
-    {{ session('errors') }}
-</div>
-@endif
-
-<!--Banner charity-->
-<div class="banner-container">
-    <div class="archive">
-        <div class="grid">
-            <span>Những mục tiêu của bạn 🎉</span>
-            <span>Bạn đã hoàn thành : {{$total}}</span>
+            <!-- Nút Xóa bộ lọc -->
+            <a href="{{ route('list-goal') }}" class="w-full block mt-2 text-center bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+                Xóa bộ lọc
+            </a>
         </div>
-        <div class="grid justify-items-center">
-            <div>
-                <img id="medalImg" width="60px" src="{{ asset('svg/home/target.svg') }}" alt="Medal">
+    </form>
+    @if(session('success'))
+    <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('errors'))
+    <div id="toast-message" class="alert alert-success fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-9999">
+        {{ session('errors') }}
+    </div>
+    @endif
+
+    <!--Banner charity-->
+    <div class="banner-container">
+        <div class="archive">
+            <div class="grid">
+                <span>Những mục tiêu của bạn 🎉</span>
+                <span>Bạn đã hoàn thành : {{$total}}</span>
+            </div>
+            <div class="grid justify-items-center">
+                <div>
+                    <img id="medalImg" width="60px" src="{{ asset('svg/home/target.svg') }}" alt="Medal">
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!--List charity-->
@@ -83,9 +92,9 @@
                         </span>
 
                         @php
-                            $totalCharge = $goal->goalTransactions->sum('charge');
-                            $targetCharge = $goal['charge'];
-                            $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
+                        $totalCharge = $goal->goalTransactions->sum('charge');
+                        $targetCharge = $goal['charge'];
+                        $percentage = $targetCharge > 0 ? ($totalCharge / $targetCharge) * 100 : 0;
                         @endphp
 
                         <!-- Thanh tiến trình -->
@@ -96,9 +105,9 @@
                         <span class="text-white">{{ round($percentage, 2) }}%</span>
 
                         @if ($percentage >= 100)
-                            <span class="text-red-500 font-bold">🔥 Hoàn thành mục tiêu!</span>
+                        <span class="text-red-500 font-bold">🔥 Hoàn thành mục tiêu!</span>
                         @elseif (\Carbon\Carbon::today() > \Carbon\Carbon::parse($goal['due_date']))
-                            <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
+                        <span class="text-red-500 font-bold">🔥 Hết hạn mục tiêu!</span>
                         @endif
                     </div>
                 </div>
@@ -151,40 +160,64 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let goalCompleted = localStorage.getItem("goalCompleted");
+        let applyFilterBtn = document.getElementById("apply-filter");
+        let clearFiltersBtn = document.getElementById("clear-filters");
+        let filterDate = document.getElementById("filter-date");
+        let filterStatus = document.getElementById("filter-status");
 
-        // Kiểm tra nếu có mục tiêu hoàn thành và chưa hiển thị modal trước đó
-        if (!goalCompleted && document.getElementById("goal-modal")) {
-            document.getElementById("goal-modal").style.display = "flex";
+        // Hàm kiểm tra nếu ngày đã quá hạn
+        function isExpired(dateString) {
+            let today = new Date();
+            today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00 để so sánh chính xác
+            let selectedDate = new Date(dateString);
+            return selectedDate < today; // true nếu ngày đã quá hạn
+        }
 
-            // Khi nhấn ra ngoài modal thì ẩn đi
-            document.getElementById("goal-modal").addEventListener("click", function(event) {
-                if (event.target === this) {
-                    closeGoalModal();
+        // Xử lý sự kiện áp dụng bộ lọc
+        if (applyFilterBtn) {
+            applyFilterBtn.addEventListener("click", function() {
+                let selectedDate = filterDate ? filterDate.value : "";
+                let selectedStatus = filterStatus ? filterStatus.value : "";
+
+                let currentUrl = new URL(window.location.href);
+
+                // Nếu chọn ngày, thêm vào URL
+                if (selectedDate) {
+                    currentUrl.searchParams.set("date", selectedDate);
+                } else {
+                    currentUrl.searchParams.delete("date");
                 }
+
+                // Xử lý lọc theo trạng thái
+                if (selectedStatus === "0") {
+                    // Nếu chọn "Đang thực hiện", kiểm tra ngày không quá hạn
+                    if (selectedDate && isExpired(selectedDate)) {
+                        alert("Ngày bạn chọn đã quá hạn! Hãy chọn một ngày hợp lệ.");
+                        return;
+                    }
+                    currentUrl.searchParams.set("status", "0");
+                } else if (selectedStatus === "expired") {
+                    // Nếu chọn "Hết hạn", chỉ lọc các mục có ngày quá hạn
+                    currentUrl.searchParams.set("status", "expired");
+                } else if (selectedStatus === "1") {
+                    currentUrl.searchParams.set("status", "1");
+                } else {
+                    currentUrl.searchParams.delete("status");
+                }
+
+                window.location.href = currentUrl.toString();
             });
         }
-    });
 
-    function closeGoalModal() {
-        document.getElementById("goal-modal").style.display = "none";
-        localStorage.setItem("goalCompleted", "true"); // Lưu trạng thái vào localStorage
-    }
-
-    document.getElementById("apply-filter").addEventListener("click", function() {
-        let selectedDate = document.getElementById("filter-date").value;
-
-        if (selectedDate) {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set("date", selectedDate);
-            window.location.href = currentUrl.toString();
+        // Xử lý sự kiện xóa bộ lọc
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener("click", function() {
+                let currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.delete("date");
+                currentUrl.searchParams.delete("status"); // Xóa cả trạng thái
+                window.location.href = currentUrl.toString();
+            });
         }
-    });
-
-    document.getElementById("clear-filters").addEventListener("click", function() {
-        let currentUrl = new URL(window.location.href);
-        currentUrl.searchParams.delete("date");
-        window.location.href = currentUrl.toString();
     });
 </script>
 @endsection

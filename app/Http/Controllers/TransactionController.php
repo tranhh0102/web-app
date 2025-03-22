@@ -59,7 +59,7 @@ class TransactionController extends Controller
         $result = $this->mExpenseService->get([
             'user_id' => $userId
         ])->toArray();
-        
+
         if (count($result) <= 0) {
             $listMIncome = config('default_master_data.m_expense');
             $insertData = [];
@@ -75,11 +75,11 @@ class TransactionController extends Controller
         }
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
-        $statistic = Statistic::where('user_id',$userId)->where('month', $month)->where('year', $year)->first();
+        $statistic = Statistic::where('user_id', $userId)->where('month', $month)->where('year', $year)->first();
         if ($statistic) {
             $statistic->remain = ($statistic->income * 0.7 - $statistic->expense) > 0 ? ($statistic->income * 0.7 - $statistic->expense) : 0;
         }
-        return view('pages.add-expenses',compact('result', 'statistic'));
+        return view('pages.add-expenses', compact('result', 'statistic'));
     }
 
     public function getUpdateExpense($id)
@@ -90,7 +90,7 @@ class TransactionController extends Controller
         $result = $this->mExpenseService->get([
             'user_id' => $userId
         ])->toArray();
-        
+
         if (count($result) <= 0) {
             $listMIncome = config('default_master_data.m_expense');
             $insertData = [];
@@ -107,15 +107,15 @@ class TransactionController extends Controller
 
         $expense = Expense::find($id);
 
-        return view('pages.expenses.update-expense',compact('result','expense'));
+        return view('pages.expenses.update-expense', compact('result', 'expense'));
     }
 
-    public function updateExpenses(MoneyExpenseRequest $request,$id)
+    public function updateExpenses(MoneyExpenseRequest $request, $id)
     {
-        $data = $request->only('charge','name','m_expense_id','date');
+        $data = $request->only('charge', 'name', 'm_expense_id', 'date');
         $result = $this->expenseService->update([
             'id' => $id
-        ],$data);
+        ], $data);
 
         return redirect()->back();
     }
@@ -137,7 +137,7 @@ class TransactionController extends Controller
         $result = $this->mIncomeService->get([
             'user_id' => $userId
         ])->toArray();
-        
+
         if (count($result) <= 0) {
             $listMIncome = config('default_master_data.m_income');
             $insertData = [];
@@ -152,7 +152,7 @@ class TransactionController extends Controller
             }
         }
 
-        return view('pages.add-income',compact('result'));
+        return view('pages.add-income', compact('result'));
     }
 
     public function getUpdateIncome($id)
@@ -163,7 +163,7 @@ class TransactionController extends Controller
         $result = $this->mExpenseService->get([
             'user_id' => $userId
         ])->toArray();
-        
+
         if (count($result) <= 0) {
             $listMIncome = config('default_master_data.m_expense');
             $insertData = [];
@@ -180,22 +180,22 @@ class TransactionController extends Controller
 
         $income = Income::find($id);
 
-        return view('pages.expenses.update-income',compact('result','income'));
+        return view('pages.expenses.update-income', compact('result', 'income'));
     }
 
-    public function updateIncome(Request $request,$id)
+    public function updateIncome(Request $request, $id)
     {
-        $data = $request->only('charge','name','m_expense_id','date');
+        $data = $request->only('charge', 'name', 'm_expense_id', 'date');
         $result = $this->incomeService->update([
             'id' => $id
-        ],$data);
+        ], $data);
 
         return redirect()->back();
     }
 
     public function incomeTransaction(MoneyRequest $request)
     {
-        $data = $request->only('charge','name','m_income_id','date');
+        $data = $request->only('charge', 'name', 'm_income_id', 'date');
         $data['user_id'] = Auth::user()->id;
         if ($this->incomeService->insert($data)) {
             return redirect()->route('home', ['tab_active' => 'income'])->withSuccess('Thêm thành công');
@@ -206,7 +206,7 @@ class TransactionController extends Controller
 
     public function expenseTransaction(MoneyExpenseRequest $request)
     {
-        $data = $request->only('charge','name','m_expense_id','date');
+        $data = $request->only('charge', 'name', 'm_expense_id', 'date');
         $data['user_id'] = Auth::user()->id;
         if ($this->expenseService->insert($data)) {
             return redirect()->back();
@@ -232,26 +232,42 @@ class TransactionController extends Controller
 
     public function listGoal(Request $request)
     {
-        $data = Goal::with('goalTransactions')->where('user_id',auth()->id());
+        $data = Goal::with('goalTransactions')->where('user_id', auth()->id());
 
-        if (request()->has('date')) {
-            $data->whereDate('due_date', request('date')); // Lọc theo field `date`
+        // Lọc theo ngày nếu có chọn
+        if ($request->filled('date')) {
+            $data->whereDate('due_date', $request->input('date'));
+        }
+
+        // Lọc theo trạng thái
+        if ($request->filled('status')) {
+            if ($request->input('status') == '0') {
+                // Đang thực hiện nhưng chưa quá hạn
+                $data->where('status', 0)->where('due_date', '>=', now());
+            } elseif ($request->input('status') == '1') {
+                // Hoàn thành
+                $data->where('status', 1);
+            } elseif ($request->input('status') == 'expired') {
+                // Hết hạn (trạng thái "đang thực hiện" nhưng đã quá hạn)
+                $data->where('status', 0)->where('due_date', '<', now());
+            }
         }
 
         $data = $data->get();
 
-        $total =  Goal::with('goalTransactions')->where('user_id',auth()->id())->where('status',1)->count();
-        
-        return view('pages.goal.list-goal',compact('data','total'));
+        // Đếm tổng số mục tiêu đã hoàn thành
+        $total = Goal::where('user_id', auth()->id())->where('status', 1)->count();
+
+        return view('pages.goal.list-goal', compact('data', 'total'));
     }
 
     public function addGoalTransaction($id)
     {
         $goal = Goal::find($id);
-        return view('pages.goal.add-goal-transaction',compact('goal'));
+        return view('pages.goal.add-goal-transaction', compact('goal'));
     }
 
-    public function goalTransaction(Request $request,$id)
+    public function goalTransaction(Request $request, $id)
     {
         $data = $request->only('charge');
         $data['user_id'] = Auth::user()->id;
@@ -262,16 +278,16 @@ class TransactionController extends Controller
 
         return redirect()->back();
     }
-    
+
     public function detailGoal($id)
     {
-        $data = GoalTransaction::with('goal')->where('m_saving_id',$id)->get();
-        return view('pages.goal.detail-goal-transaction',compact('data'));
+        $data = GoalTransaction::with('goal')->where('m_saving_id', $id)->get();
+        return view('pages.goal.detail-goal-transaction', compact('data'));
     }
 
     public function createGoal(GoalRequest $request)
     {
-        $data = $request->only('charge','name','due_date');
+        $data = $request->only('charge', 'name', 'due_date');
         $data['user_id'] = Auth::user()->id;
         if ($this->goalService->insert($data)) {
             return redirect()->route('list-goal')->withSuccess('Thêm thành công');
@@ -301,7 +317,7 @@ class TransactionController extends Controller
 
         return redirect()->back();
     }
-    
+
     //charity
     public function addCharity()
     {
@@ -315,15 +331,15 @@ class TransactionController extends Controller
         if (request()->has('date')) {
             $data->whereDate('created_at', request('date')); // Lọc theo field `date`
         }
-        
+
         $data = $data->orderBy('created_at', 'desc')->get();
         $totalCharge =  CharityTransaction::where('user_id', auth()->id())->get()->sum('charge');
-        return view('pages.charity.list-charity',compact('data','totalCharge'));
+        return view('pages.charity.list-charity', compact('data', 'totalCharge'));
     }
 
     public function charityTransaction(Request $request)
     {
-        $data = $request->only('charge','name');
+        $data = $request->only('charge', 'name');
         $data['user_id'] = Auth::user()->id;
         if ($this->charityTransactionsService->insert($data)) {
             return redirect()->back();
@@ -335,15 +351,15 @@ class TransactionController extends Controller
     public function getUpdateCharity($id)
     {
         $charity = CharityTransaction::find($id);
-        return view('pages.charity.update-charity',compact('charity'));
+        return view('pages.charity.update-charity', compact('charity'));
     }
 
-    public function updateCharity(Request $request,$id)
+    public function updateCharity(Request $request, $id)
     {
-        $data = $request->only('charge','name');
+        $data = $request->only('charge', 'name');
         $result = $this->charityTransactionsService->update([
             'id' => $id
-        ],$data);
+        ], $data);
 
         return redirect()->back();
     }
