@@ -54,7 +54,7 @@
 <style>
 .floating-container {
 position: fixed;
-bottom: 100px;
+bottom: 130px;
 right: 20px;
 z-index: 999;
 }

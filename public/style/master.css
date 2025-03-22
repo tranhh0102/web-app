@@ -27,7 +27,7 @@
   .main-container {
     width: 100%;
     height: 100vh;
-    background: var(--Greyscale-Grey-80, #1C1C23);
+    background: #007074;
     overflow-y: scroll;
   }
 
@@ -49,8 +49,9 @@
     align-items: center;
     height: 60px;
     /* background: rgba(255, 255, 255, 0.1); */
-    background: black;
+    background: #007074;
     padding: 16px;
+    z-index: 99;
   }
   .nav-button {
     display: grid;
@@ -63,4 +64,20 @@
   }
   .name-button {
     font-size: 10px;
+  }
+
+  .text-white {
+    color: #EC5228 !important;
+    font-weight: bold;
+  }
+
+  .text-color-white {
+    color: white !important;
+    font-weight: bold;
+  }
+
+  input, select, textarea {
+    color: #EC5228 !important;
+    border: 1.5px solid #EF9651 !important;
+    background: #FBFFE4 !important;
   }

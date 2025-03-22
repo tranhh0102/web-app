@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
+<div class="w-full fixed top-0 z-10">
 <!--Header-->
 <div class="list-charity-header">
     <span></span>
@@ -32,7 +32,7 @@
     </button>
 
     <!-- Nút Xóa bộ lọc -->
-    <button id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+    <button id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-color-white">
         Xóa bộ lọc
     </button>
 </div>
