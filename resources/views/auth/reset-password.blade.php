@@ -17,7 +17,7 @@
             <input id="email" type="email" name="email" value="{{ old('email', request()->email) }}" required autofocus autocomplete="username"
                 class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('email')
-            <p class="mt-2 text-sm text-red-600" style="color: white !important;">Token của bạn đã hết hạn hoặc bạn đã email không tồn tại trong hệ thống</p>
+            <p class="mt-2 text-sm text-red-600" style="color: white !important;">Token của bạn đã hết hạn hoặc email không tồn tại trong hệ thống</p>
             @enderror
         </div>
 
