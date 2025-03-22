@@ -24,11 +24,11 @@
 
 
     <!-- Khung lọc (ẩn mặc định) -->
-    <div id="filter-options" class="filter-box hidden bg-gray-800 p-4 rounded">
+    <div id="filter-options" class="filter-box hidden p-4 rounded" style="background: white;">
         <label class="block mb-2 text-white">Lọc theo ngày:</label>
         <input type="date" id="filter-date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
 
-        <button id="apply-filter" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
+        <button id="apply-filter" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded" style="color:white; font-weight:bold;">
             Áp dụng
         </button>
 

@@ -17,7 +17,7 @@
 <div class="w-full fixed top-0 z-10">
 <div class="home-header">
     <form method="GET" action="{{ route('home') }}" id="filter_date_home_page">
-        <input type="text" id="monthPicker" style="border:none !important;background: none !important;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
+        <input type="text" id="monthPicker" style="border:none !important;background: none !important;color: white !important;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
         <input type="hidden" name="selected_date" id="selected_date" value="<?= $defaultMonthYear ?>">
     </form>
 </div>

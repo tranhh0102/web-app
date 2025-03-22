@@ -23,22 +23,15 @@
     </button>
 </div>
 
-    <form action="{{ route('list-goal') }}" method="GET">
-        <div id="filter-options" class="filter-box bg-gray-800 p-4 rounded">
-            <label class="block mb-2 text-white">Lọc theo ngày:</label>
-            <input type="date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
-
-            <label class="block mt-4 mb-2 text-white">Lọc theo trạng thái:</label>
-            <select name="status" class="w-full p-2 rounded bg-gray-700 text-white">
+    <form action="{{ route('list-goal') }}" method="GET" id="form-filter-goal">
+        <div id="filter-options" class="filter-box p-4 rounded hidden" style="background: white;">
+            <label class="block mb-2 text-white">Lọc theo trạng thái:</label>
+            <select name="status" class="w-full p-2 rounded bg-gray-700 text-white" id="filter-status">
                 <option value="">Tất cả</option>
                 <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Hoàn thành</option>
                 <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Đang thực hiện</option>
                 <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Hết hạn</option>
             </select>
-
-            <button type="submit" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded text-white">
-                Áp dụng
-            </button>
 
             <!-- Nút Xóa bộ lọc -->
             <a href="{{ route('list-goal') }}" class="w-full block mt-2 text-center bg-red-500 hover:bg-red-600 p-2 rounded text-color-white">
@@ -148,6 +141,12 @@
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");
     }
+
+     document.getElementById('filter-status').addEventListener('change', function() {
+        let filterBox = document.getElementById("filter-options");
+        filterBox.classList.add('hidden');
+        document.getElementById('form-filter-goal').submit();
+    })
 
     function confirmDelete(event) {
         event.preventDefault(); // Ngăn chặn form gửi ngay lập tức
