@@ -1,5 +1,9 @@
 @extends('auth.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('style/auth/login.css') }}">
+@endsection
+
 @section('content')
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
@@ -7,36 +11,39 @@
         <!-- Password Reset Token -->
         <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
-        <!-- Email Address -->
-        <div>
-            <label for="email">{{ __('Email') }}</label>
-            <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email', request()->email) }}" required autofocus autocomplete="username">
+         <!-- Email Address -->
+         <div class="input-password">
+            <span class="login-1 txt-white">Email</span>
+            <input id="email" type="email" name="email" value="{{ old('email', request()->email) }}" required autofocus autocomplete="username"
+                class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('email')
-                <p class="mt-2 text-red-600">{{ $message }}</p>
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <label for="password">{{ __('Password') }}</label>
-            <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password">
+        <div class="input-password">
+            <span class="password txt-white">Mật khẩu mới</span>
+            <input id="password" type="password" name="password" required autocomplete="new-password"
+                class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('password')
-                <p class="mt-2 text-red-600">{{ $message }}</p>
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
-            <label for="password_confirmation">{{ __('Confirm Password') }}</label>
-            <input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password">
-            @error('password_confirmation')
-                <p class="mt-2 text-red-600">{{ $message }}</p>
+        <div class="input-password">
+            <span class="password txt-white">Xác nhận mật khẩu</span>
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
+                class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
+            @error('password')
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                {{ __('Reset Password') }}
+        <div class="grid items-center justify-center mt-4">    
+            <button class="button-register mb-[10px]" type="submit">
+                <span class="get-started">Cập nhật mật khẩu</span>
             </button>
         </div>
     </form>
