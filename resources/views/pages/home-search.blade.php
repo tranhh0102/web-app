@@ -69,7 +69,7 @@
 use Carbon\Carbon;
 $previousDate = null;
 @endphp
-    
+
 <div class="list-search mb-20 pt-[84px]">
     @foreach ($data as $transaction)
     @php
@@ -83,29 +83,56 @@ $previousDate = null;
 
     <div class="items">
         @if ($transaction['m_income_id'])
-        <div class="items-sub">
+        <a href="{{ route('transaction.update-income', ['id' => $transaction->id]) }}" class="items-sub">
             <div class="flex items-center gap-2">
-                <img src="{{ asset('svg/home/income.svg') }}" alt="income">
-                <span class="text-white">{{ $transaction->name }}</span>
+                <div>
+                    <img src="{{ asset('svg/home/income.svg') }}" alt="">
+                </div>
+                <div class="grid gap-1">
+                    <span class="text-white">{{ $transaction->name }}</span>
+                    <span class="receive">{{ number_format($transaction->charge) }} VNĐ</span>
+                </div>
             </div>
-            <span class="receive">${{ number_format($transaction->charge) }}</span>
-        </div>
+            <div class="flex items-center gap-2">
+                <form class="mb-2" action="{{ route('transaction.delete-income', $transaction->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    @csrf
+                    <button type="submit" class="text-red-500" style="margin-top: 15px;">
+                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                    </button>
+                </form>
+                <img src="{{ asset('svg/arrow.svg') }}" alt="">
+            </div>
+        </a>
         @else
-        <div class="items-sub">
+        <a href="{{ route('transaction.update-expense', ['id' => $transaction->id]) }}" class="items-sub ">
             <div class="flex items-center gap-2">
-                <img src="{{ asset('svg/home/expense.svg') }}" alt="income">
-                <span class="text-white">{{ $transaction->name }}</span>
+                <div>
+                    <img src="{{ asset('svg/home/expense.svg') }}" alt="">
+                </div>
+                <div class="grid gap-1">
+                    <span class="text-white">{{ $transaction->name }}</span>
+                    <span class="cost">{{ number_format($transaction->charge) }} VNĐ</span>
+                </div>
             </div>
-            <span class="cost">${{ number_format($transaction->charge) }}</span>
-        </div>
+            <div class="flex items-center gap-2">
+                <form class="mb-2" action="{{ route('transaction.delete-expense', $transaction->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    @csrf
+                    <button type="submit" class="text-red-500" style="margin-top: 15px;">
+                        <img src="{{ asset('svg/delete.svg') }}" alt="Xóa">
+                    </button>
+                </form>
+                <img src="{{ asset('svg/arrow.svg') }}" alt="">
+            </div>
+        </a>
         @endif
     </div>
     @endforeach
 </div>
 <script>
-    document.getElementById('clear-filters').addEventListener('click', function () {
+    document.getElementById('clear-filters').addEventListener('click', function() {
         window.location.href = "{{ route('home-search') }}"; // Đổi thành route phù hợp
     });
+
     function toggleFilter() {
         let filterBox = document.getElementById("filter-options");
         filterBox.classList.toggle("hidden");

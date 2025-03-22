@@ -19,9 +19,8 @@ input:focus {
     padding: 12px;
 }
 .items-sub {
-  padding: 16px;
+  padding: 12px;
   display: flex;
-  height: 64px;
   border-radius: 16px;
   background: #353542;
   align-items: center;
