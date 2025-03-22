@@ -1,5 +1,5 @@
     .title-header{
-        color: var(--Greyscale-Grey-50, #666680);
+        color: white;
         text-align: center;
         font-size: 14px;
         font-style: normal;
@@ -70,9 +70,9 @@
   .active-subs {
     width: 100%;
     display: grid;
-    border: 1px solid #dadaf1;
+    border: 1.5px solid #EF9651;
     height: fit-content;
-    background: var(--Greyscale-Grey-70, #353542);
+    background: #FBFFE4;
     border-radius: 16px;
     backdrop-filter: blur(5px);
     padding: 12px;
@@ -80,9 +80,9 @@
   .active-subs-title {
     width: fit-content;
     height: 16px;
-    color: white;
+    color: #EC5228;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: bold;
     line-height: 16px;
     text-align: center;
   }
@@ -137,10 +137,10 @@
     padding: 12px;
     display: flex;
     height: 100%;
-    background: #353542;
+    background: #FBFFE4;
     border-radius: 16px;
     backdrop-filter: blur(5px);
-    border: 1px solid #f3f3f8;
+    border: 1.5px solid #EF9651;
     justify-content: space-between;
     align-items: center;
   }

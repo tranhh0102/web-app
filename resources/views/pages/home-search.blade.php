@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="home-search-header w-full fixed top-0 z-10 bg-[#1c1c23]">
+<div class="home-search-header w-full fixed top-0 z-10">
     <form method="GET" action="{{ route('home-search') }}" class="home-search-header w-full relative">
         <input type="text" class="input-search" name="search" placeholder="Tìm kiếm..." value="{{ request('search') }}">
 
@@ -58,7 +58,7 @@
             </button>
 
             <!-- Nút Xóa bộ lọc -->
-            <button type="button" id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+            <button type="button" id="clear-filters" class="w-full mt-2 bg-red-500 hover:bg-red-600 p-2 rounded text-color-white">
                 Xóa bộ lọc
             </button>
         </div>

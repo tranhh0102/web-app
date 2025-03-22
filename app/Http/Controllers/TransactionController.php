@@ -334,7 +334,8 @@ class TransactionController extends Controller
 
         $data = $data->orderBy('created_at', 'desc')->get();
         $totalCharge =  CharityTransaction::where('user_id', auth()->id())->get()->sum('charge');
-        return view('pages.charity.list-charity', compact('data', 'totalCharge'));
+        $extendClass = 'disable-scroll';
+        return view('pages.charity.list-charity',compact('extendClass', 'data','totalCharge'));
     }
 
     public function charityTransaction(Request $request)

@@ -39,9 +39,10 @@
 
 .spending-sub {
     border-radius: 12px;
-    background: #353542;    
+    background: #FBFFE4;
     border-radius: 12px; 
-    border: 0.8px solid #979797;
+    border: 1.5px solid #EF9651;
+    color: #EC5228;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -50,5 +51,6 @@
 }
 
 .name-spending {
-    color: white;
+    color: #EC5228;
+    font-weight: bold;
 }

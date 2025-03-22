@@ -14,7 +14,7 @@
     {{ session('errors') }}
 </div>
 @endif
-<div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
+<div class="w-full fixed top-0 z-10">
 <div class="home-header">
     <form method="GET" action="{{ route('home') }}" id="filter_date_home_page">
         <input type="text" id="monthPicker" style="border:none !important;background: none !important;color: white;font-size: 20px;text-align: center;font-weight: bold;" value="Tháng <?= $defaultMonthYear ?>" readonly>
@@ -184,7 +184,6 @@
         position: fixed;
         width: 100%;
         z-index: 10;
-        background: #1c1c23;
         /* top: auto; */
         left: 0;
     }
@@ -201,7 +200,8 @@
     }
 
     .tab-button.active {
-        background: #555;
+        background: #FBFFE4;
+        color: #EC5228;
     }
 
     .tab-content {
@@ -255,6 +255,7 @@
 
         const myChart = new Chart(ctx, {
             type: 'pie', // Biểu đồ hình tròn
+            scaleFontColor: "#EC5228",
             data: {
                 labels: ['Thu nhập', 'Chi tiêu'],
                 datasets: [{
@@ -266,7 +267,10 @@
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: {
+                            color: "#FFFFFF"
+                        }
                     },
                     tooltip: {
                         callbacks: {

@@ -7,7 +7,7 @@
   }
 
   .add-expenses-title {
-    color: #a2a2b5;
+    color: white;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
@@ -37,7 +37,7 @@
     border-bottom: none;
   }
   label,.add-expenses-span{
-    color: #a2a2b5;
+    color: white;
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
@@ -45,10 +45,8 @@
   }
   .input-expenses{
     width: 100% !important;
-    background: #1D1D1D !important;
     border-radius: 12px !important;
     width: 100% !important;
-    color: white !important;
     text-align: right;
     margin-bottom: 12px !important;
   }

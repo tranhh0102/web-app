@@ -6,22 +6,22 @@
 
 @section('content')
 
-<div class="w-full fixed top-0 z-10 bg-[#1c1c23]">
-    <!--Header-->
-    <div class="list-charity-header">
-        <span></span>
-        <h2 class="add-category-header">Mục tiêu</h2>
-        <button type="button" class="filter" onclick="toggleFilter()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
-                <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
-                <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
-                <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
-                <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
-                <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
-            </svg>
-        </button>
-    </div>
+<div class="w-full fixed top-0 z-10">
+<!--Header-->
+<div class="list-charity-header">
+    <span></span>
+    <h2 class="add-category-header">Mục tiêu</h2>
+    <button type="button" class="filter" onclick="toggleFilter()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11 4H13V7H11V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M10 8V11H11V20H13V11H14V8H10Z" fill="white" fill-opacity="0.6" />
+            <path d="M6 4H8V12H6V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M5 13V16H6V20H8V16H9V13H5Z" fill="white" fill-opacity="0.6" />
+            <path d="M16 4H18V14H16V4Z" fill="white" fill-opacity="0.6" />
+            <path d="M15 15V18H16V20H18V18H19V15H15Z" fill="white" fill-opacity="0.6" />
+        </svg>
+    </button>
+</div>
 
     <form action="{{ route('list-goal') }}" method="GET">
         <div id="filter-options" class="filter-box bg-gray-800 p-4 rounded">
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Nút Xóa bộ lọc -->
-            <a href="{{ route('list-goal') }}" class="w-full block mt-2 text-center bg-red-500 hover:bg-red-600 p-2 rounded text-white">
+            <a href="{{ route('list-goal') }}" class="w-full block mt-2 text-center bg-red-500 hover:bg-red-600 p-2 rounded text-color-white">
                 Xóa bộ lọc
             </a>
         </div>
