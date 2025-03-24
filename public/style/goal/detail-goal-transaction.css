@@ -1,0 +1,72 @@
+input:focus {
+    outline: none;
+}
+
+.add-expenses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px;
+}
+
+.title-header {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    padding: 12px;
+}
+
+.add-expenses-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+}
+
+.items {
+    display: grid;
+    padding: 12px;
+}
+.items-sub {
+    padding: 16px;
+    display: flex;
+    height: 64px;
+    border-radius: 16px;
+    background: #FBFFE4;
+    align-items: center;
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    border: 1.5px solid #EF9651;
+    justify-content: space-between;
+    align-items: center;
+}
+.filter-box {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    padding: 12px;
+    border-radius: 12px;
+    width: 50%;
+    z-index: 1;
+    color: white;
+}
+.receive {
+    color: #43a048;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+.cost {
+    color: #d32f2f;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}

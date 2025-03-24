@@ -1,0 +1,87 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+      "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+      "Source Han Sans CN", sans-serif;
+  }
+  body{
+    margin: 0;
+  }
+  
+  .main-container {
+    overflow: hidden;
+  }
+  
+  .main-container,
+  .main-container * {
+    box-sizing: border-box;
+  }
+  
+  input,
+  select,
+  textarea,
+  button {
+    outline: 0;
+  }
+  
+  .main-container {
+    width: 100%;
+    height: 100vh; /* Đảm bảo full màn hình */
+    background: #007074;
+    overflow: hidden; /* Ngăn trang bị cuộn ngoài ý muốn */
+    display: flex;
+    flex-direction: column;
+}
+
+  .main-container.disable-scroll {
+    overflow: hidden !important;
+  }
+
+  .main-container::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
+  }
+  
+  .navbar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    background: #007074;
+    padding: 16px;
+    z-index: 99;
+  }
+  .nav-button {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .name-button {
+    font-size: 10px;
+    color: white;
+  }
+
+  .text-white {
+    color: #EC5228 !important;
+    font-weight: bold;
+  }
+
+  .text-color-white {
+    color: white !important;
+    font-weight: bold;
+  }
+
+  input, select, textarea {
+    color: #EC5228 !important;
+    border: 1.5px solid #EF9651 !important;
+    background: #FBFFE4 !important;
+  }
