@@ -33,17 +33,20 @@
         <div id="filter-options" class="filter-box hidden p-4 rounded" style="background: white;">
             <label class="block mb-2 text-white">Lọc theo ngày:</label>
             <input type="date" name="date" value="{{ request('date') }}" class="w-full p-2 rounded bg-gray-700 text-white">
-
+            <input type="hidden" name="type" value="{{ $type }}">
             <label class="block mb-2 text-white">Lọc theo danh mục:</label>
-            <select name="expense_category" class="w-full p-2 rounded bg-gray-700 text-white">
-                <option value="">Chọn loại chi tiêu</option>
-                @foreach ($mExpenses as $expenseCategory)
-                <option value="{{ $expenseCategory->id }}" {{ request('expense_category') == $expenseCategory->id ? 'selected' : '' }}>
-                    {{ $expenseCategory->name }}
-                </option>
-                @endforeach
-            </select>
-
+            @if ($type == 'expense' || !$type)
+                <select name="expense_category" class="w-full p-2 rounded bg-gray-700 text-white">
+                    <option value="">Chọn loại chi tiêu</option>
+                    @foreach ($mExpenses as $expenseCategory)
+                    <option value="{{ $expenseCategory->id }}" {{ request('expense_category') == $expenseCategory->id ? 'selected' : '' }}>
+                        {{ $expenseCategory->name }}
+                    </option>
+                    @endforeach
+                </select>
+            @endif
+            
+            @if ($type == 'income' || !$type)
             <select name="income_category" class="w-full p-2 rounded bg-gray-700 text-white mt-2">
                 <option value="">Chọn loại thu nhập</option>
                 @foreach ($mIncomes as $incomeCategory)
@@ -52,7 +55,7 @@
                 </option>
                 @endforeach
             </select>
-
+            @endif
             <button type="submit" class="w-full mt-4 bg-blue-500 hover:bg-blue-600 p-2 rounded" style="color:white; font-weight:bold;">
                 Áp dụng
             </button>
@@ -70,7 +73,7 @@ use Carbon\Carbon;
 $previousDate = null;
 @endphp
 
-<div class="list-search">
+<div class="list-search" style="padding-top: 90px">
     @foreach ($data as $transaction)
     @php
     $currentDate = Carbon::parse($transaction->date)->format('Y-m-d');

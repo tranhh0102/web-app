@@ -95,7 +95,7 @@
             @empty
             <p class="title-header text-center">Bạn hãy nhập chi tiêu nhé!</p>
             @endforelse
-            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search')}}">Xem nhiều hơn</a>
+            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search', ['type' => 'expense'])}}">Xem nhiều hơn</a>
         </div>
     </div>
 
@@ -127,7 +127,7 @@
             @empty
             <p class="title-header text-center">Bạn hãy nhập thu nhập nhé!</p>
             @endforelse
-            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search')}}">Xem nhiều hơn</a>
+            <a style="color:white;text-align:center;text-decoration:underline;" href="{{ route('home-search', ['type' => 'income'])}}">Xem nhiều hơn</a>
         </div>
     </div>
 
@@ -145,8 +145,13 @@
 @if (!$hasExpenseForToday)
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
-            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>'
+            let checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
+            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>';
+            if (localStorage.getItem('alertDay') !== '<?php echo $currentDate ?>') {
+                localStorage.removeItem('checkIsAlertReminder');
+                localStorage.removeItem('alertDay');
+                checkIsAlertReminder = 0;
+            }
             if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
                 document.getElementById('expenseReminderModal').classList.remove('hidden');
             }
@@ -156,6 +161,7 @@
         }
         function noMoreAlert() {
             localStorage.setItem('checkIsAlertReminder', 1);
+            localStorage.setItem('alertDay', '<?php echo $currentDate ?>');
             document.getElementById('expenseReminderModal').classList.add('hidden');
         }
     </script>

@@ -11,7 +11,7 @@
         <!-- Name -->
         <div class="input-login">
             <span class="login-1 txt-white">Họ và tên</span>
-            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
+            <input id="name" type="text" name="name" value="{{ old('name') }}" autofocus autocomplete="name"
             class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('name')
                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -21,7 +21,7 @@
         <!-- Email Address -->
         <div class="input-password">
             <span class="login-1 txt-white">Email</span>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
+            <input id="email" type="email" name="email" value="{{ old('email') }}" autofocus autocomplete="username"
                 class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('email')
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -31,7 +31,7 @@
         <!-- Password -->
         <div class="input-password">
             <span class="password txt-white">Mật khẩu</span>
-            <input id="password" type="password" name="password" required autocomplete="current-password"
+            <input id="password" type="password" name="password" autocomplete="current-password"
                 class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('password')
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -42,7 +42,7 @@
 
         <div class="input-password">
             <span class="password txt-white">Xác nhận mật khẩu</span>
-            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
+            <input id="password_confirmation" type="password" name="password_confirmation" autocomplete="new-password"
                     class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
             @error('password')
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

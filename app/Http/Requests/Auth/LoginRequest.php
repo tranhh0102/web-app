@@ -58,10 +58,11 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            request()->session()->regenerateToken();
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Mật khẩu đăng nhập hoặc tài khoản của bạn không tồn tại',
             ]);
         }
 
@@ -84,7 +85,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'email' => trans('Mật khẩu đăng nhập hoặc tài khoản của bạn không tồn tại', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),

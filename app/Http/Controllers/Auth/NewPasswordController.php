@@ -29,10 +29,18 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->session()->regenerate();
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ],[
+            'token.required'    => 'Mã xác thực là bắt buộc.',
+            'email.required'    => 'Email là bắt buộc.',
+            'email.email'       => 'Email phải là một địa chỉ email hợp lệ.',
+            'password.required' => 'Mật khẩu là bắt buộc.',
+            'password.confirmed' => 'Xác nhận mật khẩu không khớp.',
+            'password.min'      => 'Mật khẩu phải có ít nhất :min ký tự.',
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we

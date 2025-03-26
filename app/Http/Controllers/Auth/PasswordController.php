@@ -20,9 +20,16 @@ class PasswordController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $validated = $request->validateWithBag('updatePassword', [
+        $request->session()->regenerate();
+        $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+            'password' => ['required', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Trường mật khẩu hiện tại là bắt buộc.',
+            'current_password.current_password' => 'Mật khẩu hiện tại không chính xác.',
+            'password.required' => 'Trường mật khẩu mới là bắt buộc.',
+            'password.confirmed' => 'Xác nhận mật khẩu mới không khớp.',
+            'password.min'      => 'Mật khẩu phải có ít nhất :min ký tự.',
         ]);
     
         $request->user()->update([

@@ -18,7 +18,7 @@
         <!-- Email Address -->
         <div>
             <label for="email" class="block text-sm txt-white font-bold">Email</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+            <input id="email" type="email" name="email" value="{{ old('email') }}" autofocus
                 class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
             @error('email')
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

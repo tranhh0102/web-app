@@ -22,7 +22,7 @@
         <span class="password txt-white">Mật khẩu hiện tại</span>
 
         <div class="relative w-full">
-            <input id="current_password" type="password" name="current_password" required 
+            <input id="current_password" type="password" name="current_password" 
             class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
 
             <!-- Icon mắt -->
@@ -46,7 +46,7 @@
         <span class="password txt-white">Mật khẩu mới</span>
 
         <div class="relative w-full">
-            <input id="password" type="password" name="password" required 
+            <input id="password" type="password" name="password" 
             class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
 
             <!-- Icon mắt -->
@@ -70,7 +70,7 @@
         <span class="password txt-white">Xác nhận mật khẩu</span>
 
         <div class="relative w-full">
-            <input id="password_confirmation" type="password" name="password_confirmation" required 
+            <input id="password_confirmation" type="password" name="password_confirmation" 
             class="block mt-1 w-full border-gray-300 rounded-2xl shadow-sm">
 
             <!-- Icon mắt -->
