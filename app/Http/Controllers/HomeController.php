@@ -55,13 +55,74 @@ class HomeController extends Controller
         return view('pages.idea', compact('titlePage'));
     }
 
+    public function moneyPlan(Request $request)
+    {
+        $questions = [
+            "Bạn thường làm gì khi nhận lương?",
+            "Bạn có theo dõi chi tiêu không?",
+            "Bạn chi tiêu bao nhiêu phần trăm thu nhập cho nhu cầu thiết yếu?",
+            "Bạn có kế hoạch tiết kiệm?",
+            "Khi gặp một món đồ yêu thích, bạn sẽ?",
+            "Bạn có đặt mục tiêu tài chính dài hạn không?",
+            "Bạn có sử dụng thẻ tín dụng không?",
+            "Bạn có quỹ dự phòng khẩn cấp không?",
+            "Bạn thường chi tiêu thế nào khi đi du lịch?",
+            "Bạn có đầu tư để tăng thu nhập không?"
+        ];
+        
+        $options = [
+            ["Tiết kiệm trước, chi tiêu sau", "Lên kế hoạch chi tiêu", "Chi tiêu trước, tiết kiệm sau", "Tận hưởng ngay lập tức"],
+            ["Theo dõi chặt chẽ", "Theo dõi sơ bộ", "Thỉnh thoảng theo dõi", "Không quan tâm"],
+            ["Dưới 50%", "50-60%", "60-70%", "Trên 70%"],
+            ["Tiết kiệm trên 30% thu nhập", "Tiết kiệm 20-30% thu nhập", "Chỉ tiết kiệm khi có dư", "Không tiết kiệm"],
+            ["Suy nghĩ kỹ trước khi mua", "Cân nhắc rồi mua", "Mua ngay nếu có thể chi trả", "Thường xuyên mua sắm tùy hứng"],
+            ["Có kế hoạch rõ ràng", "Đôi khi đặt mục tiêu", "Chỉ nghĩ khi có dư", "Không đặt mục tiêu"],
+            ["Không dùng hoặc trả đủ mỗi tháng", "Chỉ dùng khi cần", "Dùng thường xuyên nhưng kiểm soát", "Dùng mà không quan tâm nợ"],
+            ["Có quỹ dự phòng trên 6 tháng", "Có quỹ dự phòng 3-6 tháng", "Dưới 3 tháng", "Không có quỹ dự phòng"],
+            ["Lập kế hoạch chi tiết", "Chi tiêu hợp lý", "Chi tiêu thoải mái", "Tiêu xài hết mức"],
+            ["Đầu tư đều đặn", "Chỉ đầu tư khi có dư", "Rất ít đầu tư", "Không đầu tư"]
+        ];
+
+
+        return view('pages.money_plan_question', [
+            'charge' => $request->get('charge'),
+            'questions' => $questions,
+            'options' => $options
+        ]);
+    }
+
+    private function calculateMoneyPlanType($request)
+    {
+        $answers = $request->input('answers', []);
+        $scoreA = $scoreB = $scoreC = 0;
+
+        foreach ($answers as $answer) {
+            if ($answer == 'a') {
+                $scoreA++;
+            } elseif ($answer == 'b') {
+                $scoreB++;
+            } else {
+                $scoreC++;
+            }
+        }
+
+        if ($scoreC > $scoreA && $scoreC > $scoreB) {
+            return 1;
+        } elseif ($scoreA > $scoreC && $scoreA > $scoreB) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
     public function ideaPlan(Request $request)
     {
         $titlePage = 'Khuyến nghị chi tiêu';
         //Tao plan chi tieu
         $planData = [];
         $charge = $request->get('charge');
-        switch ((int) $request->get('type')) {
+        $type = $this->calculateMoneyPlanType($request);
+        switch ($type) {
             // Hưởng thụ thoải mái 
             case 1:
                 $planData = [
