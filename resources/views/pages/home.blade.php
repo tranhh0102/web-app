@@ -165,7 +165,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let checkIsAlertReminder = localStorage.getItem("checkIsAlertReminder");
-            const isHasExpenseToday = '<?php echo $hasExpenseForToday ?>';
+            let isHasExpenseToday = '<?php echo $hasExpenseForToday ?>';
             if (localStorage.getItem('alertDay') !== '<?php echo $currentDate ?>') {
                 localStorage.removeItem('checkIsAlertReminder');
                 localStorage.removeItem('alertDay');
