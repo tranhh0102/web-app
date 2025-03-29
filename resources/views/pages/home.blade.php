@@ -170,6 +170,7 @@
                 localStorage.removeItem('checkIsAlertReminder');
                 localStorage.removeItem('alertDay');
                 checkIsAlertReminder = 0;
+                isHasExpenseToday = '';
             }
             if (checkIsAlertReminder != 1 && isHasExpenseToday == '') {
                 document.getElementById('expenseReminderModal').classList.remove('hidden');

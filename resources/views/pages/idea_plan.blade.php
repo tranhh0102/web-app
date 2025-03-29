@@ -19,26 +19,44 @@
         <span class="add-expenses-title">{{ $titlePage }}</span>
         <span></span>
     </div>
-    <h2 style="color: white; text-align: center;font-size: 18px; margin-top: 10px;font-style:italic;">{{ $typeName }}</h2>
-
-    <div style="width: fit-content;margin-left: auto;margin-right: auto;padding: 15px;border-radius: 8px;">
-        <ul style="color: white;">
-            <li>Nhu cầu cơ bản: {{ number_format($planData['nhu_cau_co_ban'] ?? 0) }} VND</li>
-            <li>Tiết kiệm & Đầu tư: {{ number_format($planData['tiet_kiem'] ?? 0) }} VND</li>
-            <li>Giải trí & Hưởng thụ: {{ number_format($planData['giai_tri'] ?? 0) }} VND</li>
-            <li>Khác: {{ number_format($planData['khac'] ?? 0) }} VND</li>
-            <li>Phù hợp cho: {{ $planData['note'] }} </li>
-            <ul style="list-style: circle;">✅ Ưu điểm
-                @foreach ($planData['advantage'] as $item)
-                    <li style="margin-left: auto;margin-right: auto;width: 80vw;">{{ $item }}</li>
+    <div style="overflow: auto;height: 100vh; margin-bottom: 10px;">
+        <h2 style="color: white; text-align: center;font-size: 18px; margin-top: 10px;font-style:italic;">
+            Cách chi tiêu hiện tại của bạn....
+        </h2>
+        <h2 style="color: white; font-size: 18px; margin-top: 10px;padding: 10px;">
+            <p style="font-weight: bold;">
+                @foreach ($evaluateNote as $note)
+                    - {{$note}} <br>
                 @endforeach
-            </ul>
-            <ul style="list-style: circle;">❌ Nhược điểm
-                @foreach ($planData['disadvantage'] as $item)
-                    <li style="margin-left: auto;margin-right: auto;width: 80vw;">{{ $item }}</li>
+            </p>
+        </h2>
+        <div style="width: fit-content;color: white;text-align: center;margin-left: auto;margin-right: auto;padding: 15px;border-radius: 8px;">
+            <p style="color: orange;font-weight: bold">
+                @foreach ($typeNote as $note)
+                    {{$note}} <br>
                 @endforeach
+            </p>
+            <label style="font-size: 20px;">{{ $typeName }}</label>
+        </div>
+        <div style="width: fit-content;margin-left: auto;margin-right: auto;padding: 15px;border-radius: 8px;">
+            <ul style="color: white;">
+                <li>Nhu cầu cơ bản: {{ number_format($planData['nhu_cau_co_ban'] ?? 0) }} VND</li>
+                <li>Tiết kiệm & Đầu tư: {{ number_format($planData['tiet_kiem'] ?? 0) }} VND</li>
+                <li>Giải trí & Hưởng thụ: {{ number_format($planData['giai_tri'] ?? 0) }} VND</li>
+                <li>Khác: {{ number_format($planData['khac'] ?? 0) }} VND</li>
+                <li>Phù hợp cho: {{ $planData['note'] }} </li>
+                <ul style="list-style: circle;">✅ Ưu điểm
+                    @foreach ($planData['advantage'] as $item)
+                        <li style="margin-left: auto;margin-right: auto;width: 80vw;">{{ $item }}</li>
+                    @endforeach
+                </ul>
+                <ul style="list-style: circle;">❌ Nhược điểm
+                    @foreach ($planData['disadvantage'] as $item)
+                        <li style="margin-left: auto;margin-right: auto;width: 80vw;">{{ $item }}</li>
+                    @endforeach
+                </ul>
             </ul>
-        </ul>
+        </div>
     </div>
 </div>
 

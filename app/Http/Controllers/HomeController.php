@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MoneyPlanRequest;
 use App\Models\CharityTransaction;
 use App\Models\Expense;
 use App\Models\Goal;
@@ -55,7 +56,7 @@ class HomeController extends Controller
         return view('pages.idea', compact('titlePage'));
     }
 
-    public function moneyPlan(Request $request)
+    public function moneyPlan(MoneyPlanRequest $request)
     {
         $questions = [
             "Khi nhận lương, bạn thường làm gì đầu tiên?",
@@ -184,7 +185,6 @@ class HomeController extends Controller
         ];
         
         $selectedQuestions = $this->getRandomQuestions($questions, $options, 10);
-
         return view('pages.money_plan_question', [
             'charge' => $request->get('charge'),
             'questions' => $selectedQuestions['questions'],
@@ -200,6 +200,10 @@ class HomeController extends Controller
             $selectedQuestions[] = $questions[$key];
             $selectedOptions[] = $options[$key];
         }
+
+        $selectedQuestions[] = "Kế hoạch chi tiêu sắp tới của bạn là gì?";
+        $selectedOptions[] = ["Cân bằng giữa tận hưởng cuộc sống và tiết kiệm", "Tận hưởng cuộc sống", "Tiết kiệm cho tương lai", "Chưa có kế hoạch cụ thể"];
+
         return [
             'questions' => $selectedQuestions,
             'options' => $selectedOptions
@@ -240,10 +244,57 @@ class HomeController extends Controller
         //Tao plan chi tieu
         $planData = [];
         $charge = $request->get('charge');
-        $type = $this->calculateMoneyPlanType($request);
+        $answers = $request->input('answers', []);
+        $futurePlan = $answers[array_key_last($answers)];
+        $type = 3;
+        if ($futurePlan == 'b') {
+            $type = 1;
+        } elseif ($futurePlan == 'c') {
+            $type = 2;
+        }
+
+        //Generate current plan evaluate note
+        $previousMoneyPlan = $this->calculateMoneyPlanType($request);
+        switch ($previousMoneyPlan) {
+            case 1:
+                $evaluateNote = [
+                    'Bạn coi trọng trải nghiệm và không quá lo lắng về việc tiết kiệm.',
+                    'Bạn sẵn sàng chi tiền cho những thứ mang lại niềm vui tức thì như du lịch, ăn uống, mua sắm.',
+                    'Tuy nhiên, nếu không có kế hoạch tài chính dài hạn, bạn có thể gặp khó khăn trong tương lai khi có những tình huống bất ngờ xảy ra.'
+                ];
+                break;
+            case 2:
+                $evaluateNote = [
+                    'Bạn có tư duy tài chính tốt, luôn tính toán cẩn thận trước khi chi tiêu.',
+                    'Bạn ưu tiên tiết kiệm, đầu tư và kiểm soát chi tiêu để tối đa hóa lợi ích tài chính.',
+                    'Có thể bạn sẽ ít khi tận hưởng cuộc sống hoặc cảm thấy áp lực khi phải tiết kiệm quá nhiều.'
+                ];
+                break;
+            case 3:
+                $evaluateNote = [
+                    'Bạn vừa có kế hoạch tài chính, vừa cho phép bản thân tận hưởng cuộc sống.',
+                    'Bạn biết cách phân bổ thu nhập hợp lý: một phần để tiết kiệm/đầu tư, một phần để chi tiêu cá nhân.',
+                    'Đây là cách tiếp cận tài chính bền vững, giúp bạn duy trì cuộc sống thoải mái mà vẫn có sự an toàn tài chính.'
+                ];
+                break;
+            case 4:
+                $evaluateNote = [
+                    'Bạn không có kế hoạch tài chính rõ ràng và chi tiêu dựa trên cảm xúc.',
+                    'Có thể bạn không biết mình đã tiêu bao nhiêu tiền mỗi tháng hoặc không có quỹ tiết kiệm dự phòng.',
+                    'Điều này có thể khiến bạn dễ rơi vào khó khăn tài chính khi gặp các tình huống bất ngờ.'
+                ];
+                break;
+        }
+
+
+        
+        //Calculate future plan note
         switch ($type) {
             // Hưởng thụ thoải mái 
             case 1:
+                $typeNote[] = 'Có vẻ bạn vẫn tận hưởng tuổi trẻ của mình.';
+                $typeNote[] = 'Đừng quên tiết kiệm một chút nhé!';
+                $typeName = 'Tận hưởng cuộc sống';
                 $planData = [
                     'nhu_cau_co_ban' => $charge * 0.5,
                     'giai_tri' => $charge * 0.3,
@@ -264,6 +315,9 @@ class HomeController extends Controller
                 break;
             // Tiết kiệm tối đa
             case 2:
+                $typeNote[] = 'Duy trì thói quen tốt này nhé';
+                $typeNote[] = 'Giấc mơ của bạn sẽ không còn xa nữa đâu!';
+                $typeName = 'Tối ưu tài chính';
                 $planData = [
                     'nhu_cau_co_ban' => $charge * 0.5,
                     'giai_tri' => $charge * 0.4,
@@ -284,6 +338,9 @@ class HomeController extends Controller
                 break;
             //Cân bằng
             default:
+                $typeNote[] = 'Cân bằng cuộc sống luôn là mục tiêu mà ta hướng tới';
+                $typeNote[] = 'Hãy cùng nhau thực hiện nhé!';
+                $typeName = 'Cân bằng cuộc sống và tài chính';
                 $planData = [
                     'nhu_cau_co_ban' => $charge * 0.5,
                     'giai_tri' => $charge * 0.25,
@@ -304,24 +361,7 @@ class HomeController extends Controller
                 break;
         }
 
-        $type = (int) $request->get('type');
-        $typeName = 'Không có kế hoạch chi tiêu';
-        switch ($type) {
-            case 1:
-                $typeName = 'Tận hưởng cuộc sống';
-                break;
-            case 2:
-                $typeName = 'Tối ưu tài chính';
-                break;
-            case 3:
-                $typeName = 'Cân bằng cuộc sống và tài chính';
-                break;
-            default:
-                $typeName = 'Không có kế hoạch chi tiêu';
-                break;
-        }
-
-        return view('pages.idea_plan', compact('titlePage', 'planData', 'typeName'));
+        return view('pages.idea_plan', compact('titlePage', 'planData', 'typeName', 'typeNote', 'evaluateNote'));
     }
 
     public function listSearch(Request $request)
