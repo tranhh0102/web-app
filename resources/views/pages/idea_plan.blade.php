@@ -23,14 +23,14 @@
         <h2 style="color: white; text-align: center;font-size: 18px; margin-top: 10px;font-style:italic;">
             Cách chi tiêu hiện tại của bạn....
         </h2>
-        <h2 style="color: white; font-size: 18px; margin-top: 10px;padding: 10px;">
+        <h2 style="color: white; font-size: 14px; margin-top: 10px;padding: 10px;">
             <p style="font-weight: bold;">
                 @foreach ($evaluateNote as $note)
                     - {{$note}} <br>
                 @endforeach
             </p>
         </h2>
-        <div style="width: fit-content;color: white;text-align: center;margin-left: auto;margin-right: auto;padding: 15px;border-radius: 8px;">
+        <div style="width: fit-content;color: white;font-size:14px;text-align: center;margin-left: auto;margin-right: auto;padding: 15px;border-radius: 8px;">
             <p style="color: orange;font-weight: bold">
                 @foreach ($typeNote as $note)
                     {{$note}} <br>
