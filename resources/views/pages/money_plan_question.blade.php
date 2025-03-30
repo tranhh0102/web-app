@@ -27,7 +27,7 @@
                     <p class="text-lg font-semibold" style="color: white;">{{ $question }}</p>
                     @foreach ($options[$index] as $key => $option)
                         <label class="block mt-2">
-                            <input type="radio" name="answers[{{ $index }}]" value="{{ chr(97 + $key) }}" class="mr-2" required <?php echo $key == 2 ? 'checked' : ''; ?>> {{ $option }}
+                            <input type="radio" name="answers[{{ $index }}]" value="{{ chr(97 + $key) }}" class="mr-2" required <?php echo $key == 0 ? 'checked' : ''; ?>> {{ $option }}
                         </label>
                     @endforeach
                 </div>
