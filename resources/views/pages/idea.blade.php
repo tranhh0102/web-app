@@ -40,7 +40,7 @@
     
         <!-- Submit Button -->
         <div class="add-expenses-sub text-center mt-4">
-            <button type="submit" class="button-add-expenses">Hãy cùng đánh giá mức độ chi tiêu của bạn nhé!</button>
+            <button type="submit" class="button-add-expenses">Đánh giá mức độ chi tiêu của bạn nhé!</button>
         </div>
     </form>
 </div>

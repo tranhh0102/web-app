@@ -340,7 +340,7 @@ class HomeController extends Controller
             default:
                 $typeNote[] = 'Cân bằng cuộc sống luôn là mục tiêu mà ta hướng tới';
                 $typeNote[] = 'Hãy cùng nhau thực hiện nhé!';
-                $typeName = 'Cân bằng giữa tận hưởng cuộc sống và tiết kiệm';
+                $typeName = 'Cân bằng cuộc sống và tiết kiệm';
                 $planData = [
                     'nhu_cau_co_ban' => $charge * 0.5,
                     'giai_tri' => $charge * 0.25,
