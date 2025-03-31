@@ -184,7 +184,7 @@ class HomeController extends Controller
             ["Không quan tâm, chờ tự giải quyết.", "Lập kế hoạch xử lý ngay.", "Tìm kiếm lời khuyên và điều chỉnh dần.", "Vay mượn để giải quyết trước."]
         ];
         
-        $selectedQuestions = $this->getRandomQuestions($questions, $options, 10);
+        $selectedQuestions = $this->getRandomQuestions($questions, $options, 5);
         return view('pages.money_plan_question', [
             'charge' => $request->get('charge'),
             'questions' => $selectedQuestions['questions'],
